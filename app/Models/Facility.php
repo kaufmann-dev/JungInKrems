@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Facility extends Model
+{
+    use HasFactory;
+
+    protected $table = 'FACILITIES_ST';
+    protected $primaryKey = 'FACILITY_ID';
+    public $timestamps = true;
+    public $incrementing = false;
+
+    protected $fillable = [
+        'NAME', 'DESCRIPTION', 'WEBSITE_URL', 'PHONE_NR',
+        'EMAIL', 'POSTAL_CODE', 'CITY', 'ADDRESS', 'IS_CITY_VERIFIED', 'FACILITY_TYPE', 'IMAGE_PATH', 'FACILITY_ID'
+    ];
+    
+    /* public function bookmark()
+    {
+        return $this->belongsTo(Bookmark::class, 'FACILITY_ID', 'BOOKMARK_ID');
+    } */
+
+    public function manager()
+    {
+        return $this->belongsTo(AccountHasBookmarks::class, 'FACILITY_ID', 'BOOKMARK_ID');
+    }
+}

@@ -1,0 +1,51 @@
+<script>
+    export let event;
+    import { inertia, router } from "@inertiajs/svelte";
+    import InfoText from "../Shared/InfoText.svelte";
+    import BookmarkButton from "./BookmarkButton.svelte";
+
+    function formatDate(dateString) {
+        let date = new Date(dateString);
+
+        let day = date.getDate().toString().padStart(2, '0');
+        let month = (date.getMonth() + 1).toString().padStart(2, '0');
+        let year = date.getFullYear();
+        let hours = date.getHours().toString().padStart(2, '0');
+        let minutes = date.getMinutes().toString().padStart(2, '0');
+        
+        return day + "." + month + "." + year + " - " + hours + ":" + minutes + " Uhr";
+    }
+</script>
+
+<div class="tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mt-4 tw-grid tw-grid-cols-4 tw-gap-4">
+    <div class="tw-rounded-md tw-overflow-hidden tw-h-40">
+        <img class="tw-object-cover tw-h-full tw-w-full" src="{event.IMAGE_PATH}" alt="{event.TITLE}">
+    </div>
+    <div>
+        <h3 on:click={router.get('/events/' + event.EVENT_ID)} class="tw-cursor-pointer tw-underline tw-mb-3">{event.TITLE}</h3>
+        <!-- use:inertia="{{ href: "events/"+event.EVENT_ID, method: 'get' }}"-->
+        {#if event.EVENT_TYPE == "Bildung"}
+            <InfoText color="gray">{event.facility.NAME}</InfoText>
+            <br>
+            <InfoText color="blue">Bildung</InfoText>
+        {:else}
+            <InfoText color="gray">{event.account.NAME}</InfoText>
+            <br>
+            <InfoText color="green">Freizeit</InfoText>
+        {/if}
+        <BookmarkButton checkId={event.EVENT_ID} />
+    </div>
+    <div>
+        <h4 class="tw-mb-3">Zeit</h4>
+        <InfoText mb="false" color="light">Beginn</InfoText>
+        {formatDate(event.STARTING_TIME)}
+        {#if event.ENDING_TIME}
+            <InfoText mb="false" color="light">Ende</InfoText>
+            {formatDate(event.ENDING_TIME)}
+        {/if}
+    </div>
+    <div>
+        <h4 class="tw-mb-3">Standort</h4>
+        <span>{event.ADDRESS},<br>{event.POSTAL_CODE} {event.CITY}</span>
+    </div>
+</div>
