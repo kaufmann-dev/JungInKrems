@@ -17,7 +17,9 @@ class EventController extends Controller
 
     public function getEvent($id)
     {
-        $event = Event::find($id);
+        //$event = Event::find($id);
+        // return event with name from forgein key account_id
+        $event = Event::with(['account'])->find($id);
         return response()->json($event);
     }
 
