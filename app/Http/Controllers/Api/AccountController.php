@@ -55,5 +55,6 @@ class AccountController extends Controller
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
     }
+    //
     
 }
