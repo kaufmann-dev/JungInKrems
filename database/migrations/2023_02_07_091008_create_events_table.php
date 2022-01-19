@@ -20,8 +20,8 @@ return new class extends Migration
             $table->foreignId("ACCOUNT_ID")->constrained('ACCOUNTS_ST','ACCOUNT_ID')->onDelete('cascade');
             $table->foreignId("FACILITY_ID")->nullable()->constrained('FACILITIES_ST','FACILITY_ID')->onDelete('cascade');
             $table->string('TITLE');
-            $table->timestamp('STARTING_TIME');
-            $table->timestamp('ENDING_TIME')->nullable();
+            $table->dateTime('STARTING_TIME');
+            $table->dateTime('ENDING_TIME')->nullable();
             $table->string('WEBSITE_URL')->nullable();
             $table->string('PHONE_NR')->nullable();
             $table->string('EMAIL')->nullable();

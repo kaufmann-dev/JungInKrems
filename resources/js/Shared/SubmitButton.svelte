@@ -1,6 +1,5 @@
 <script>
     export let text;
-    import { inertia, Link } from '@inertiajs/svelte';
 </script>
 
 <style>

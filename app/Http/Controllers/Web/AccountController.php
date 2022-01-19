@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
 use Illuminate\Support\Facades\Hash;
-use Inertia\Inertia;
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Traits\AccountTrait;
 
 class AccountController extends Controller
 {
+    use AccountTrait;
+
     public function login()
     {
         $credentials = request()->only('email', 'password');
@@ -61,6 +61,42 @@ class AccountController extends Controller
             return response()->json(['message' => 'Successfully logged out'], 200);
         } else {
             return response()->json(['message' => 'User is not logged in'], 400);
+        }
+    }
+
+    public function deleteAccount()
+    {
+        if (Auth::check()) {
+            $account = Auth::user();
+            $account->delete();
+            Auth::logout();
+        }
+    }
+
+    public function updateAccount()
+    {
+        $this->validateUpdate(request());
+        if (Auth::check()) {
+            $account = Auth::user();
+            $account->NAME = request('NAME');
+            if($account->EMAIL != request('EMAIL')) {
+                $account->EMAIL = request('EMAIL');
+                $account->IS_EMAIL_VERIFIED = 0;
+            }
+            $account->save();
+        }
+    }
+
+    public function resetPassword()
+    {
+        $this->validatePassword(request());
+
+        if (Auth::check()) {
+            $account = Auth::user();
+            if(Hash::check(request('OLD_PASSWORD'), $account->PASSWORD)) {
+                $account->PASSWORD = Hash::make(request('PASSWORD'));
+                $account->save();
+            }
         }
     }
 }

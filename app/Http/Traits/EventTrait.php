@@ -33,6 +33,7 @@ trait EventTrait
             'CITY.required' => 'The city is required.',
             'ADDRESS.required' => 'The address is required.',
             'IMAGE_PATH.required' => 'The image is required.',
+            'IMAGE_PATH.url' => 'The image must be a valid URL.',
             'EVENT_TYPE.required' => 'The event type is required.',
         ]);
     }

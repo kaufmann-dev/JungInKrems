@@ -43,7 +43,7 @@ class Event extends Model
 
     public function facility()
     {
-        return $this->belongsTo(Facility::class, 'FACILITY_ID')->withDefault();
+        return $this->belongsTo(Facility::class, 'FACILITY_ID')->with("managers")->withDefault();
     }
 
     /* public static function create(array $data)

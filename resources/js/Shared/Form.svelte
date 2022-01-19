@@ -1,14 +1,16 @@
 <script>
-    import SubmitButton from "../Shared/SubmitButton.svelte";
+    import SubmitButton from "./SubmitButton.svelte";
     import DeleteButton from "./DeleteButton.svelte";
     import CancelButton from "./CancelButton.svelte";
+    import { router } from "@inertiajs/svelte";
 
-    export let onSubmit;
-    export let onDelete;
-    export let onCancel;
-    export let newInstance;
+    export let onSubmit = () => {};
+    export let onDelete = () => {};
+    export let onCancel = () => {};
+
+    export let newInstance = false;
     export let data;
-    export let errors;
+    export let ignore = ["created_at", "updated_at", "remember_token"];
 
     let handleDelete = () => {
         onDelete();
@@ -21,47 +23,82 @@
     let handleCancel = () => {
         onCancel();
     }
+
+    let mysqlToJavaDatetime = (mysql) => {
+        let dateObj = new Date(mysql);
+
+        let year = dateObj.getFullYear();
+        let month = dateObj.getMonth() + 1;
+        let day = dateObj.getDate();
+        let hour = dateObj.getUTCHours();
+        let minute = dateObj.getMinutes();
+        
+        return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+    }
+
+    data.forEach((item) => {
+        if (item.type === 'datetime' && item.value !== null) {
+            item.value = mysqlToJavaDatetime(item.value);
+        }
+    });
 </script>
 
-<form on:submit|preventDefault={handleSubmit} class="tw-w-full tw-bg-white tw-p-6">
+<form on:submit|preventDefault={handleSubmit} class="tw-w-full tw-bg-white tw-my-6">
     {#each Object.keys(data) as key}
-        {#if key !== 'created_at' && key !== 'updated_at' && key !== 'remember_token'}
+        {#if !ignore.includes(data[key]["bind"])}
             <div class="tw-mb-4">
-                <label class="tw-block tw-text-gray-700 tw-font-bold tw-mb-2" for={key}>
-                    {key}
+                <label class="tw-block tw-text-gray-700 tw-font-bold tw-mb-2" for={data[key]["bind"]}>
+                    {data[key]["name"]}
                 </label>
-                <input
-                    class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
-                    id={key}
-                    type="text"
-                    bind:value={data[key]}
-                />
-                <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors[key]}</span>
+                {#if data[key]["type"] === 'datetime'}
+                    <input
+                        class="tw-shadow-sm tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
+                        id={data[key]["bind"]}
+                        type="datetime-local"
+                        bind:value={data[key]["value"]}
+                    />
+                {:else if data[key]["type"] === 'array'}
+                    <select
+                        class="tw-shadow-sm tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
+                        id={data[key]["bind"]}
+                        type="text"
+                        bind:value={data[key]["value"]}
+                    >
+                        {#each data[key]["options"] as option}
+                            <option value={option["value"]}>{option["name"]}</option>
+                        {/each}
+                    </select>
+                {:else if data[key]["type"] === 'boolean'}
+                    <input
+                        class="tw-shadow-sm tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
+                        id={data[key]["bind"]}
+                        type="checkbox"
+                        bind:checked={data[key]["value"]}
+                    />
+                {:else if data[key]["type"] === 'password'}
+                    <input
+                        class="tw-shadow-sm tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
+                        id={data[key]["bind"]}
+                        type="password"
+                        bind:value={data[key]["value"]}
+                    />
+                {:else}
+                    <input
+                        class="tw-shadow-sm tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
+                        id={data[key]["bind"]}
+                        type="text"
+                        bind:value={data[key]["value"]}
+                    />
+                {/if}
+                <span class="tw-text-red-500 tw-text-sm tw-mt-1">{data[key]["error"]}</span>
             </div>
         {/if}
     {/each}
-    <SubmitButton>Submit</SubmitButton>
-    {#if newInstance === false}
-        <div on:click={handleDelete} class="tw-inline-block tw-ms-2">
-            <DeleteButton>Delete</DeleteButton>
-        </div>
-    {/if}
-    <div on:click={handleCancel} class="tw-inline-block tw-ms-2">
-        <CancelButton>Cancel</CancelButton>
-    </div><!-- 
-    <div class="tw-mb-4">
-        <label class="tw-block tw-text-gray-700 tw-font-bold tw-mb-2" for="event_type">
-            Event Type
-        </label>
-        <select
-            class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
-            id="event_type"
-            type="text"
-            bind:value={data.EVENT_TYPE}
-        >
-            <option value="Freizeit">Freizeit</option>
-            <option value="Bildung">Bildung</option>
-        </select>
-        <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.EVENT_TYPE}</span>
-    </div> -->
+    <div class="tw-flex tw-gap-4">
+        <SubmitButton><i class="bi bi-send-fill"></i> Senden</SubmitButton>
+        {#if newInstance === false}
+            <DeleteButton onClick={handleDelete}><i class="bi bi-trash-fill"></i> Löschen</DeleteButton>
+        {/if}
+        <CancelButton onClick={handleCancel}>Abbrechen</CancelButton>
+    </div>
 </form>

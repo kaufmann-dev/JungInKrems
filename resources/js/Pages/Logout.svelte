@@ -49,7 +49,7 @@
             {:else}
                 <h1 class="tw-mb-6">Sie sind bereits abgemeldet.</h1>
             {/if}
-            <Button link="/login" text="Anmelden"/>
+            <Button link="/login">Anmelden</Button>
         </div>
     </CenterDiv>
 </Layout>

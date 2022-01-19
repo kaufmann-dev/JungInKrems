@@ -20,11 +20,16 @@ class Request extends Model
 
     public function account()
     {
-        return $this->belongsTo(AccountHasFacility::class, 'ACCOUNT_ID', 'ACCOUNT_ID');
+        return $this->belongsTo(Account::class, 'ACCOUNT_ID', 'ACCOUNT_ID');
     }
+
+    /* public function account()
+    {
+        return $this->belongsTo(AccountHasFacility::class, 'ACCOUNT_ID', 'ACCOUNT_ID');
+    } */
 
     public function facility()
     {
-        return $this->belongsTo(AccountHasFacility::class, 'FACILITY_ID', 'FACILITY_ID');
+        return $this->belongsTo(Facility::class, 'FACILITY_ID', 'FACILITY_ID');
     }
 }

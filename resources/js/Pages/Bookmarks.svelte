@@ -2,13 +2,25 @@
     import Layout from "../Shared/Layout.svelte";
     import EventListItem from "../Shared/EventListItem.svelte";
     import FacilityListItem from "../Shared/FacilityListItem.svelte";
-    import { page } from '@inertiajs/svelte';
+    import { page, router } from '@inertiajs/svelte';
     import Pills from "../Shared/Pills.svelte";
-
-    let bookmarks = $page.props.bookmarks;
-    let events = bookmarks.filter(bookmark => bookmark.event !== null).map(bookmark => bookmark.event);
-    let facilities = bookmarks.filter(bookmark => bookmark.facility !== null).map(bookmark => bookmark.facility);
     let activePill;
+    export let bookmarks = $page.props.bookmarks;
+    $: events = bookmarks.filter(bookmark => bookmark.event !== null).map(bookmark => bookmark.event);
+    $: facilities = bookmarks.filter(bookmark => bookmark.facility !== null).map(bookmark => bookmark.facility);
+
+    
+
+    function reload(){
+        //console.log("hu");
+        //router.reload();
+        /* bookmarks = $page.props.bookmarks;
+     events = bookmarks.filter(bookmark => bookmark.event !== null).map(bookmark => bookmark.event);
+     facilities = bookmarks.filter(bookmark => bookmark.facility !== null).map(bookmark => bookmark.facility); */
+     //router.get(window.location.href);
+     //console.log(bookmarks + bookmarks.length);
+     router.reload();
+    }
 </script>
 
 <Layout>
@@ -19,7 +31,7 @@
             <p>Sie haben noch keine Lesezeichen.</p>
         {:else}
             {#each events as event}
-                <EventListItem event={event}/>
+                <EventListItem listUpdated={reload} event={event}/>
             {/each}
             {#each facilities as facility}
                 <FacilityListItem facility={facility}/>
@@ -31,7 +43,7 @@
             <p>Sie haben noch keine Lesezeichen für Events.</p>
         {:else}
             {#each events as event}
-                <EventListItem event={event}/>
+                <EventListItem event={event} listUpdated={reload}/>
             {/each}
         {/if}
     {:else if activePill == "Bildung"}

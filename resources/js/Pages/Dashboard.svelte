@@ -1,7 +1,7 @@
 <script>
     import Button from '../Shared/Button.svelte';
-import CenterDiv from '../Shared/CenterDiv.svelte';
-import DashLayout from '../Shared/DashLayout.svelte'
+    import CenterDiv from '../Shared/CenterDiv.svelte';
+    import DashLayout from '../Shared/DashLayout.svelte'
 </script>
 
 <DashLayout>

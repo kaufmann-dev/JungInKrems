@@ -2,14 +2,13 @@
     import Layout from '../Shared/Layout.svelte'
     import Button from '../Shared/Button.svelte'
     import CenterDiv from '../Shared/CenterDiv.svelte';
-    import { page } from '@inertiajs/svelte'
 </script>
 
 <Layout>
     <CenterDiv>
     <div class="tw-text-center tw-my-10">
         <h1 class="tw-text-5xl tw-mb-6">Jung in Krems</h1>
-        <h2 class="tw-text-yellow-400 tw-mb-10 tw-text-3xl">Willkommen!</h2>
+        <h2 class="tw-text-yellow-400 tw-mb-10 tw-text-4xl">Willkommen!</h2>
         <div class="tw-grid tw-gap-6 md:tw-gap-20 md:tw-grid-cols-2 tw-mb-10">
             <div>
                 <h3>Was ist Jung in Krems?</h3>

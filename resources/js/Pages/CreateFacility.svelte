@@ -1,0 +1,138 @@
+<script>
+    import Layout from "../Shared/Layout.svelte";
+    import Form from "../Shared/Form.svelte";
+    import { router, Link } from "@inertiajs/svelte";
+
+    $: formData = [{
+        name: "Name",
+        type: "text",
+        value: "",
+        bind: "NAME",
+        errorname: "NAME",
+        error: ""
+    },{
+        name: "Beschreibung",
+        type: "text",
+        value: "",
+        bind: "DESCRIPTION",
+        errorname: "DESCRIPTION",
+        error: ""
+    },{
+        name: "Bildungstyp",
+        type: "array",
+        options: [{
+            value: "Kindergarten",
+            name: "Kindergarten"
+        },{
+            value: "Gymnasium",
+            name: "Gymnasium"
+        },{
+            value: "Realschule",
+            name: "Realschule"
+        },{
+            value: "Hauptschule",
+            name: "Hauptschule"
+        },{
+            value: "Grundschule",
+            name: "Grundschule"
+        },{
+            value: "Kindergarten",
+            name: "Kindergarten"
+        },{
+            value: "Universität",
+            name: "Universität"
+        }],
+        value: "",
+        bind: "FACILITY_TYPE",
+        errorname: "FACILITY_TYPE",
+        error: ""
+    },{
+        name: "Website",
+        type: "text",
+        value: "",
+        bind: "WEBSITE_URL",
+        errorname: "WEBSITE_URL",
+        error: ""
+    },{
+        name: "Telefonnummer",
+        type: "text",
+        value: "",
+        bind: "PHONE_NR",
+        errorname: "PHONE_NR",
+        error: ""
+    },{
+        name: "E-Mail",
+        type: "text",
+        value: "",
+        bind: "EMAIL",
+        errorname: "EMAIL",
+        error: ""
+    },{
+        name: "PLZ",
+        type: "text",
+        value: "",
+        bind: "POSTAL_CODE",
+        errorname: "POSTAL_CODE",
+        error: ""
+    },{
+        name: "Stadt",
+        type: "text",
+        value: "",
+        bind: "CITY",
+        errorname: "CITY",
+        error: ""
+    },{
+        name: "Adresse",
+        type: "text",
+        value: "",
+        bind: "ADDRESS",
+        errorname: "ADDRESS",
+        error: ""
+    },{
+        name: "Bild",
+        type: "text",
+        value: "",
+        bind: "IMAGE_PATH",
+        errorname: "IMAGE_PATH",
+        error: ""
+    }];
+
+    let submit = () => {
+        let submitdata = formData.map(element => {
+            if(element["value"] !== "") {
+                return {
+                    [element["bind"]]: element["value"]
+                }
+            }
+        }).reduce((a, b) => Object.assign(a, b), {});
+
+        axios.post('/facilities', submitdata)
+        .then(response => {
+            if (response.status === 200) {
+                router.get('facilities');
+            }
+        })
+        .catch(error => {
+            if (error?.response?.status === 422) {
+                for (const [key, value] of Object.entries(formData)) {
+                    if(error.response.data.errors[value["errorname"]]) {
+                        formData[key]["error"] = error.response.data.errors[value["errorname"]][0];
+                    } else {
+                        formData[key]["error"] = "";
+                    }
+                }
+            }
+        });
+    }
+
+    let cancel = () => {
+        router.get('facilities');
+    }
+
+</script>
+
+<Layout>
+    <h1 class="tw-mt-6">Bildungsanstalt anmelden</h1>
+    <p class="tw-text-gray-500">Hier kannst du eine neue Bildungsanstalt anmelden.</p>
+    <Form newInstance={true} bind:data={formData} onSubmit={submit} onCancel={cancel} />
+</Layout>

@@ -1,23 +1,75 @@
 <script>
+    export let event;
     import SubmitButton from "../Shared/SubmitButton.svelte";
-    import DeleteButton from "./DeleteButton.svelte";
-
+    import { router, inertia } from "@inertiajs/svelte";
+    import Button from "../Shared/Button.svelte";
+    import DeleteButton from "../Shared/DeleteButton.svelte";
     export let onSubmit;
-    export let onDelete;
-    export let newEvent;
-    export let data;
-    export let errors;
+
+    function updateVariable() {
+        onSubmit();
+    }
+
+    let data = {
+        TITLE: event.TITLE,
+        DESCRIPTION: event.DESCRIPTION,
+        EVENT_TYPE: event.EVENT_TYPE,
+        STARTING_TIME: event.STARTING_TIME,
+        ENDING_TIME: event.ENDING_TIME,
+        CITY: event.CITY,
+        POSTAL_CODE: event.POSTAL_CODE,
+        ADDRESS: event.ADDRESS,
+        PHONE_NR: event.PHONE_NR,
+        WEBSITE_URL: event.WEBSITE_URL,
+        EMAIL: event.EMAIL,
+        IMAGE_PATH: event.IMAGE_PATH,
+    };
+
+    let errors = {
+        TITLE: '',
+        DESCRIPTION: '',
+        EVENT_TYPE: '',
+        STARTING_TIME: '',
+        ENDING_TIME: '',
+        CITY: '',
+        POSTAL_CODE: '',
+        ADDRESS: '',
+        PHONE_NR: '',
+        WEBSITE_URL: '',
+        EMAIL: '',
+        IMAGE_PATH: '',
+    };
 
     let deleteEvent = () => {
-        onDelete();
+        if(window.confirm('Möchten Sie das Event wirklich löschen?')) {
+            
+            router.delete('/events/' + event.EVENT_ID).get('/events');
+        }
     }
 
     let submit = () => {
-        onSubmit();
+      axios.put('/events/' + event.EVENT_ID, data)
+      .then(response => {
+          if (response.status === 200) {
+            updateVariable();
+          }
+      })
+      .catch(error => {
+          if (error?.response?.status === 422) {
+            for (const [key, value] of Object.entries(errors)) {
+              if(error.response.data.errors[key]) {
+                errors[key] = error.response.data.errors[key][0];
+              } else {
+                errors[key] = '';
+              }
+            }
+          }
+      });
     }
 </script>
 
 <form on:submit|preventDefault={submit} class="tw-w-full tw-bg-white tw-p-6">
+    <h2 class="tw-text-lg tw-font-bold tw-mb-4">Update Event Information</h2>
     <div class="tw-mb-4">
         <label class="tw-block tw-text-gray-700 tw-font-bold tw-mb-2" for="title">
             Title
@@ -26,7 +78,8 @@
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="title"
             type="text"
-            bind:value={data.TITLE}
+            value="{event.TITLE}"
+            on:input={(evt)=>data.TITLE = evt.target.value}
         />
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.TITLE}</span>
     </div>
@@ -37,7 +90,8 @@
         <textarea
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="description"
-            bind:value={data.DESCRIPTION}
+            value="{event.DESCRIPTION}"
+            on:input={(evt)=>data.DESCRIPTION = evt.target.value}
         ></textarea>
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.DESCRIPTION}</span>
     </div>
@@ -49,7 +103,8 @@
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="phone_nr"
             type="text"
-            bind:value={data.PHONE_NR}
+            on:input={(evt)=>data.PHONE_NR = evt.target.value}
+            value="{event.PHONE_NR}"
         />
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.PHONE_NR}</span>
     </div>
@@ -61,7 +116,8 @@
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="starting_time"
             type="datetime-local"
-            bind:value={data.STARTING_TIME}
+            on:input={(evt)=>data.STARTING_TIME = evt.target.value}
+            value="{event.STARTING_TIME}"
         />
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.STARTING_TIME}</span>
     </div>
@@ -73,7 +129,8 @@
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="ending_time"
             type="datetime-local"
-            bind:value={data.ENDING_TIME}
+            on:input={(evt)=>data.ENDING_TIME = evt.target.value}
+            value="{event.ENDING_TIME}"
         />
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.ENDING_TIME}</span>
     
@@ -86,7 +143,8 @@
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="website_url"
             type="text"
-            bind:value={data.WEBSITE_URL}
+            on:input={(evt)=>data.WEBSITE_URL = evt.target.value}
+            value="{event.WEBSITE_URL}"
         />
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.WEBSITE_URL}</span>
     </div>
@@ -98,7 +156,8 @@
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="email"
             type="email"
-            bind:value={data.EMAIL}
+            on:input={(evt)=>data.EMAIL = evt.target.value}
+            value="{event.EMAIL}"
         />
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.EMAIL}</span>
     </div>
@@ -110,7 +169,8 @@
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="postal_code"
             type="text"
-            bind:value={data.POSTAL_CODE}
+            on:input={(evt)=>data.POSTAL_CODE = evt.target.value}
+            value="{event.POSTAL_CODE}"
         />
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.POSTAL_CODE}</span>
     </div>
@@ -122,7 +182,8 @@
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="city"
             type="text"
-            bind:value={data.CITY}
+            on:input={(evt)=>data.CITY = evt.target.value}
+            value="{event.CITY}"
         />
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.CITY}</span>
     </div>
@@ -134,7 +195,8 @@
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="address"
             type="text"
-            bind:value={data.ADDRESS}
+            on:intput={(evt)=>data.ADDRESS = evt.target.value}
+            value="{event.ADDRESS}"
         />
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.ADDRESS}</span>
     </div>
@@ -146,7 +208,8 @@
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="image_path"
             type="text"
-            bind:value={data.IMAGE_PATH}
+            on:input={(evt)=>data.IMAGE_PATH = evt.target.value}
+            value="{event.IMAGE_PATH}"
         />
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.IMAGE_PATH}</span>
     </div>
@@ -158,17 +221,16 @@
             class="tw-shadow tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
             id="event_type"
             type="text"
-            bind:value={data.EVENT_TYPE}
+            on:input={(evt)=>data.EVENT_TYPE = evt.target.value}
+            value="{event.EVENT_TYPE}"
         >
             <option value="Freizeit">Freizeit</option>
             <option value="Bildung">Bildung</option>
         </select>
         <span class="tw-text-red-500 tw-text-sm tw-mt-1">{errors.EVENT_TYPE}</span>
     </div>
-    <SubmitButton>Submit</SubmitButton>
-    {#if newEvent === false}
-        <div on:click={deleteEvent} class="tw-inline-block tw-ms-2">
-            <DeleteButton>Delete</DeleteButton>
-        </div>
-    {/if}
+    <SubmitButton>Update Event</SubmitButton>
+    <div on:click={deleteEvent} class="tw-inline-block tw-ms-2">
+        <DeleteButton>Delete</DeleteButton>
+    </div>
 </form>

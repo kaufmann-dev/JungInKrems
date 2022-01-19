@@ -15,12 +15,12 @@
     }
 </style>
 
-<div class="p-2">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded border tw-box-border">
+<div class="tw-p-3">
+    <nav class="navbar navbar-expand-lg navbar-light tw-bg-gray-50 tw-rounded-lg tw-border">
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <span class="navbar-brand" use:inertia="{{ href: "/", method: 'get' }}">
                 <img id="navbarImage" src="/images/logo.png" alt="The Second Directory logo" height="30px" class="d-inline-block align-text-top">
-            </a>
+            </span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,13 +32,12 @@
                     <li class="nav-item">
                         <span use:inertia="{{ href: "/facilities", method: 'get' }}" class="tw-cursor-pointer nav-link"><i class="bi bi-building-fill"></i> Bildung</span>
                     </li>
-                    <li class="nav-item">
-                        <span use:inertia="{{ href: "/bookmarks", method: 'get' }}" class="tw-cursor-pointer nav-link"><i class="bi bi-bookmark-fill"></i> Lesezeichen</span>
-                    </li>
+                        <li class="nav-item">
+                            <span use:inertia="{{ href: "/bookmarks", method: 'get' }}" class="tw-cursor-pointer nav-link"><i class="bi bi-bookmark-fill"></i> Lesezeichen</span>
+                        </li>
                 </ul>
-                <!--<a class='btn' href='/login'><i class="bi bi-person-fill"></i> Login</a>-->
                 {#if !$page?.props?.auth?.user}
-                    <Button text={"Anmelden"} link={"/login"} />
+                    <Button link={"/login"}><i class="bi bi-person-fill"></i> Anmelden</Button>
                 {:else}
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,7 +45,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/account", method: 'get' }}">Account</span></li>
-                      <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/new", method: 'get' }}">Event anmelden</span></li>
+                      <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/newevent", method: 'get' }}">Event anmelden</span></li>
                       {#if $page.props.auth.user.ACCOUNT_TYPE == 'Systemverwalter'}
                         <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/dashboard", method: 'get' }}">Dashboard</span></li>
                       {/if}

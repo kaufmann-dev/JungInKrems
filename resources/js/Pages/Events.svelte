@@ -3,7 +3,6 @@
     import EventListItem from "../Shared/EventListItem.svelte";
     import Pills from "../Shared/Pills.svelte";
 
-
     let activePill;
     export let events = [];
     console.log(events);

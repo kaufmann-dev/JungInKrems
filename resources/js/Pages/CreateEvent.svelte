@@ -1,65 +1,137 @@
 <script>
     import Layout from "../Shared/Layout.svelte";
-    import EventForm from "../Shared/EventForm.svelte";
-    import { router } from "@inertiajs/svelte";
+    import Form from "../Shared/Form.svelte";
+    import { router, Link } from "@inertiajs/svelte";
 
-    let data = {
-        TITLE: '',
-        DESCRIPTION: '',
-        EVENT_TYPE: '',
-        STARTING_TIME: '',
-        ENDING_TIME: '',
-        CITY: '',
-        POSTAL_CODE: '',
-        ADDRESS: '',
-        PHONE_NR: '',
-        WEBSITE_URL: '',
-        EMAIL: '',
-        IMAGE_PATH: '',
-    };
-
-    let errors = {
-        TITLE: '',
-        DESCRIPTION: '',
-        EVENT_TYPE: '',
-        STARTING_TIME: '',
-        ENDING_TIME: '',
-        CITY: '',
-        POSTAL_CODE: '',
-        ADDRESS: '',
-        PHONE_NR: '',
-        WEBSITE_URL: '',
-        EMAIL: '',
-        IMAGE_PATH: '',
-    };
+    $: formData = [{
+        name: "Titel",
+        type: "text",
+        value: "",
+        bind: "TITLE",
+        errorname: "TITLE",
+        error: ""
+    },{
+        name: "Beschreibung",
+        type: "text",
+        value: "",
+        bind: "DESCRIPTION",
+        errorname: "DESCRIPTION",
+        error: ""
+    }, {
+      name: "Typ",
+      type: "array",
+      options: [{
+        value: "Freizeit",
+        name: "Freizeit"
+      },{
+        value: "Bildung",
+        name: "Bildung"
+      }],
+      value: "",
+      bind: "EVENT_TYPE",
+      errorname: "EVENT_TYPE",
+      error: ""
+    }, {
+      name: "Startdatum",
+      type: "datetime",
+      value: "",
+      bind: "STARTING_TIME",
+      errorname: "STARTING_TIME",
+      error: ""
+    }, {
+      name: "Enddatum",
+      type: "datetime",
+      value: "",
+      bind: "ENDING_TIME",
+      errorname: "ENDING_TIME",
+      error: ""
+    }, {
+      name: "Webseite",
+      type: "text",
+      value: "",
+      bind: "WEBSITE_URL",
+      errorname: "WEBSITE_URL",
+      error: ""
+    },{
+      name: "E-Mail",
+      type: "text",
+      value: "",
+      bind: "EMAIL",
+      errorname: "EMAIL",
+      error: ""
+    },{
+        name: "Telefonnummer",
+        type: "text",
+        value: "",
+        bind: "PHONE_NR",
+        errorname: "PHONE_NR",
+        error: ""
+    },{
+        name: "Postleitzahl",
+        type: "text",
+        value: "",
+        bind: "POSTAL_CODE",
+        errorname: "POSTAL_CODE",
+        error: ""
+    },{
+      name: "Stadt",
+      type: "text",
+      value: "",
+      bind: "CITY",
+      errorname: "CITY",
+      error: ""
+    },{
+      name: "Adresse",
+      type: "text",
+      value: "",
+      bind: "ADDRESS",
+      errorname: "ADDRESS",
+      error: ""
+    },{
+      name: "Bild",
+      type: "text",
+      value: "",
+      bind: "IMAGE_PATH",
+      errorname: "IMAGE_PATH",
+      error: ""
+    }];
 
     let submit = () => {
-        axios.post('/events', data)
+        let submitdata = formData.map(element => {
+            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN") {
+                return {
+                    [element["bind"]]: element["value"]
+                }
+            }
+        }).reduce((a, b) => Object.assign(a, b), {});
+
+        axios.post('/events', submitdata)
         .then(response => {
             if (response.status === 200) {
                 router.get('events');
             }
         })
         .catch(error => {
-            console.log(error);
             if (error?.response?.status === 422) {
-                for (const [key, value] of Object.entries(errors)) {
-                    if(error.response.data.errors[key]) {
-                        errors[key] = error.response.data.errors[key][0];
+                for (const [key, value] of Object.entries(formData)) {
+                    if(error.response.data.errors[value["errorname"]]) {
+                        formData[key]["error"] = error.response.data.errors[value["errorname"]][0];
                     } else {
-                        errors[key] = '';
+                        formData[key]["error"] = "";
                     }
                 }
             }
         });
     }
 
-    /* function handleDataUpdated(event){
-        data = event.detail;
-    } */
+    let cancel = () => {
+        router.get('events');
+    }
 </script>
 
 <Layout>
-    <h1>Create Event</h1>
-    <EventForm newEvent={true} bind:data={data} bind:errors={errors} onSubmit={submit} />
+    <h1 class="tw-mt-6">Event anmelden</h1>
+    <p class="tw-text-gray-500">Hier kannst du ein neues Freizeit Event anmelden. <Link href="/account/facilities">Bildungs Event erstellen</Link></p>
+
+    <Form newInstance={true} bind:data={formData} onSubmit={submit} onCancel={cancel} />
 </Layout>

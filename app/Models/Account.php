@@ -20,7 +20,7 @@ class Account extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
     public $incrementing = true;
 
     protected $fillable = [
-        'USERNAME', 'EMAIL', 'PASSWORD', 'ACCOUNT_TYPE'
+        'NAME', 'EMAIL', 'PASSWORD', 'ACCOUNT_TYPE'
     ];
 
     protected $casts = [
