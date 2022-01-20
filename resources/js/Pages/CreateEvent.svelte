@@ -2,6 +2,7 @@
     import Layout from "../Shared/Layout.svelte";
     import Form from "../Shared/Form.svelte";
     import { router, Link } from "@inertiajs/svelte";
+    import H1 from "../Shared/H1.svelte";
 
     $: formData = [{
         name: "Titel",
@@ -130,7 +131,7 @@
 </script>
 
 <Layout>
-    <h1 class="tw-mt-6">Event anmelden</h1>
+    <H1 mb={false}>Event anmelden</H1>
     <p class="tw-text-gray-500">Hier kannst du ein neues Freizeit Event anmelden. <Link href="/account/facilities">Bildungs Event erstellen</Link></p>
 
     <Form newInstance={true} bind:data={formData} onSubmit={submit} onCancel={cancel} />

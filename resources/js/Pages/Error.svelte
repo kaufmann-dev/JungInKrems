@@ -1,6 +1,7 @@
 <script>
     import CenterDiv from '../Shared/CenterDiv.svelte';
     import Button from '../Shared/Button.svelte';
+    import H1 from '../Shared/H1.svelte';
     export let status;
 
     $: title = {
@@ -22,7 +23,7 @@
 
 <CenterDiv>
   <div class="tw-text-center">
-    <h1>{title}</h1>
+    <H1>{title}</H1>
     <p>{description}</p>
     <Button link="/">Zurück zur Startseite</Button>
   </div>

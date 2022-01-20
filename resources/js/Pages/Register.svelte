@@ -4,6 +4,7 @@
     import SubmitButton from '../Shared/SubmitButton.svelte';
     import Button from '../Shared/Button.svelte';
     import CenterDiv from '../Shared/CenterDiv.svelte';
+    import H1 from '../Shared/H1.svelte';
 
     let registered = false;
 
@@ -37,8 +38,6 @@
           }
       })
       .catch(error => {
-          
-          console.log(error);
           if (error?.response?.status === 422) {
             for (const [key, value] of Object.entries(errors)) {
               if(error.response.data.errors[key]) {
@@ -47,9 +46,6 @@
                 errors[key] = '';
               }
             }
-          }
-          for (const [key, value] of Object.entries(errors)) {
-            console.log(`${key}: ${value}`);
           }
       });
     }
@@ -100,7 +96,7 @@
                 <Link href="/login" class="tw-text-sm tw-text-gray-700 hover:tw-text-black">Anmelden</Link>
               </div> -->
               <div class=" tw-bg-gray-50 tw-border tw-p-5 tw-rounded-xl">
-                <h1 class="tw-mb-5">Registrieren</h1>
+                <h1 class="tw-mb-5  tw-border-b tw-border-black">Registrieren</h1>
                 <form on:submit|preventDefault={submit}>
                     <div class="tw-mb-3">
                       <label for="name" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">Name</label>

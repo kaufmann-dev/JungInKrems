@@ -5,6 +5,7 @@
     import SubmitButton from '../Shared/SubmitButton.svelte';
     import axios from 'axios';
     import CenterDiv from '../Shared/CenterDiv.svelte';
+    import H1 from '../Shared/H1.svelte';
 
     let loggedIn = false;
 
@@ -66,15 +67,15 @@
             {#if $page.props.auth.user}
                 <div class="tw-text-center">
                     {#if loggedIn == true}
-                        <h1 class="tw-mb-6">Sie wurden angemeldet.</h1>
+                        <H1>Sie wurden angemeldet.</H1>
                     {:else}
-                        <h1 class="tw-mb-6">Sie sind bereits angemeldet.</h1>
+                        <H1>Sie sind bereits angemeldet.</H1>
                     {/if}
-                    <Button link="/events">Events</Button>
+                    <Button link="/events">Events entdecken</Button>
                 </div>
             {:else}
                 <div class=" tw-bg-gray-50 tw-border tw-p-5 tw-rounded-xl">
-                    <h1 class="tw-mb-5">Anmelden</h1>
+                    <h1 class="tw-mb-5 tw-border-b tw-border-black">Anmelden</h1>
                     <form on:submit|preventDefault={submit}>
                         <div class="tw-mb-3">
                             <label for="email" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">E-Mail</label>
@@ -91,7 +92,7 @@
                             <input type="checkbox" name="remember" id="remember" class="tw-shadow-none tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" bind:checked={credentials.remember}>
                         </div>
                         <div class="tw-mb-3">
-                            <SubmitButton>Login</SubmitButton>
+                            <SubmitButton>Anmelden</SubmitButton>
                         </div>
                     </form>
                 </div>

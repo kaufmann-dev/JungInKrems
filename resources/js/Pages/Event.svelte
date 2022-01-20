@@ -7,6 +7,7 @@
     import BookmarkButton from "../Shared/BookmarkButton.svelte";
     import Form from "../Shared/Form.svelte";
     import axios from "axios";
+    import H1 from "../Shared/H1.svelte";
 
     let updating = false;
 
@@ -203,7 +204,7 @@
     {:else}
         <div class="tw-grid tw-gap-4 md:tw-grid-cols-2 tw-my-8">
             <div>
-                <h1 class="tw-text-5xl tw-mb-6">{event.TITLE}</h1>
+                <H1 mt={false}>{event.TITLE}</H1>
                 {#if event.facility.NAME}
                     <InfoText color="gray">{event.facility.NAME}</InfoText>
                 {:else}

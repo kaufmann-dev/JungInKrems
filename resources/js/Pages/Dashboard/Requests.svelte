@@ -108,7 +108,6 @@
 
     function handleEdit(event){
         index = event.detail;
-        console.log(event.detail);
         editing = true;
     }
 
