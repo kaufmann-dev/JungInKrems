@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\EventTrait;
 use App\Models\Bookmark;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -14,6 +15,16 @@ class EventController extends Controller
 
     public function createEvent()
     {
+        $file = request()->file('IMAGE');
+        $fileName = $file->getClientOriginalName();
+
+        Storage::disk('uploads')->putFileAs('/images/uploads', $file, $fileName);
+
+
+        request()->merge(['IMAGE_PATH' => $fileName]);
+        $this->validateRequest(request());
+
+
         if(!request()->has('EVENT_ID')) {
             $bookmark = Bookmark::create();
             $bookmark->save();
@@ -26,9 +37,8 @@ class EventController extends Controller
             request()->merge(['EVENT_TYPE' => 'Freizeit']);
         }
         
-        $this->validateRequest(request());
-        $event = Event::create(request()->all());
-        /* return redirect()->route('events'); */
+        Event::create(request()->all());
+        
     }
 
     public function updateEvent($id)

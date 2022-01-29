@@ -43,7 +43,7 @@
     });
 </script>
 
-<form on:submit|preventDefault={handleSubmit} class="tw-w-full tw-bg-white tw-my-6">
+<form enctype="multipart/form-data" on:submit|preventDefault={handleSubmit} class="tw-w-full tw-bg-white tw-my-6">
     {#each Object.keys(data) as key}
         {#if !ignore.includes(data[key]["bind"])}
             <div class="tw-mb-4">
@@ -81,6 +81,15 @@
                         id={data[key]["bind"]}
                         type="password"
                         bind:value={data[key]["value"]}
+                    />
+                {:else if data[key]["type"] === "file"}
+                    <input
+                        class="tw-shadow-sm tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
+                        id={data[key]["bind"]}
+                        type="file"
+                        on:input={(e) => {
+                            data[key]["value"] = e.target.files[0];
+                        }}
                     />
                 {:else}
                     <input

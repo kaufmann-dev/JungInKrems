@@ -247,7 +247,7 @@
                 </div>
             </div>
             <div>
-                <img class="tw-object-cover tw-h-full tw-w-full tw-rounded-xl" src="{event.IMAGE_PATH}" alt="{event.NAME}">
+                <img class="tw-object-cover tw-h-full tw-w-full tw-rounded-xl" src="/images/uploads/{event.IMAGE_PATH}" alt="{event.NAME}">
             </div>
         </div>
         {#if event.ACCOUNT_ID == $page?.props?.auth?.user?.ACCOUNT_ID || event.facility.managers != null && $page.props.auth.user?.ACCOUNT_ID in event?.facility?.managers?.map(account => account.ACCOUNT_ID)}

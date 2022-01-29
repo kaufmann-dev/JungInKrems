@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\PasswordResetController;
 use App\Models\AccountHasBookmarks;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -8,16 +9,42 @@ use App\Models\Facility;
 use App\Models\Account;
 use App\Models\AccountHasFacilities;
 use App\Models\Request;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 
 // Home
-Route::inertia('/', 'Home');
+Route::get('/', function () {
+    return Inertia::render('Home');
+})->name('home');
 
 // Authentication
 Route::inertia('/login', 'Login')->name('login');
 Route::inertia('/register', 'Register')->name('register');
 Route::inertia('/logout', 'Logout')->name('logout');
-Route::inertia('/resetpassword', 'ResetPassword')->name('reset-password');
+
+// Password Reset
+Route::middleware('guest')->group(function (){
+    Route::inertia('/forgotpassword', 'PasswordForgot');
+    Route::inertia('/resetpassword', 'PasswordReset')->name('password.reset');
+});
+
+// Email Verification
+Route::inertia('/account/verify', 'Account/Verify')->name('verification.verify');
+Route::get('/account/verify', function(){
+    return Inertia::render('Account/Verify');
+});
+
+Route::middleware(['auth', 'signed'])->group(function (){
+    Route::get('/account/verify/fresh', function(){
+        $account = request()->user();
+        if (!$account->hasVerifiedEmail()) {
+            $account->markEmailAsVerified();
+            event(new Verified($account));
+        }
+        return Inertia::render('Account/Verify');
+    })->name('verification.verify');
+});
+
 
 // Account
 Route::middleware('auth')->group(function () {

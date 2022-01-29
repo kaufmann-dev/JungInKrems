@@ -12,7 +12,11 @@
 <Layout>
     <H1 center={true}>Bildungsanstalten</H1>
     <SearchBar bind:query={query} />
-    { #each filteredFacilities as facilitiy }
-        <FacilityListItem facility={facilitiy}/>
-    { /each }
+    {#if facilities.length === 0}
+        <p class="tw-text-center tw-mt-3">Es existieren noch keine Bildungsanstalten.</p>
+    {:else}
+        {#each filteredFacilities as facility}
+            <FacilityListItem facility={facility}/>
+        {/each}
+    {/if}
 </Layout>

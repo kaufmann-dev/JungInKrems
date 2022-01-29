@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Traits\AccountTrait;
+use Mail;
+use App\Mail\VerifyEmail;
+use App\Notifications\VerifyEmailNotification;
+use Illuminate\Support\Facades\Notification;
 
 class AccountController extends Controller
 {
@@ -15,12 +19,13 @@ class AccountController extends Controller
     public function login()
     {
         $credentials = request()->only('email', 'password');
+        $remember = request()->has('remember');
 
         if(! Account::where('email', request('email'))->exists()) {
             return response()->json(['email' => 'User does not exist'], 400);
         }
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $remember)) {
             //return back()->withInput();
             //return Inertia::render('Register');
             return response()->json(['message' => 'Successfully logged out'], 200);
@@ -99,4 +104,40 @@ class AccountController extends Controller
             }
         }
     }
+
+    public function sendVerificationEmail()
+    {
+        $account = Auth::user();
+        if($account->hasVerifiedEmail()){
+            return response()->json(['message' => 'Email already verified'], 400);
+        }
+        $account->sendEmailVerificationNotification();
+    }
+
+    /* public function verifyEmail()
+    {
+        $account = Auth::user();
+
+        $verificationLink = $this->generateVerificationLink($account);
+        
+        $account->notify(new VerifyEmailNotification($verificationLink, $account->NAME, $account->EMAIL));
+    }
+
+    public function generateVerificationLink($account)
+    {
+        $token = $account->createToken('email-verification')->plainTextToken;
+        return url('/verify-email/' . $token);
+    }
+
+    public function verifyEmailWithToken($token)
+    {
+        $account = Account::where('email', request('email'))->first();
+        if(!$account || !Hash::check($token, $account->tokens()->first()->plainTextToken)) {
+            return response()->json(['message' => 'Invalid verification link'], 400);
+        }
+        $account->tokens()->delete();
+        $account->IS_EMAIL_VERIFIED = 1;
+        $account->save();
+        return response()->json(['message' => 'Email verified'], 200);
+    } */
 }

@@ -2,13 +2,15 @@
     import Navbar from './Navbar.svelte';
     import Footer from './Footer.svelte';
     import Sidebar from './Sidebar.svelte';
+    import { page } from '@inertiajs/svelte';
+    $: user = $page.props.auth.user;
 
     let root = {
         name: 'Account',
         href: '/account',
     }
 
-    let data = [
+    $: data = [
         {
             name: 'Meine Events',
             href: '/account/events',
@@ -22,6 +24,13 @@
             href: '/account/requests',
         }
     ];
+
+    $: if(user.EMAIL == "d.kaufmann@htlkrems.at"){
+        data.push({
+            name: 'E-Mail bestätigen',
+            href: '/account/verify',
+        });
+    }
 </script>
 
 <svelte:head>
