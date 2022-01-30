@@ -8,13 +8,13 @@ use App\Http\Controllers\Controller;
 
 class FacilityController extends Controller
 {
-    public function getFacility()
+    public function getFacilities()
     {
         $facilities = Facility::all();
         return response()->json($facilities);
     }
 
-    public function getFacilities($id)
+    public function getFacility($id)
     {
         $facility = Facility::find($id);
         return response()->json($facility);
