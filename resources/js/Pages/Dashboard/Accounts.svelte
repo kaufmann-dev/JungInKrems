@@ -88,7 +88,7 @@
     function deleteAccount(event){
         if(!confirm("Wollen Sie diesen Account wirklich löschen?"))
             return;
-        axios.delete('/accounts/' + {...accounts[event.detail]}.ACCOUNT_ID);
+        axios.post('/accounts/delete/' + {...accounts[event.detail]}.ACCOUNT_ID);
         editing = false;
         router.reload();
     }
@@ -103,7 +103,7 @@
             
         }).reduce((a, b) => Object.assign(a, b), {});
 
-        axios.put('/accounts/' + {...accounts[index]}.ACCOUNT_ID, submitdata)
+        axios.post('/admin/accounts/' + {...accounts[index]}.ACCOUNT_ID, submitdata)
         .then(response => {
             if (response.status === 200) {
                 editing = false;
@@ -126,7 +126,7 @@
     let deleteEvent = () => {
         if(!confirm("Wollen Sie diesen Account wirklich löschen?"))
             return;
-        axios.delete('/accounts/' + {...accounts[index]}.ACCOUNT_ID);
+        axios.post('/accounts/delete/' + {...accounts[index]}.ACCOUNT_ID);
         editing = false;
         router.reload();
     }

@@ -25,45 +25,56 @@ require __DIR__.'/dashboard.php';
 */
 
 
-// Auth Routes
+// Authentication Routes
 Route::post('/login', [AccountController::class, 'login']);
-Route::post('/logout', [AccountController::class, 'logout']);
 Route::post('/register', [AccountController::class, 'register']);
 
-// Password Reset Routes
+// Password Forgotten Routes
 Route::post('/password/forgot', [PasswordResetController::class, 'sendResetLinkEmail']);
 Route::post('/password/reset', [PasswordResetController::class, 'resetPassword']);
 
-// E-Mail Verification Routes
-Route::post('/email/send-verification', [AccountController::class, 'sendVerificationEmail']);
+// Authenticated Middleware
+Route::middleware('auth')->group(function(){
 
-// Account Routes
-Route::delete('/account', [AccountController::class, 'deleteAccount']);
-Route::put('/account', [AccountController::class, 'updateAccount']);
-Route::post('/reset-password', [AccountController::class, 'resetPassword']);
+    // Account Routes
+    Route::post('/logout', [AccountController::class, 'logout']);
+    Route::post('/email/send-verification', [AccountController::class, 'sendVerificationEmail']);
 
-// Event Routes
-Route::post('events', [EventController::class, 'createEvent']);
-Route::put('events/{id}', [EventController::class, 'updateEvent']);
-Route::delete('events/{id}', [EventController::class, 'deleteEvent']);
+    // Account Routes
+    Route::post('/account/delete/', [AccountController::class, 'deleteAccount']);
+    Route::post('/account', [AccountController::class, 'updateAccount']);
+    Route::post('/reset-password', [AccountController::class, 'resetPassword']);
 
-// Bookmark Routes
-Route::delete('bookmarks/{id}', [BookmarkController::class, 'deleteBookmark']);
-Route::post('bookmarks/{id}', [BookmarkController::class, 'createBookmark']);
+    // Bookmark Routes
+    Route::post('bookmarks/delete/{id}', [BookmarkController::class, 'deleteBookmark'])->middleware('isBookmarkOwnerWeb');
+    Route::post('bookmarks/{id}', [BookmarkController::class, 'createBookmark'])->middleware('isBookmarkOwnerWeb');
 
-// Facility Routes
-Route::post('facilities', [FacilityController::class, 'createFacility']);
-Route::put('facilities/{id}', [FacilityController::class, 'updateFacility']);
-Route::delete('facilities/{id}', [FacilityController::class, 'deleteFacility']);
+    // Verified Email Middleware
+    Route::middleware('verified')->group(function(){
 
-// Request Routes
-Route::post('requests', [RequestController::class, 'createRequest']);
-Route::put('requests/{id}', [RequestController::class, 'updateRequest']);
-Route::delete('requests/{id}', [RequestController::class, 'deleteRequest']);
-Route::post('request-accept/{id}', [RequestController::class, 'acceptRequest']);
-Route::post('request-decline/{id}', [RequestController::class, 'declineRequest']);
+        // Event Routes
+        Route::post('events', [EventController::class, 'createEvent']);
+        Route::post('events/{id}', [EventController::class, 'updateEvent'])->middleware('isEventOwnerWeb');
+        Route::post('events/delete/{id}', [EventController::class, 'deleteEvent'])->middleware('isEventOwnerWeb');
 
-// Admin Routes
-Route::middleware('accountTypeWeb:Systemverwalter')->group(function () {
-    Route::put('accounts/{id}', [DashboardController::class, 'updateAccount']);
+        // Facility Routes
+        Route::post('facilities', [FacilityController::class, 'createFacility']);
+        Route::post('facilities/{id}', [FacilityController::class, 'updateFacility'])->middleware('isFacilityManagerWeb');
+        Route::post('facilities/delete/{id}', [FacilityController::class, 'deleteFacility'])->middleware('isFacilityManagerWeb');;
+
+        // Request Routes
+        Route::post('requests', [RequestController::class, 'createRequest']);
+        Route::post('requests/{id}', [RequestController::class, 'updateRequest'])->middleware('isRequestOwnerWeb');
+        Route::post('requests/delete/{id}', [RequestController::class, 'deleteRequest'])->middleware('isRequestOwnerWeb');
+
+        // System Admin Middleware
+        Route::middleware('accountTypeWeb:Systemverwalter')->group(function(){
+            Route::post('admin/accounts/{id}', [AccountController::class, 'adminUpdateAccount']);
+            Route::post('admin/events/{id}', [EventController::class, 'adminUpdateEvent']);
+            Route::post('admin/facilities/{id}', [FacilityController::class, 'adminUpdateFacility']);
+            Route::post('admin/requests/{id}', [RequestController::class, 'adminUpdateRequest']);
+            Route::post('admin/requests-accept/{id}', [RequestController::class, 'adminAcceptRequest']);
+            Route::post('admin/requests-decline/{id}', [RequestController::class, 'adminDeclineRequest']);
+        });
+    });
 });

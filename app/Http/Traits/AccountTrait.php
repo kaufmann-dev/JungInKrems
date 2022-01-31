@@ -8,32 +8,42 @@ use Illuminate\Support\Facades\Hash;
 
 trait AccountTrait
 {
-    public function validateRequest(Request $request)
+    public function validateLogin(Request $request)
     {
         $this->validate($request, [
-            'ACCOUNT_ID' => 'required|numeric',
-            'NAME' => 'required|string',
-            'EMAIL' => 'required|email',
-            'PASSWORD' => 'required|string',
-            'IS_EMAIL_VERIFIED' => 'required|boolean',
-            'ACCOUNT_TYPE' => 'required|in:Systemverwalter,Benutzer,Veranstalter',
+            'email' => 'required|email|exists:ACCOUNTS_ST,EMAIL',
+            'password' => 'required'
+        ],[
+            'email.required' => 'Die E-Mail-Adresse ist erforderlich.',
+            'email.email' => 'Die E-Mail-Adresse muss eine gültige E-Mail-Adresse sein.',
+            'email.exists' => 'Die E-Mail-Adresse existiert nicht.',
+            'password.required' => 'Das Passwort ist erforderlich.'
+        ]);
+    }
+    
+    public function validateRegister(Request $request)
+    {   
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:ACCOUNTS_ST,EMAIL',
+            'password' => 'required|confirmed|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+            'terms' => 'accepted'
         ], [
-            'ACCOUNT_ID.required' => 'The account id is required.',
-            'ACCOUNT_ID.numeric' => 'The account id must be a number.',
-            'NAME.required' => 'The name is required.',
-            'NAME.string' => 'The name must be a string.',
-            'EMAIL.required' => 'The email is required.',
-            'EMAIL.email' => 'The email must be a valid email address.',
-            'PASSWORD.required' => 'The password is required.',
-            'PASSWORD.string' => 'The password must be a string.',
-            'IS_EMAIL_VERIFIED.required' => 'The email verification status is required.',
-            'IS_EMAIL_VERIFIED.boolean' => 'The email verification status must be a boolean.',
-            'ACCOUNT_TYPE.required' => 'The account type is required.',
-            'ACCOUNT_TYPE.in' => 'The account type must be one of the following: Systemverwalter, Benutzer, Veranstalter.',
+            'name.required' => 'Der Name ist erforderlich.',
+            'name.max' => 'Der Name darf maximal 255 Zeichen lang sein.',
+            'email.required' => 'Die E-Mail-Adresse ist erforderlich.',
+            'email.email' => 'Die E-Mail-Adresse muss eine gültige E-Mail-Adresse sein.',
+            'email.unique' => 'Die E-Mail-Adresse ist bereits vergeben.',
+            'password.required' => 'Das Passwort ist erforderlich.',
+            'password.confirmed' => 'Die Passwörter stimmen nicht überein.',
+            'password.min' => 'Das Passwort muss mindestens 8 Zeichen lang sein.',
+            'password.max' => 'Das Passwort darf maximal 255 Zeichen lang sein.',
+            'password.regex' => 'Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.',
+            'terms.accepted' => 'Die Nutzungsbedingungen müssen akzeptiert werden.'
         ]);
     }
 
-    public function validateUpdate(Request $request)
+    public function validateUserDetailUpdate(Request $request)
     {
         $this->validate($request, [
             'NAME' => 'required|string',
@@ -72,7 +82,7 @@ trait AccountTrait
         ]);
     }
 
-    public function validatePassword(Request $request)
+    public function validateUserPasswordReset(Request $request)
     {
         $this->validate($request, [
             'OLD_PASSWORD' => 'required|current_password',

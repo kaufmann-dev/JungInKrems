@@ -104,10 +104,10 @@
         },
         {
             name: "Bild",
-            bind: "IMAGE_PATH",
-            type: "text",
-            value: facility.IMAGE_PATH,
-            errorname: "IMAGE_PATH",
+            bind: "IMAGE",
+            type: "file",
+            value: '',
+            errorname: "IMAGE",
             error: ""
         }
     ];
@@ -115,7 +115,7 @@
     let deleteFacility = () => {
         if(window.confirm("Möchten Sie die Einrichtung wirklich löschen?")) {
             updating = true;
-            axios.delete('/facilities/' + facility.FACILITY_ID);
+            axios.post('/facilities/delete' + facility.FACILITY_ID);
             router.get('/facilities');
         }
     }
@@ -127,7 +127,12 @@
             }
         }).reduce((a, b) => Object.assign(a, b), {});
 
-        axios.put('/facilities/' + facility.FACILITY_ID, submitdata)
+        let formdata = new FormData();
+        for (const [key, value] of Object.entries(submitdata)) {
+            formdata.append(key, value);
+        }
+
+        axios.post('/facilities/' + facility.FACILITY_ID, formdata)
             .then(response => {
                 if (response.status === 200) {
                     facilityUpdated();
@@ -143,6 +148,7 @@
                         }
                     }
                 }
+                console.log(error);
             });
     } 
 </script>
@@ -172,7 +178,7 @@
                 </div>
             </div>
             <div>
-                <img class="tw-object-cover tw-h-full tw-w-full tw-rounded-xl" src="{facility.IMAGE_PATH}" alt="{facility.NAME}">
+                <img class="tw-object-cover tw-shadow-lg tw-w-full tw-rounded-xl" src="/images/uploads/{facility.IMAGE_PATH}" alt="{facility.NAME}">
             </div>
         </div>
         {#if $page.props.auth.user?.ACCOUNT_ID in facility.managers.map(account => account.ACCOUNT_ID)}

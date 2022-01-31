@@ -14,7 +14,7 @@ class AccountHasFacilities extends Model
     protected $table = 'ACCOUNT_has_FACILITIES_JT';
     protected $primaryKey = ['ACCOUNT_ID', 'FACILITY_ID'];
     public $incrementing = false;
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'ACCOUNT_ID',

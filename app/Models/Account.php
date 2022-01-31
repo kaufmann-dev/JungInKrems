@@ -33,7 +33,7 @@ class Account extends Model implements Authenticatable, CanResetPasswordContract
     protected $emailVerifiedColumn = 'IS_EMAIL_VERIFIED';
 
     protected $fillable = [
-        'NAME', 'EMAIL', 'PASSWORD', 'ACCOUNT_TYPE'
+        'NAME', 'EMAIL', 'PASSWORD', 'ACCOUNT_TYPE', 'IS_EMAIL_VERIFIED'
     ];
 
     protected $casts = [
@@ -44,6 +44,8 @@ class Account extends Model implements Authenticatable, CanResetPasswordContract
         'remember_token',
     ];
 
+    // ------------------- RELATIONSHIPS ------------------- //
+
     public function bookmarks()
     {
         return $this->hasMany(AccountHasBookmarks::class, 'ACCOUNT_ID', 'ACCOUNT_ID')->with('event')->with('facility');
@@ -53,6 +55,18 @@ class Account extends Model implements Authenticatable, CanResetPasswordContract
     {
         return $this->hasMany(AccountHasFacilities::class, 'ACCOUNT_ID', 'ACCOUNT_ID')->with('facility');
     }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'ACCOUNT_ID', 'ACCOUNT_ID');
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class, 'ACCOUNT_ID', 'ACCOUNT_ID');
+    }
+
+    // ------------------- IMPLEMENTATION ------------------- //
 
     public function getAuthIdentifierName()
     {

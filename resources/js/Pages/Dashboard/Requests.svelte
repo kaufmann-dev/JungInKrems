@@ -90,19 +90,19 @@
     ]
 
     function handleAccept(event){
-        axios.post('/request-accept/' + {...requests[event.detail]}.REQUEST_ID);
+        axios.post('/admin/request-accept/' + {...requests[event.detail]}.REQUEST_ID);
         router.reload();
     }
 
     function handleDecline(event){
-        axios.post('/request-decline/' + {...requests[event.detail]}.REQUEST_ID);
+        axios.post('/admin/request-decline/' + {...requests[event.detail]}.REQUEST_ID);
         router.reload();
     }
 
     function handleDeletion(event){
         if(!confirm("Wollen Sie diesen Antrag wirklich löschen?"))     
             return;
-        axios.delete('/requests/' + {...requests[event.detail]}.REQUEST_ID);
+        axios.post('/requests/delete/' + {...requests[event.detail]}.REQUEST_ID);
         router.reload();
     }
 
@@ -118,7 +118,7 @@
     let deletion = () => {
         if(!confirm("Wollen Sie diesen Antrag wirklich löschen?"))     
             return;
-        axios.delete('/requests/' + {...requests[index]}.REQUEST_ID);
+        axios.post('/requests/delete/' + {...requests[index]}.REQUEST_ID);
         editing = false;
         router.reload();
     }
@@ -130,7 +130,7 @@
             }
         }).reduce((a, b) => Object.assign(a, b), {});
 
-        axios.put('/requests/' + {...requests[index]}.REQUEST_ID, submitdata)
+        axios.post('/admin/requests/' + {...requests[index]}.REQUEST_ID, submitdata)
             .then(response => {
                 editing = false;
                 router.reload();

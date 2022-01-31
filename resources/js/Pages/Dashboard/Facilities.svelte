@@ -150,14 +150,14 @@
 
         if(!window.confirm('Möchten Sie die Einrichtung wirklich löschen?'))
             return;
-        axios.delete('/facilities/' + {...facilities[event.detail]}.FACILITY_ID);
+        axios.post('/facilities/delete/' + {...facilities[event.detail]}.FACILITY_ID);
         router.reload();
     }
 
     let deleteFacility = () => {
         if(!window.confirm('Möchten Sie die Einrichtung wirklich löschen?'))
             return;
-        axios.delete('/facilities/' + {...facilities[index]}.FACILITY_ID);
+        axios.post('/facilities/delete' + {...facilities[index]}.FACILITY_ID);
         router.reload();
     }
 
@@ -168,7 +168,7 @@
             }
         }).reduce((a, b) => Object.assign(a, b), {});
 
-        axios.put('/facilities/' + {...facilities[index]}.FACILITY_ID, submitdata)
+        axios.post('/admin/facilities/' + {...facilities[index]}.FACILITY_ID, submitdata)
         .then(response => {
             if (response.status === 200) {
                 editing = false;

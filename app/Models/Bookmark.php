@@ -13,19 +13,4 @@ class Bookmark extends Model
     protected $primaryKey = 'BOOKMARK_ID';
     public $incrementing = true;
     public $timestamps = true;
-
-    /* public function account()
-    {
-        return $this->hasOne(Account::class, 'BOOKMARK_ID', 'ACCOUNT_ID');
-    }
-
-    public function event()
-    {
-        return $this->hasOne(Event::class, 'BOOKMARK_ID', 'EVENT_ID');
-    }
-
-    public static function getEvents()
-    {
-        return Event::all();
-    } */
 }

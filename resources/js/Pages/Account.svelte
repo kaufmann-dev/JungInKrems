@@ -59,7 +59,7 @@
     {
         if(confirm("Möchten Sie Ihren Account wirklich löschen?"))
         {
-            axios.delete('/account', {})
+            axios.post('/account/delete', {})
             .then(response => {
                 if (response.status === 200) {
                   router.reload();
@@ -110,7 +110,7 @@
             }
         }).reduce((a, b) => Object.assign(a, b), {});
 
-        axios.put('/account', submitdata)
+        axios.post('/account', submitdata)
         .then(response => {
             if (response.status === 200) {
               userArray.forEach(element => {

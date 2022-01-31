@@ -32,14 +32,4 @@ class Facility extends Model
     protected $casts = [
         'IS_CITY_VERIFIED' => 'boolean',
     ];
-    
-    /* public function bookmark()
-    {
-        return $this->belongsTo(Bookmark::class, 'FACILITY_ID', 'BOOKMARK_ID');
-    } */
-
-    /* public function manager()
-    {
-        return $this->belongsTo(AccountHasFacilities::class, 'FACILITY_ID', 'ACCOUNT_ID');
-    } */
 }

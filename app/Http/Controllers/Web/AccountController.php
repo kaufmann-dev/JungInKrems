@@ -11,6 +11,8 @@ use Mail;
 use App\Mail\VerifyEmail;
 use App\Notifications\VerifyEmailNotification;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Events\Verified;
+use Inertia\Inertia;
 
 class AccountController extends Controller
 {
@@ -18,30 +20,30 @@ class AccountController extends Controller
 
     public function login()
     {
+        $this->validateLogin(request());
+
         $credentials = request()->only('email', 'password');
         $remember = request()->has('remember');
 
-        if(! Account::where('email', request('email'))->exists()) {
-            return response()->json(['email' => 'User does not exist'], 400);
+        if (Auth::attempt($credentials, $remember)) {
+            return response()->json(['message' => 'Successfully logged in'], 200);
+        } else {
+            return response()->json(['message' => 'Das Passwort ist falsch.'], 401);
         }
 
-        if (Auth::attempt($credentials, $remember)) {
-            //return back()->withInput();
-            //return Inertia::render('Register');
-            return response()->json(['message' => 'Successfully logged out'], 200);
-        }
-        return response()->json(['password' => 'Wrong credentials'], 400);
+        /* if(! Account::where('email', request('email'))->exists()) {
+            return response()->json(['email' => 'User does not exist'], 400);
+        } */
+
+        /* if (!Auth::attempt($credentials, $remember)) {
+            return back()->withInput();
+            return Inertia::render('Register');
+        } */
     }
 
     public function register()
     {
-         request()->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:ACCOUNTS_ST,EMAIL',
-            //'password' => 'required|confirmed|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', // at least 1 uppercase, 1 lowercase, 1 number
-            'password' => 'required|confirmed|min:8',
-            'terms' => 'accepted'
-        ]); 
+        $this->validateRegister(request());
 
         $account = Account::create([
             'email' => request('email'),
@@ -75,12 +77,16 @@ class AccountController extends Controller
             $account = Auth::user();
             $account->delete();
             Auth::logout();
+            return response()->json(['message' => 'Successfully deleted account'], 200);
+        } else {
+            return response()->json(['message' => 'User is not logged in'], 400);
         }
     }
 
     public function updateAccount()
     {
-        $this->validateUpdate(request());
+        $this->validateUserDetailUpdate(request());
+
         if (Auth::check()) {
             $account = Auth::user();
             $account->NAME = request('NAME');
@@ -94,7 +100,7 @@ class AccountController extends Controller
 
     public function resetPassword()
     {
-        $this->validatePassword(request());
+        $this->validateUserPasswordReset(request());
 
         if (Auth::check()) {
             $account = Auth::user();
@@ -112,6 +118,31 @@ class AccountController extends Controller
             return response()->json(['message' => 'Email already verified'], 400);
         }
         $account->sendEmailVerificationNotification();
+    }
+
+    public function adminUpdateAccount($id)
+    {
+        $this->validateAdminUpdate(request());
+
+        $account = Account::find($id);
+
+        if(request()->has('PASSWORD')) {
+            request()->merge(['PASSWORD' => Hash::make(request()->input('PASSWORD'))]);
+        }
+        
+        $account->update(request()->all());
+    }
+
+    public function verifyEmail()
+    {
+        $account = request()->user();
+
+        if (!$account->hasVerifiedEmail()) {
+            $account->markEmailAsVerified();
+            event(new Verified($account));
+        }
+
+        return Inertia::render('Account/Verify');
     }
 
     /* public function verifyEmail()

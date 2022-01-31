@@ -9,7 +9,7 @@
 
     let handleBookmark = () => {
         if(isChecked){
-            axios.delete('/bookmarks/' + checkId);
+            axios.post('/bookmarks/delete/' + checkId);
         } else {
             axios.post('/bookmarks/' + checkId);
         }

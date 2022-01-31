@@ -28,6 +28,13 @@
       errorname: "EVENT_ID",
       error: ""
     }, {
+      name: "Besitzer ID",
+      type: "text",
+      value: {...events[index]}.ACCOUNT_ID,
+      bind: "ACCOUNT_ID",
+      errorname: "ACCOUNT_ID",
+      error: ""
+    }, {
       name: "Titel",
       type: "text",
       value: {...events[index]}.TITLE,
@@ -84,19 +91,19 @@
       errorname: "EMAIL",
       error: ""
     },{
-        name: "Telefonnummer",
-        type: "text",
-        value: {...events[index]}.PHONE_NR,
-        bind: "PHONE_NR",
-        errorname: "PHONE_NR",
-        error: ""
+      name: "Telefonnummer",
+      type: "text",
+      value: {...events[index]}.PHONE_NR,
+      bind: "PHONE_NR",
+      errorname: "PHONE_NR",
+      error: ""
     },{
-        name: "Postleitzahl",
-        type: "text",
-        value: {...events[index]}.POSTAL_CODE,
-        bind: "POSTAL_CODE",
-        errorname: "POSTAL_CODE",
-        error: ""
+      name: "Postleitzahl",
+      type: "text",
+      value: {...events[index]}.POSTAL_CODE,
+      bind: "POSTAL_CODE",
+      errorname: "POSTAL_CODE",
+      error: ""
     },{
       name: "Stadt",
       type: "text",
@@ -133,25 +140,27 @@
     function handleTableDelete(event){
       if(!window.confirm('Möchten Sie die Einrichtung wirklich löschen?'))
         return;
-      axios.delete('/events/' + {...events[event.detail]}.EVENT_ID);
+      axios.post('/events/delete/' + {...events[event.detail]}.EVENT_ID);
       router.reload();
     }
 
     let deleteEvent = () => {
       if(!window.confirm('Möchten Sie die Einrichtung wirklich löschen?'))
         return;
-      axios.delete('/events/' + {...events[index]}.EVENT_ID);
+      axios.post('/events/delete/' + {...events[index]}.EVENT_ID);
       router.reload();
     }
 
     let handleFormSubmit = () => {
       let submitdata = formData.map(element => {
-            return {
-                [element["bind"]]: element["value"]
+			if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"]) {
+                return {
+                    [element["bind"]]: element["value"]
+                }
             }
         }).reduce((a, b) => Object.assign(a, b), {});
 
-      axios.put('/events/' + {...events[index]}.EVENT_ID, submitdata)
+      axios.post('/admin/events/' + {...events[index]}.EVENT_ID, submitdata)
       .then(response => {
           if (response.status === 200) {
                 editing = false;

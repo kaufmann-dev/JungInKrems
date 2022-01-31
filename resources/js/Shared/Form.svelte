@@ -2,7 +2,7 @@
     import SubmitButton from "./SubmitButton.svelte";
     import DeleteButton from "./DeleteButton.svelte";
     import CancelButton from "./CancelButton.svelte";
-    import { router } from "@inertiajs/svelte";
+    import Input from "./Input.svelte";
 
     export let onSubmit = () => {};
     export let onDelete = () => {};
@@ -44,13 +44,32 @@
 </script>
 
 <form enctype="multipart/form-data" on:submit|preventDefault={handleSubmit} class="tw-w-full tw-bg-white tw-my-6">
-    {#each Object.keys(data) as key}
+    {#each data as slave}
+        <div class="tw-mb-4">
+            <label class="tw-block tw-text-gray-700 tw-font-bold tw-mb-2" for={slave.bind}>
+                {slave.name}
+            </label>
+            <Input data={slave} />
+            <span class="tw-text-red-500 tw-text-sm tw-mt-1">{slave.error}</span>
+        </div>
+    {/each}
+    <div class="tw-flex tw-gap-4">
+        <SubmitButton><i class="bi bi-send-fill"></i> Senden</SubmitButton>
+        {#if newInstance === false}
+            <DeleteButton onClick={handleDelete}><i class="bi bi-trash-fill"></i> Löschen</DeleteButton>
+        {/if}
+        <CancelButton onClick={handleCancel}>Abbrechen</CancelButton>
+    </div>
+</form>
+    <!-- {#each Object.keys(data) as key}
         {#if !ignore.includes(data[key]["bind"])}
             <div class="tw-mb-4">
                 <label class="tw-block tw-text-gray-700 tw-font-bold tw-mb-2" for={data[key]["bind"]}>
                     {data[key]["name"]}
                 </label>
-                {#if data[key]["type"] === 'datetime'}
+                <Input data={data[key]} />
+                {data[key]["value"]} -->
+                <!-- {#if data[key]["type"] === 'datetime'}
                     <input
                         class="tw-shadow-sm tw-appearance-none tw-border tw-w-full tw-py-2 tw-px-3 tw-text-gray-700 tw-leading-tight focus:tw-outline-none focus:tw-shadow-outline"
                         id={data[key]["bind"]}
@@ -99,15 +118,7 @@
                         bind:value={data[key]["value"]}
                     />
                 {/if}
-                <span class="tw-text-red-500 tw-text-sm tw-mt-1">{data[key]["error"]}</span>
+               <span class="tw-text-red-500 tw-text-sm tw-mt-1">{data[key]["error"]}</span>
             </div>
-        {/if}
-    {/each}
-    <div class="tw-flex tw-gap-4">
-        <SubmitButton><i class="bi bi-send-fill"></i> Senden</SubmitButton>
-        {#if newInstance === false}
-            <DeleteButton onClick={handleDelete}><i class="bi bi-trash-fill"></i> Löschen</DeleteButton>
-        {/if}
-        <CancelButton onClick={handleCancel}>Abbrechen</CancelButton>
-    </div>
-</form>
+        {/if} -->
+    

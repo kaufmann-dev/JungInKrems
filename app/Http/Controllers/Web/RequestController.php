@@ -54,4 +54,13 @@ class RequestController extends Controller
         $request = Request::find($id);
         $request->update(request()->all());
     }
+
+    public function adminUpdateRequest($id)
+    {
+        $this->validateUpdate(request());
+
+        $request = Request::find($id);
+        
+        $request->update(request()->all());
+    }
 }
