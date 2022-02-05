@@ -22,7 +22,7 @@
                 <EventListItem event={event}/>
             {/each}
         {/if}
-        <div class="mt-3" on:click={()=>creating=true}>
+        <div class="mt-3">
             <Button link="/newevent">Neues Event erstellen</Button>
         </div>
     {/if}
