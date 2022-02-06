@@ -29,7 +29,7 @@ class RequestController extends Controller
         $request->delete();
     }
 
-    public function acceptRequest($id)
+    public function adminAcceptRequest($id)
     {
         $request = Request::find($id);
         if(request()->Typ == 'Freischaltung'){
@@ -41,7 +41,7 @@ class RequestController extends Controller
         $request->save();
     }
 
-    public function declineRequest($id)
+    public function adminDeclineRequest($id)
     {
         $request = Request::find($id);
         $request->STATUS = 'Abgelehnt';
@@ -57,7 +57,7 @@ class RequestController extends Controller
 
     public function adminUpdateRequest($id)
     {
-        $this->validateUpdate(request());
+        $this->validateAdminUpdate(request());
 
         $request = Request::find($id);
         

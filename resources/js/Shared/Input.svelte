@@ -42,6 +42,12 @@
         type="datetime-local"
         bind:value={data.value}
     >
+{:else if data.type == "textarea"}
+    <textarea
+        class="tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm"
+        id={data.bind}
+        bind:value={data.value}
+    ></textarea>
 {:else}
     <input
         class="tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm"

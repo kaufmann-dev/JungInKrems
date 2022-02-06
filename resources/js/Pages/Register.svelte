@@ -52,8 +52,6 @@
             }
         }).reduce((a, b) => Object.assign(a, b), {});
 
-        console.log(submitdata);
-
       axios.post('/register', submitdata)
       .then(response => {
           if (response.status === 200) {

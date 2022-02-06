@@ -66,7 +66,9 @@ class FacilityController extends Controller
 
     public function adminUpdateFacility($id)
     {
-        $this->validateRequest(request());
+        request()->IS_CITY_VERIFIED == 'true' ? request()->merge(['IS_CITY_VERIFIED' => 1]) : request()->merge(['IS_CITY_VERIFIED' => 0]);
+
+        $this->validateAdminUpdate(request());
 
         if(request()->has('IMAGE')){
             $file = request()->file('IMAGE');

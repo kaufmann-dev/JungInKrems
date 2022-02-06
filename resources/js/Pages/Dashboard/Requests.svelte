@@ -23,15 +23,7 @@
 
     $: formData = [
         {
-            name: "ID",
-            type: "text",
-            value: {...requests[index]}.REQUEST_ID,
-            bind: "REQUEST_ID",
-            errorname: "REQUEST_ID",
-            error: ""
-        },
-        {
-            name: "Anstragssteller ID",
+            name: "Anstragssteller-ID",
             type: "text",
             value: {...requests[index]}.ACCOUNT_ID,
             bind: "ACCOUNT_ID",
@@ -39,7 +31,7 @@
             error: ""
         },
         {
-            name: "Bildungsanstalt ID",
+            name: "Einrichtungs-ID",
             type: "text",
             value: {...requests[index]}.FACILITY_ID,
             bind: "FACILITY_ID",
@@ -90,12 +82,12 @@
     ]
 
     function handleAccept(event){
-        axios.post('/admin/request-accept/' + {...requests[event.detail]}.REQUEST_ID);
+        axios.post('/admin/requests/accept/' + {...requests[event.detail]}.REQUEST_ID);
         router.reload();
     }
 
     function handleDecline(event){
-        axios.post('/admin/request-decline/' + {...requests[event.detail]}.REQUEST_ID);
+        axios.post('/admin/requests/decline/' + {...requests[event.detail]}.REQUEST_ID);
         router.reload();
     }
 

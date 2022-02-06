@@ -22,13 +22,6 @@
     })
 
     $: formData = [{
-        name: "ID",
-        type: "text",
-        value: {...facilities[index]}.FACILITY_ID,
-        bind: "FACILITY_ID",
-        errorname: "FACILITY_ID",
-        error: ""
-    },{
         name: "Name",
         type: "text",
         value: {...facilities[index]}.NAME,
@@ -37,7 +30,7 @@
         error: ""
     },{
         name: "Beschreibung",
-        type: "text",
+        type: "textarea",
         value: {...facilities[index]}.DESCRIPTION,
         bind: "DESCRIPTION",
         errorname: "DESCRIPTION",
@@ -57,7 +50,7 @@
         errorname: "IS_CITY_VERIFIED",
         error: ""
     },{
-        name: "Bildungstyp",
+        name: "Typ",
         type: "array",
         options: [{
             value: "BHS",
@@ -129,22 +122,22 @@
         error: ""
     },{
         name: "Bild",
-        type: "text",
-        value: {...facilities[index]}.IMAGE_PATH,
-        bind: "IMAGE_PATH",
-        errorname: "IMAGE_PATH",
+        type: "file",
+        value: '',
+        bind: "IMAGE",
+        errorname: "IMAGE",
         error: ""
     }];
 
     function handleTableEdit(event){
         index = event.detail;
         editing = true;
-    }
+    }/* 
 
     function facilityUpdated() {
         handleFormCancel();
         router.reload();
-    }
+    } */
 
     function handleTableDelete(event){
 
@@ -163,12 +156,19 @@
 
     let handleFormEdit = () => {
         let submitdata = formData.map(element => {
-            return {
-                [element["bind"]]: element["value"]
+            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"] !== null) {
+                return {
+                    [element["bind"]]: element["value"]
+                }
             }
         }).reduce((a, b) => Object.assign(a, b), {});
 
-        axios.post('/admin/facilities/' + {...facilities[index]}.FACILITY_ID, submitdata)
+        var facilitydata = new FormData();
+        for (const [key, value] of Object.entries(submitdata)) {
+            facilitydata.append(key, value);
+        }
+
+        axios.post('/admin/facilities/' + {...facilities[index]}.FACILITY_ID, facilitydata)
         .then(response => {
             if (response.status === 200) {
                 editing = false;

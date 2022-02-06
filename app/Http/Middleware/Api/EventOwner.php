@@ -12,11 +12,16 @@ class EventOwner
     {
         $eventId = $request->route('id');
 
-        $event = Event::find($eventId);
+        if($request->user()->events->contains('EVENT_ID', $eventId) || $request->user()->ACCOUNT_TYPE == 'Systemverwalter')
+            return $next($request);
+            
+        return abort(403, 'Sie sind nicht der Besitzer dieser Veranstaltung.');
+        
+        /* $event = Event::find($eventId);
         if($event->user_id !== auth()->user()->id){
             return response()->json(['error' => 'Unauthorized. You are not the owner of this event.'], 401);
         }
 
-        return $next($request);
+        return $next($request); */
     }
 }

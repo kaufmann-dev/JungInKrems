@@ -12,27 +12,38 @@
     let editing = false;
 
     $: data = events.map(event =>{
+      if(event.EVENT_TYPE == "Freizeit")
+      {
+        return {
+          ID : event.EVENT_ID,
+          Titel : event.TITLE,
+          Verantwortlich : event.account.NAME,
+          Beschreibung : event.DESCRIPTION,
+          Typ : event.EVENT_TYPE,
+        }
+      }
       return {
         ID : event.EVENT_ID,
         Titel : event.TITLE,
+        Verantwortlich : event.facility.NAME,
         Beschreibung : event.DESCRIPTION,
         Typ : event.EVENT_TYPE,
       }
     })
 
     $: formData = [{
-      name: "ID",
-      type: "text",
-      value: {...events[index]}.EVENT_ID,
-      bind: "EVENT_ID",
-      errorname: "EVENT_ID",
-      error: ""
-    }, {
-      name: "Besitzer ID",
+      name: "Benutzer-ID",
       type: "text",
       value: {...events[index]}.ACCOUNT_ID,
       bind: "ACCOUNT_ID",
       errorname: "ACCOUNT_ID",
+      error: ""
+    }, {
+      name: "Einrichtungs-ID",
+      type: "text",
+      value: {...events[index]}.FACILITY_ID,
+      bind: "FACILITY_ID",
+      errorname: "FACILITY_ID",
       error: ""
     }, {
       name: "Titel",
@@ -43,7 +54,7 @@
       error: ""
     }, {
       name: "Beschreibung",
-      type: "text",
+      type: "textarea",
       value: {...events[index]}.DESCRIPTION,
       bind: "DESCRIPTION",
       errorname: "DESCRIPTION",
@@ -63,14 +74,14 @@
       errorname: "EVENT_TYPE",
       error: ""
     }, {
-      name: "Startdatum",
+      name: "Startzeit",
       type: "datetime",
       value: {...events[index]}.STARTING_TIME,
       bind: "STARTING_TIME",
       errorname: "STARTING_TIME",
       error: ""
     }, {
-      name: "Enddatum",
+      name: "Endzeit",
       type: "datetime",
       value: {...events[index]}.ENDING_TIME,
       bind: "ENDING_TIME",
@@ -120,21 +131,16 @@
       error: ""
     },{
       name: "Bild",
-      type: "text",
-      value: {...events[index]}.IMAGE_PATH,
-      bind: "IMAGE_PATH",
-      errorname: "IMAGE_PATH",
+      type: "file",
+      value: '',
+      bind: "IMAGE",
+      errorname: "IMAGE",
       error: ""
     }]
 
     function handleTableEdit(event){
         index = event.detail;
         editing = true;
-    }
-
-    function eventUpdated() {
-        editing = false;
-        router.reload();
     }
 
     function handleTableDelete(event){
@@ -153,14 +159,19 @@
 
     let handleFormSubmit = () => {
       let submitdata = formData.map(element => {
-			if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"]) {
-                return {
-                    [element["bind"]]: element["value"]
-                }
-            }
-        }).reduce((a, b) => Object.assign(a, b), {});
+			  if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"]) {
+          return {
+            [element["bind"]]: element["value"]
+          }
+        }
+      }).reduce((a, b) => Object.assign(a, b), {});
 
-      axios.post('/admin/events/' + {...events[index]}.EVENT_ID, submitdata)
+      var eventdata = new FormData();
+      for (const [key, value] of Object.entries(submitdata)) {
+        eventdata.append(key, value);
+      }
+
+      axios.post('/admin/events/' + {...events[index]}.EVENT_ID, eventdata)
       .then(response => {
           if (response.status === 200) {
                 editing = false;

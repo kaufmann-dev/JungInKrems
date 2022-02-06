@@ -20,13 +20,6 @@
     });
 
     $: formData = [{
-        name: "ID",
-        type: "text",
-        value: {...accounts[index]}.ACCOUNT_ID,
-        bind: "ACCOUNT_ID",
-        errorname: "ACCOUNT_ID",
-        error: ""
-    },{
         name: "Benutzername",
         type: "text",
         value: {...accounts[index]}.NAME,

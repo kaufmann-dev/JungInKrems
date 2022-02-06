@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
             'accountTypeWeb' => \App\Http\Middleware\Web\AccountType::class,
             'isEventOwnerWeb' => \App\Http\Middleware\Web\EventOwner::class,
             'isFacilityManagerWeb' => \App\Http\Middleware\Web\FacilityManager::class,
+            'isFacilityManagerByIdWeb' => \App\Http\Middleware\Web\FacilityManagerById::class,
             'isRequestOwnerWeb' => \App\Http\Middleware\Web\RequestOwner::class,
             'isBookmarkOwnerWeb' => \App\Http\Middleware\Web\BookmarkOwner::class,
     ];

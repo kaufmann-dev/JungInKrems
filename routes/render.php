@@ -106,7 +106,7 @@ Route::middleware('auth')->group(function(){
             });
             Route::get('/dashboard/events', function () {
                 return Inertia::render('Dashboard/Events', [
-                    'events' => Event::all()
+                    'events' => Event::with(['account', 'facility'])->get()
                 ]);
             });
             Route::get('/dashboard/bookmarks', function () {
