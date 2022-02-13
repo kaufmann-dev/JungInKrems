@@ -6,7 +6,7 @@
     $: user = $page.props.auth.user;
 
     let root = {
-        name: 'Account',
+        name: 'Mein Account',
         href: '/account',
     }
 

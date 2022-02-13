@@ -12,21 +12,21 @@
     let wrongPassword = '';
 
     $: credentials = [{
-        name: 'E-mail',
+        name: 'E-Mail',
         bind: 'email',
         type: 'email',
         value: '',
         errorname: 'email',
         error: '',
     }, {
-        name: 'Password',
+        name: 'Passwort',
         bind: 'password',
         type: 'password',
         value: '',
         errorname: 'password',
         error: '',
     }, {
-        name: 'Remember Me',
+        name: 'Angemeldet bleiben',
         bind: 'remember',
         type: 'checkbox',
         value: false,

@@ -1,9 +1,10 @@
 <script>
-    export let data;
+    import Button from './Button.svelte';
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
     export let ignore = ['created_at', 'updated_at', 'remember_token'];
     export let isRequest = false;
+    export let data;
 
     function editData(index){
         let event = index;
@@ -28,7 +29,7 @@
 
 <div class="tw-my-3 tw-block tw-overflow-auto tw-max-w-full">
     <table class="tw-rounded-t-lg tw-overflow-hidden tw-table tw-table-auto tw-bg-gray-100 tw-text-gray-700">
-      <thead class="tw-bg-yellow-400 tw-text-white">
+      <thead class="tw-bg-yellow-400 tw-text-black">
         <tr>
           {#each Object.keys(data[0]) as key}
             {#if !ignore.includes(key)}
@@ -46,13 +47,13 @@
                 <td class="tw-px-2 tw-py-2">{value}</td>
               {/if}
             {/each}
-            <td class="tw-px-2 tw-py-2 tw-flex tw-justify-end">
+            <td class="tw-gap-2 tw-px-2 tw-py-2 tw-flex tw-justify-end">
               {#if data[index].Status == 'Offen'}
-                <button title="Annehmen" class="tw-mr-2 tw-px-2 tw-py-1 tw-bg-green-500 tw-text-white tw-rounded" on:click={() => accept(index)}><i class="bi bi-check"></i></button>
-                <button title="Ablehnen" class="tw-mr-2 tw-px-2 tw-py-1 tw-bg-orange-500 tw-text-white tw-rounded" on:click={() => decline(index)}><i class="bi bi-x"></i></button>
+                <Button title="Annehmen" size="small" type="success" onClick={() => accept(index)}><i class="bi bi-check"></i></Button>
+                <Button title="Ablehnen" size="small" type="warning" onClick={() => decline(index)}><i class="bi bi-x"></i></Button>
               {/if}
-              <button title="Bearbeiten" class="tw-mr-2 tw-px-2 tw-py-1 tw-bg-gray-500 tw-text-white tw-rounded" on:click={() => editData(index)}><i class="bi bi-pencil-square"></i></button>
-              <button title="Löschen" class="tw-px-2 tw-py-1 tw-bg-red-500 tw-text-white tw-rounded" on:click={() => deleteData(index)}><i class="bi bi-trash3-fill"></i></button>
+              <Button size="small" type="light" title="Bearbeiten" onClick={() => editData(index)}><i class="bi bi-pencil-square"></i></Button>
+              <Button type="danger" size="small" title="Löschen" onClick={() => deleteData(index)}><i class="bi bi-trash3-fill"></i></Button>
             </td>
           </tr>
         {/each}

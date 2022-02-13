@@ -18,7 +18,7 @@
 </script>
 
 <div class=" tw-bg-gray-50 tw-border tw-p-5 tw-rounded-xl">
-    <h1 class="tw-mb-5  tw-border-b tw-border-black">{name}</h1>
+    <h1 class="tw-mb-5 tw-pb-1.5 tw-border-b tw-border-black">{name}</h1>
     <form on:submit|preventDefault={handleSubmit}>
         {#each data as member}
             <label for={member.name} class="tw-block tw-text-sm tw-font-medium tw-text-gray-700 tw-mb-2">{member.name}</label>

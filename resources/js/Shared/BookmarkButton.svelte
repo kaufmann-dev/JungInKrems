@@ -17,17 +17,26 @@
         router.reload();
     }
 
+    let isHovering = false;
+
 
 </script>
 
 {#if $page.props.auth.user}
-    <button class="tw-rounded-full tw-bg-yellow-400">
-        <button on:click={handleBookmark} class="tw-py-0.5 tw-px-3 tw-rounded-full tw-bg-yellow-400" on:click={() => {isChecked = !isChecked}}>
+        <button on:click={handleBookmark} class="tw-py-0.5 tw-px-3 tw-rounded-3xl tw-bg-yellow-400 tw-text-black" on:click={() => {isChecked = !isChecked}}
+            on:mouseover={() => isHovering = true}
+                    on:mouseout={() => isHovering = false}>
             {#if isChecked}
-                <i class="bi bi-bookmark-fill"></i>
+                <i
+                    class:hover={isHovering ? 'bi bi-bookmark-fill' : ''}
+                    class={isHovering ? 'bi bi-bookmark' : 'bi bi-bookmark-fill'}
+                    
+                ></i>
             {:else}
-                <i class="bi bi-bookmark"></i>
+                <i
+                    class:hover={isHovering ? 'bi bi-bookmark' : ''}
+                    class={isHovering ? 'bi bi-bookmark-fill' : 'bi bi-bookmark'}
+                ></i>
             {/if}
         </button>
-    </button>
 {/if}

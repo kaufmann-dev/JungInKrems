@@ -20,7 +20,7 @@ namespace App\Models{
  * @property string $PASSWORD
  * @property bool $IS_EMAIL_VERIFIED
  * @property string $ACCOUNT_TYPE
- * @property string|null $remember_token
+ * @property string|null $REMEMBER_TOKEN
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountHasBookmarks> $bookmarks
@@ -45,7 +45,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Account whereISEMAILVERIFIED($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Account whereNAME($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Account wherePASSWORD($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Account whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Account whereREMEMBERTOKEN($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Account whereUpdatedAt($value)
  */
 	class Account extends \Eloquent implements \Illuminate\Contracts\Auth\Authenticatable, \Illuminate\Contracts\Auth\CanResetPassword, \Illuminate\Contracts\Auth\MustVerifyEmail {}
@@ -129,7 +129,6 @@ namespace App\Models{
  * @property string $IMAGE_PATH
  * @property string $DESCRIPTION
  * @property string $EVENT_TYPE
- * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Account $account
@@ -150,7 +149,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereIMAGEPATH($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Event wherePHONENR($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Event wherePOSTALCODE($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereSTARTINGTIME($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereTITLE($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereUpdatedAt($value)
@@ -175,12 +173,11 @@ namespace App\Models{
  * @property bool $IS_CITY_VERIFIED
  * @property string $FACILITY_TYPE
  * @property string $IMAGE_PATH
- * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Event> $events
  * @property-read int|null $events_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountHasFacilities> $managers
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Account> $managers
  * @property-read int|null $managers_count
  * @method static \Illuminate\Database\Eloquent\Builder|Facility newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Facility newQuery()
@@ -197,7 +194,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Facility whereNAME($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Facility wherePHONENR($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Facility wherePOSTALCODE($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Facility whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Facility whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Facility whereWEBSITEURL($value)
  */

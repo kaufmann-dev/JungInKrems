@@ -21,7 +21,8 @@ class Facility extends Model
 
     public function managers()
     {
-        return $this->hasMany(AccountHasFacilities::class, 'FACILITY_ID', 'FACILITY_ID');
+        // belong to many accounthasfacilities
+        return $this->belongsToMany(Account::class, 'ACCOUNT_has_FACILITIES_JT', 'FACILITY_ID', 'ACCOUNT_ID');
     }
 
     public function events()

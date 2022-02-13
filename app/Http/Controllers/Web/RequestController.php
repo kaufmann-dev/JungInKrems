@@ -32,11 +32,13 @@ class RequestController extends Controller
     public function adminAcceptRequest($id)
     {
         $request = Request::find($id);
-        if(request()->Typ == 'Freischaltung'){
+        
+        if($request->REQUEST_TYPE == 'Freischaltung'){
             $facility = Facility::find($request->FACILITY_ID);
-            $facility->IS_CITY_VERIFIED = 1;
+            $facility->IS_CITY_VERIFIED = true;
             $facility->save();
         }
+
         $request->STATUS = 'Angenommen';
         $request->save();
     }
@@ -50,14 +52,14 @@ class RequestController extends Controller
 
     public function updateRequest($id)
     {
-        $this->validateUpdate(request());
+        $this->validateRequest(request());
         $request = Request::find($id);
         $request->update(request()->all());
     }
 
     public function adminUpdateRequest($id)
     {
-        $this->validateAdminUpdate(request());
+        $this->validateRequest(request());
 
         $request = Request::find($id);
         

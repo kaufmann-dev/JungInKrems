@@ -14,7 +14,7 @@ class EventController extends Controller
 
     public function createEvent()
     {
-        $this->validateNew(request());
+        $this->validateRequest(request());
 
         $file = request()->file('IMAGE');
         $fileName = $file->getClientOriginalName();
@@ -42,7 +42,7 @@ class EventController extends Controller
 
     public function adminUpdateEvent($id)
     {
-        $this->validateAdminUpdate(request());
+        $this->validateRequest(request());
 
         if(request()->has('IMAGE')) {
             $file = request()->file('IMAGE');
@@ -58,7 +58,7 @@ class EventController extends Controller
 
     public function updateEvent($id)
     {
-        $this->validateUpdate(request());
+        $this->validateRequest(request());
 
         if(request()->has('IMAGE')){
             $file = request()->file('IMAGE');

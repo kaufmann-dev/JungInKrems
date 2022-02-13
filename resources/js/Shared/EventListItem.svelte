@@ -21,14 +21,17 @@
 <div class="tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mt-4 tw-grid tw-gap-4 tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
     <img class="tw-shadow tw-rounded-md tw-overflow-hidden tw-h-40 tw-object-cover tw-w-full" src="/images/uploads/{event.IMAGE_PATH}" alt="{event.TITLE}">
     <div>
-        <h3 on:click={router.get('/events/' + event.EVENT_ID)} class="tw-cursor-pointer tw-underline tw-mb-3">{event.TITLE}</h3>
+        <h3 on:click={router.get('/events/' + event.EVENT_ID)} class="tw-cursor-pointer tw-underline tw-mb-3 hover:tw-no-underline">{event.TITLE}</h3>
         <!-- use:inertia="{{ href: "events/"+event.EVENT_ID, method: 'get' }}"-->
-        {#if event.EVENT_TYPE == "Bildung"}
+        {#if event.facility?.FACILITY_ID}
             <InfoText mb="true" color="gray">{event.facility?.NAME}</InfoText>
+        {:else}
+            <InfoText mb="true" color="gray">{event.account?.NAME}</InfoText>
+        {/if}
+        {#if event.EVENT_TYPE == "Bildung"}
             <br>
             <InfoText color="blue">Bildung</InfoText>
         {:else}
-            <InfoText mb="true" color="gray">{event.account?.NAME}</InfoText>
             <br>
             <InfoText color="green">Freizeit</InfoText>
         {/if}
