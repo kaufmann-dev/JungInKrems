@@ -11,10 +11,142 @@
     import Subtitle from "../Shared/Subtitle.svelte";
     import SubmitButton from "../Shared/SubmitButton.svelte";
     import CenterDiv from "../Shared/CenterDiv.svelte";
+    import ErrorMessage from "../Shared/ErrorMessage.svelte";
 
     let updating = false;
     let editingManagers = false;
     let creatingEvent = false;
+
+    // manager logic
+    let managerEmail;
+    let managerError = "";
+
+    let managerSubmit = () => {
+        axios
+            .post("/facilitymanagers", {
+                EMAIL: managerEmail,
+                FACILITY_ID: facility.FACILITY_ID,
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    handleReload();
+                }
+            })
+            .catch(error => {
+                managerError = error.response.data.message;
+                console.log(error);
+            });
+    };
+
+    function managerDelete(manager){
+        if(!confirm("Möchten Sie diesen Manager wirklich löschen?"))
+            return;
+        axios
+            .post("/facilitymanagers/delete/" + manager.ACCOUNT_ID, {
+                FACILITY_ID: facility.FACILITY_ID,
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    handleReload();
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    // create event logic
+    let newEventData = [{
+        name: "Titel",
+        type: "text",
+        value: "",
+        bind: "TITLE",
+        errorname: "TITLE",
+        error: ""
+    },{
+        name: "Beschreibung",
+        type: "text",
+        value: "",
+        bind: "DESCRIPTION",
+        errorname: "DESCRIPTION",
+        error: ""
+    },{
+        name: "Typ",
+        type: "array",
+        options : [
+            {value: "Freizeit", name: "Freizeit"},
+            {value: "Bildung", name: "Bildung"}
+        ],
+        value: "",
+        bind: "EVENT_TYPE",
+        errorname: "EVENT_TYPE",
+        error: ""
+    }, {
+        name: "Startdatum",
+        type: "datetime",
+        value: "",
+        bind: "STARTING_TIME",
+        errorname: "STARTING_TIME",
+        error: ""
+    }, {
+        name: "Enddatum",
+        type: "datetime",
+        value: "",
+        bind: "ENDING_TIME",
+        errorname: "ENDING_TIME",
+        error: ""
+    }, {
+        name: "Webseite",
+        type: "text",
+        value: "",
+        bind: "WEBSITE_URL",
+        errorname: "WEBSITE_URL",
+        error: ""
+    },{
+        name: "E-Mail",
+        type: "text",
+        value: "",
+        bind: "EMAIL",
+        errorname: "EMAIL",
+        error: ""
+    },{
+        name: "Telefonnummer",
+        type: "text",
+        value: "",
+        bind: "PHONE_NR",
+        errorname: "PHONE_NR",
+        error: ""
+    },{
+        name: "Postleitzahl",
+        type: "text",
+        value: "",
+        bind: "POSTAL_CODE",
+        errorname: "POSTAL_CODE",
+        error: ""
+    },{
+        name: "Stadt",
+        type: "text",
+        value: "",
+        bind: "CITY",
+        errorname: "CITY",
+        error: ""
+    },{
+        name: "Adresse",
+        type: "text",
+        value: "",
+        bind: "ADDRESS",
+        errorname: "ADDRESS",
+        error: ""
+    },{
+        name: "Bild",
+        type: "file",
+        value: "",
+        bind: "IMAGE",
+        errorname: "IMAGE",
+        error: ""
+    }];
+
+    // other logic
 
     function handleReload() {
         cancel();
@@ -119,6 +251,42 @@
         }
     ];
 
+    let submitNewEvent = () => {
+        let submitdata = newEventData.map(element => {
+            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"]) {
+                return {
+                    [element["bind"]]: element["value"]
+                }
+            }
+        }).reduce((a, b) => Object.assign(a, b), {});
+
+        let formdata = new FormData();
+        for (const [key, value] of Object.entries(submitdata)) {
+            formdata.append(key, value);
+        }
+        formdata.append("FACILITY_ID", facility.FACILITY_ID);
+        formdata.append("ACCOUNT_ID", $page.props.auth.user?.ACCOUNT_ID);
+
+        axios.post('/events', formdata)
+            .then(response => {
+                if (response.status === 200) {
+                    handleReload();
+                }
+            })
+            .catch(error => {
+                if (error?.response?.status === 422) {
+                    for (const [key, value] of Object.entries(formData)) {
+                        if(error.response.data.errors[value["errorname"]]) {
+                            formData[key]["error"] = error.response.data.errors[value["errorname"]][0];
+                        } else {
+                            formData[key]["error"] = "";
+                        }
+                    }
+                }
+                console.log(error);
+            });
+    }
+
     let deleteFacility = () => {
         if(window.confirm("Möchten Sie die Einrichtung wirklich löschen?")) {
             updating = true;
@@ -157,7 +325,6 @@
                         }
                     }
                 }
-                console.log(error);
             });
     } 
 </script>
@@ -189,21 +356,28 @@
                                         <td class="tw-py-2 tw-px-4">{manager.NAME}</td>
                                         <td class="tw-py-2 tw-px-4">{manager.EMAIL}</td>
                                         <td class="tw-py-2 tw-px-4">
-                                            <Button size="small" type="danger">Löschen</Button>
+                                            <Button onClick={()=>managerDelete(manager)} size="small" type="danger">Löschen</Button>
                                         </td>
                                     </tr>
                                 {/each}
                             </tbody>
                         </table>
                         <h2 class="tw-mt-7 tw-text-left tw-block tw-w-full tw-pb-1.5 tw-border-b tw-border-black">Hinzufügen</h2>
-                        <form class="tw-w-full tw-max-w-lg tw-mt-2 tw-flex tw-flex-col tw-items-center">
+                        <form on:submit|preventDefault={managerSubmit} class="tw-w-full tw-max-w-lg tw-mt-2 tw-flex tw-flex-col tw-items-center">
                             <div class="tw-w-full tw-flex tw-flex-col tw-items-center">
                             <!-- <label for="email" class="tw-text-left tw-font-bold tw-mb-2">E-Mail</label> -->
-                            <input autocomplete="off" placeholder="E-Mail" id="bru" type="text" class="tw-border tw-border-gray-400 tw-rounded-lg tw-py-2 tw-px-4 tw-w-full tw-mb-4">
+                            <input
+                                autocomplete="off"
+                                placeholder="E-Mail"
+                                id="bru" type="text"
+                                class="tw-border tw-border-gray-400 tw-rounded-lg tw-py-2 tw-px-4 tw-w-full"
+                                bind:value={managerEmail}
+                            >
+                            <ErrorMessage>{managerError}</ErrorMessage>
                             </div>
-                            <div class="tw-flex tw-gap-2">
+                            <div class="tw-flex tw-gap-2 tw-mt-4">
                                 <SubmitButton type='primary'>Hinzufügen</SubmitButton>
-                                <SubmitButton type='light'>Abbrechen</SubmitButton>
+                                <SubmitButton onClick={cancel} type='light'>Abbrechen</SubmitButton>
                             </div>
                         </form>
                     </div>
@@ -214,7 +388,7 @@
     {:else if creatingEvent}
         <H1>Event anmelden</H1>
         <Subtitle>Melden Sie ein Event für {facility.NAME} an.</Subtitle>
-        <Form newInstance={true} {data} onSubmit={submit} onCancel={cancel} onDelete={deleteFacility}></Form>
+        <Form newInstance={true} data={newEventData} onSubmit={submitNewEvent} onCancel={cancel}></Form>
     {:else}
         <div class="tw-grid tw-gap-4 md:tw-grid-cols-2 tw-my-8">
             <div>
