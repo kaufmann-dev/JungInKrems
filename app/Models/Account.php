@@ -41,7 +41,7 @@ class Account extends Model implements Authenticatable, CanResetPasswordContract
     ];
 
     protected $hidden = [
-        'REMEMBER_TOKEN',
+        'REMEMBER_TOKEN', 'pivot'
     ];
 
     // ------------------- RELATIONSHIPS ------------------- //
