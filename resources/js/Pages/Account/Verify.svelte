@@ -24,15 +24,15 @@
 
 <AccLayout>
     <H1 mb={false}>E-Mail bestätigen</H1>
-    <p class="tw-text-gray-500 tw-border-b tw-pb-3">Bestätige deine E-Mail Adresse.</p>
+    <span class="tw-text-gray-500 tw-border-b tw-pb-3 tw-mb-4">Bestätige deine E-Mail Adresse.</span>
     {#if error500}
-        <p class="tw-text-red-500">{error500}</p>
+        <span class="tw-text-red-500 tw-mb-4">{error500}</span>
     {:else if isVerified}
-        <p class="tw-text-green-700">Ihre E-Mail Adresse ist bestätigt.</p>
+        <span class="tw-text-green-700 tw-mb-4">Ihre E-Mail Adresse ist bestätigt.</span>
     {:else if sent}
-        <p class="tw-text-green-700">Wir haben dir eine E-Mail Adresse geschickt. Überprüfe dein Postfach und deinen Spam Ordner.</p>
+        <span class="tw-text-green-700 tw-mb-4">Wir haben dir eine E-Mail Adresse geschickt. Überprüfe dein Postfach und deinen Spam Ordner.</span>
     {:else}
-        <p class="tw-text-red-500">Ihre E-Mail Adresse wurde noch nicht bestätigt.</p>
+        <span class="tw-text-red-500 tw-mb-4">Ihre E-Mail Adresse wurde noch nicht bestätigt.</span>
         <Button onClick={sendEmail}>Link schicken</Button>
     {/if}
 </AccLayout>

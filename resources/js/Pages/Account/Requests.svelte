@@ -100,20 +100,20 @@
 <AccLayout>
     {#if creating}
         <H1 class="tw-mt-6">Neuen Antrag erstellen</H1>
-        <p class="tw-text-gray-500 tw-border-b tw-pb-3">Erstelle Sie einen neuen Antrag.</p>
+        <span class="tw-text-gray-500 tw-border-b tw-pb-3 tw-mb-4">Erstelle Sie einen neuen Antrag.</span>
         <Form newInstance={true} {data} onSubmit={submit} onCancel={cancel}></Form>
     {:else}
         <H1 class="tw-mt-6">Meine Anträge</H1>
-        <p class="tw-text-gray-500 tw-border-b tw-pb-3">Alle Anträge die Sie erstellt haben.</p>
+        <span class="tw-text-gray-500 tw-border-b tw-pb-3 tw-mb-4">Alle Anträge die Sie erstellt haben.</span>
         {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
-            <p>Sie müssen Ihre E-Mail Adresse bestätigen um einen Antrag erstellen zu könnnen.</p>
+            <span class="tw-mb-4">Sie müssen Ihre E-Mail Adresse bestätigen um einen Antrag erstellen zu könnnen.</span>
             <Button link="/account/verify">Jetzt bestätigen</Button>
         {:else if facilities.length === 0}
-            <p>Momentan stehen Anträge nur Bildungsanstalten zur Verfügung. Sie verwalten derzeit keine Bildungsanstalten.</p>
+            <span class="tw-mb-4">Momentan stehen Anträge nur Bildungsanstalten zur Verfügung. Sie verwalten derzeit keine Bildungsanstalten.</span>
             <Button link="/newfacility">Bildungsanstalt anmelden</Button>
         {:else}
             {#if requests.length === 0}
-                <p>Sie haben noch keine Anträge erstellt.</p>
+                <span class="tw-mb-4">Sie haben noch keine Anträge erstellt.</span>
             {:else}
                 {#each requests as request}
                     <RequestListItem request={request}/>

@@ -201,7 +201,7 @@
     {#if editing}
         <Form newInstance={false} data={formData} onSubmit={handleFormSubmit} onDelete={deleteEvent} onCancel={cancel}></Form>
     {:else if events.length === 0}
-        <p>Keine Events vorhanden</p>
+        <span class="tw-mb-4">Keine Events vorhanden</span>
         <Button link="/newevent">Neues Event erstellen</Button>
     {:else}
         <Table on:deleteData={handleTableDelete} on:editData={handleTableEdit} {data} ignore={["ACCOUNT_ID", "FACILITY_ID", "STARTING_TIME", "ENDING_TIME", "WEBSITE_URL", "PHONE_NR", "EMAIL", "POSTAL_CODE", "CITY", "ADDRESS", "IMAGE_PATH", "remember_token", "created_at", "updated_at"]}></Table>

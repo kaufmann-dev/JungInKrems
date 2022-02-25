@@ -40,7 +40,7 @@
                     <Button link={"/login"}><i class="bi bi-person-fill"></i> Anmelden</Button>
                 {:else}
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="bg-dark btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                       {$page.props.auth.user.NAME}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">

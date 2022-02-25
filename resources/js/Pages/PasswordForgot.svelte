@@ -39,7 +39,7 @@
 <Layout>
     <H1>Passwort zurücksetzen</H1>
     {#if sent}
-        <p>Wir haben dir einen Link zum Zurücksetzen deines Passworts gesendet.</p>
+        <span class="tw-mb-4">Wir haben dir einen Link zum Zurücksetzen deines Passworts gesendet.</span>
     {:else}
         <Form onSubmit={submit} onCancel={cancel} newInstance={true} {data}></Form>
     {/if}

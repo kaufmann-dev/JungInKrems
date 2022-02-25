@@ -147,7 +147,7 @@
         <Form onSubmit={submit} onDelete={deletion} onCancel={cancel} newInstance={false} data={formData}></Form>
     {:else}
         {#if requests.length == 0}
-            <p>Keine Anträge vorhanden</p>
+            <span class="tw-mb-4">Keine Anträge vorhanden</span>
         {:else}
             <Table on:editData={handleEdit} on:deleteData={handleDeletion} on:decline={handleDecline} on:accept={handleAccept} isRequest={true} bind:data={data}></Table>
         {/if}

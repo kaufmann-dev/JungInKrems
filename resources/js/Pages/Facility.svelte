@@ -12,6 +12,8 @@
     import SubmitButton from "../Shared/SubmitButton.svelte";
     import CenterDiv from "../Shared/CenterDiv.svelte";
     import ErrorMessage from "../Shared/ErrorMessage.svelte";
+    import H2 from "../Shared/H2.svelte";
+    import H3 from "../Shared/H3.svelte";
 
     let updating = false;
     let editingManagers = false;
@@ -362,7 +364,7 @@
                                 {/each}
                             </tbody>
                         </table>
-                        <h2 class="tw-mt-7 tw-text-left tw-block tw-w-full tw-pb-1.5 tw-border-b tw-border-black">Hinzufügen</h2>
+                        <H2>Hinzufügen</H2>
                         <form on:submit|preventDefault={managerSubmit} class="tw-w-full tw-max-w-lg tw-mt-2 tw-flex tw-flex-col tw-items-center">
                             <div class="tw-w-full tw-flex tw-flex-col tw-items-center">
                             <!-- <label for="email" class="tw-text-left tw-font-bold tw-mb-2">E-Mail</label> -->
@@ -421,10 +423,10 @@
                 <Button onClick={()=>creatingEvent=true}>Event anmelden</Button>
             </div>
         {/if}
-        <h3>Beschreibung</h3>
-        <p>{facility.DESCRIPTION}</p>
+        <H3>Beschreibung</H3>
+        <span class="tw-mb-4">{facility.DESCRIPTION}</span>
         {#if facility.events?.length > 0}
-            <h3>Events der <span class="tw-text-yellow-400">{facility.NAME}</span></h3>
+            <H3>Events der <span class="tw-text-yellow-400">{facility.NAME}</span></H3>
             {#each facility.events as event}
                 <EventListItem event={event}></EventListItem>
             {/each}

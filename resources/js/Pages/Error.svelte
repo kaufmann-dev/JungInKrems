@@ -24,7 +24,7 @@
 <CenterDiv>
   <div class="tw-text-center">
     <H1>{title}</H1>
-    <p>{description}</p>
+    <span class="tw-mb-4">{description}</span>
     <Button link="/">Zurück zur Startseite</Button>
   </div>
 </CenterDiv>
