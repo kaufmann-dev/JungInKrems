@@ -9,5 +9,5 @@
         <li class="nav-item"><a href="https://www.krems.at/" class="nav-link px-2 text-muted">Stadt Krems</a></li>
         <li class="nav-item"><a href="https://www.krems.at/datenschutzerklaerung" class="nav-link px-2 text-muted">Datenschutz</a></li>
     </ul>
-    <span class="text-center text-muted tw-mb-4"><i class="bi bi-c-circle"></i> 2023 Stadt Krems</span>
+    <span class="text-center text-muted tw-mb-4 tw-block"><i class="bi bi-c-circle"></i> 2023 Stadt Krems</span>
 </footer>

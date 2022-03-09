@@ -3,6 +3,7 @@
     import { inertia } from '@inertiajs/svelte';
     import InfoText from './InfoText.svelte';
     import BookmarkButton from './BookmarkButton.svelte';
+    import H4 from './H4.svelte';
 </script>
 
 <div class="tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mt-4 tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-4 tw-gap-4">
@@ -13,11 +14,11 @@
         <BookmarkButton checkId={facility.FACILITY_ID} />
     </div>
     <div>
-        <h4 class="tw-mb-3">Webseite</h4>
+        <H4>Webseite</H4>
         <a href="{facility.WEBSITE_URL}" class="tw-underline">{facility.WEBSITE_URL}</a>
     </div>
     <div>
-        <h4 class="tw-mb-3">Kontakt</h4>
+        <H4>Kontakt</H4>
         <InfoText mb="false" color="light">Addresse</InfoText>
         {facility.ADDRESS}, {facility.POSTAL_CODE} {facility.CITY}<br>
         <InfoText mt="true" mb="false" color="light">E-Mail</InfoText>

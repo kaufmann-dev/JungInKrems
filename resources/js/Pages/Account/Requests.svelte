@@ -5,6 +5,7 @@
     import { page, router } from '@inertiajs/svelte';
     import Form from "../../Shared/Form.svelte";
     import H1 from "../../Shared/H1.svelte";
+    import Subtitle from "../../Shared/Subtitle.svelte";
 
     export let requests = [];
     export let facilities = [];
@@ -100,11 +101,11 @@
 <AccLayout>
     {#if creating}
         <H1 class="tw-mt-6">Neuen Antrag erstellen</H1>
-        <span class="tw-text-gray-500 tw-border-b tw-pb-3 tw-mb-4">Erstelle Sie einen neuen Antrag.</span>
+        <Subtitle>Erstelle Sie einen neuen Antrag.</Subtitle>
         <Form newInstance={true} {data} onSubmit={submit} onCancel={cancel}></Form>
     {:else}
         <H1 class="tw-mt-6">Meine Anträge</H1>
-        <span class="tw-text-gray-500 tw-border-b tw-pb-3 tw-mb-4">Alle Anträge die Sie erstellt haben.</span>
+        <Subtitle>Alle Anträge die Sie erstellt haben.</Subtitle>
         {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
             <span class="tw-mb-4">Sie müssen Ihre E-Mail Adresse bestätigen um einen Antrag erstellen zu könnnen.</span>
             <Button link="/account/verify">Jetzt bestätigen</Button>

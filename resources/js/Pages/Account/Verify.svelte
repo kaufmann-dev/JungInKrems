@@ -1,8 +1,9 @@
 <script>
     import AccLayout from "../../Shared/AccLayout.svelte";
     import Button from "../../Shared/Button.svelte";
-    import { page, router } from '@inertiajs/svelte';
+    import { page } from '@inertiajs/svelte';
     import H1 from "../../Shared/H1.svelte";
+    import Subtitle from "../../Shared/Subtitle.svelte";
 
     let error500 = "";
     let isVerified = false;
@@ -24,7 +25,7 @@
 
 <AccLayout>
     <H1 mb={false}>E-Mail bestätigen</H1>
-    <span class="tw-text-gray-500 tw-border-b tw-pb-3 tw-mb-4">Bestätige deine E-Mail Adresse.</span>
+    <Subtitle>Bestätige deine E-Mail Adresse.</Subtitle>
     {#if error500}
         <span class="tw-text-red-500 tw-mb-4">{error500}</span>
     {:else if isVerified}
