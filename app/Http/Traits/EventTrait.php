@@ -79,4 +79,36 @@ trait EventTrait
             'ENDING_TIME.max' => 'Die Endzeit darf maximal 255 Zeichen lang sein.',
         ]);
     }
+
+    public function requireAdminUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'ACCOUNT_ID' => 'required',
+            'EVENT_TYPE' => 'required',
+        ], [
+            'ACCOUNT_ID.required' => 'Die Benutzer-ID muss ausgefüllt sein.',
+            'EVENT_TYPE.required' => 'Der Typ muss ausgefüllt sein.',
+        ]);
+    }
+
+    public function requireUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'TITLE' => 'required',
+            'DESCRIPTION' => 'required',
+            'STARTING_TIME' => 'required',
+            'POSTAL_CODE' => 'required',
+            'CITY' => 'required',
+            'ADDRESS' => 'required',
+            'IMAGE' =>'required',
+        ], [
+            'TITLE.required' => 'Der Titel muss ausgefüllt sein.',
+            'DESCRIPTION.required' => 'Die Beschreibung muss ausgefüllt sein.',
+            'STARTING_TIME.required' => 'Die Startzeit muss ausgefüllt sein.',
+            'POSTAL_CODE.required' => 'Die Postleitzahl muss ausgefüllt sein.',
+            'CITY.required' => 'Die Stadt muss ausgefüllt sein.',
+            'ADDRESS.required' => 'Die Adresse muss ausgefüllt sein.',
+            'IMAGE.required' => 'Die Bild muss ausgefüllt sein.',
+        ]);
+    }
 }

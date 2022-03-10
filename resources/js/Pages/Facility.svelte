@@ -364,7 +364,7 @@
                                 {/each}
                             </tbody>
                         </table>
-                        <H2>Hinzufügen</H2>
+                        <H2 underline={true}>Hinzufügen</H2>
                         <form on:submit|preventDefault={managerSubmit} class="tw-w-full tw-max-w-lg tw-mt-2 tw-flex tw-flex-col tw-items-center">
                             <div class="tw-w-full tw-flex tw-flex-col tw-items-center">
                             <!-- <label for="email" class="tw-text-left tw-font-bold tw-mb-2">E-Mail</label> -->
@@ -397,7 +397,7 @@
                 <H1 mt={false}>{facility.NAME}</H1>
                 <InfoText color="blue">{facility.FACILITY_TYPE}</InfoText>
                 <BookmarkButton checkId={facility.FACILITY_ID}></BookmarkButton>
-                <div class="tw-text-xl tw-grid tw-gap-2 tw-mt-4">
+                <div class="tw-text-lg tw-grid tw-gap-2 tw-mt-4">
                     <div class="tw-flex">
                         <i class="tw-mx-3 tw-text-blue-500 bi bi-geo-alt-fill"></i> <span>{facility.ADDRESS}, {facility.POSTAL_CODE} {facility.CITY}</span>
                     </div>
@@ -424,7 +424,7 @@
             </div>
         {/if}
         <H3>Beschreibung</H3>
-        <span class="tw-mb-4">{facility.DESCRIPTION}</span>
+        <span class="tw-mb-4 tw-block">{facility.DESCRIPTION}</span>
         {#if facility.events?.length > 0}
             <H3>Events der <span class="tw-text-yellow-400">{facility.NAME}</span></H3>
             {#each facility.events as event}

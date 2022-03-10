@@ -91,6 +91,7 @@
                     }
                 }
             }
+            console.log(error);
         });
     }
     let cancel = () => {
@@ -107,22 +108,20 @@
         <H1 class="tw-mt-6">Meine Anträge</H1>
         <Subtitle>Alle Anträge die Sie erstellt haben.</Subtitle>
         {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
-            <span class="tw-mb-4">Sie müssen Ihre E-Mail Adresse bestätigen um einen Antrag erstellen zu könnnen.</span>
+            <span class="tw-mb-4 tw-block">Sie müssen Ihre E-Mail Adresse bestätigen um einen Antrag erstellen zu könnnen.</span>
             <Button link="/account/verify">Jetzt bestätigen</Button>
         {:else if facilities.length === 0}
-            <span class="tw-mb-4">Momentan stehen Anträge nur Bildungsanstalten zur Verfügung. Sie verwalten derzeit keine Bildungsanstalten.</span>
+            <span class="tw-mb-4 tw-block">Momentan stehen Anträge nur Bildungsanstalten zur Verfügung. Sie verwalten derzeit keine Bildungsanstalten.</span>
             <Button link="/newfacility">Bildungsanstalt anmelden</Button>
         {:else}
             {#if requests.length === 0}
-                <span class="tw-mb-4">Sie haben noch keine Anträge erstellt.</span>
+                <span class="tw-mb-4 tw-block">Sie haben noch keine Anträge erstellt.</span>
             {:else}
                 {#each requests as request}
                     <RequestListItem request={request}/>
                 {/each}
             {/if}
-            <div class="mt-3" on:click={()=>creating=true}>
-                <Button>Neuen Antrag erstellen</Button>
-            </div>
+            <Button onClick={()=>creating=true}>Neuen Antrag erstellen</Button>
         {/if}
     {/if}
 </AccLayout>

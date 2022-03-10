@@ -24,7 +24,7 @@
     }
 </script>
 
-<div class="tw-grid tw-gap-2 tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mt-4">
+<div class="tw-grid tw-gap-2 tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mb-4">
     <div>
         <H3>Typ: {request.REQUEST_TYPE}</H3>
         <span class="tw-clock tw-mb-3">Nachricht: {request.MESSAGE}</span>

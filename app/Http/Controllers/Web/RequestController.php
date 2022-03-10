@@ -13,12 +13,13 @@ class RequestController extends Controller
 
     public function createRequest()
     {
+        $this->validateRequest(request());
+        $this->requireUpdate(request());
+
         request()->merge([
             'ACCOUNT_ID' => request()->user()->ACCOUNT_ID,
             'STATUS' => 'Offen',
         ]);
-        
-        $this->validateRequest(request());
         
         $request = Request::create(request()->all());
     }
@@ -50,16 +51,18 @@ class RequestController extends Controller
         $request->save();
     }
 
-    public function updateRequest($id)
+    /* public function updateRequest($id)
     {
         $this->validateRequest(request());
         $request = Request::find($id);
         $request->update(request()->all());
-    }
+    } */
 
     public function adminUpdateRequest($id)
     {
         $this->validateRequest(request());
+        $this->requireUpdate(request());
+        $this->requireAdminUpdate(request());
 
         $request = Request::find($id);
         

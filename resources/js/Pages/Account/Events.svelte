@@ -13,18 +13,19 @@
     <H1 class="tw-mt-6">Meine Events</H1>
     <Subtitle>Alle Events die Sie erstellt haben.</Subtitle>
     {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
-        <span class="tw-mb-4">Sie müssen Ihre E-Mail Adresse bestätigen um Events erstellen zu können.</span>
+        <span class="tw-mb-4 tw-block">Sie müssen Ihre E-Mail Adresse bestätigen um Events erstellen zu können.</span>
         <Button link="/account/verify">Jetzt bestätigen</Button>
     {:else}
         {#if events.length === 0}
-            <span class="tw-mb-4">Sie haben noch keine Events erstellt.</span>
+            <span class="tw-mb-4 tw-block">Sie haben noch keine Events erstellt.</span>
         {:else}
-            {#each events as event}
-                <EventListItem event={event}/>
-            {/each}
+            <div class="tw-mb-4">
+                {#each events as event}
+                    <EventListItem event={event}/>
+                {/each}
+            </div>  
         {/if}
-        <div class="mt-3">
-            <Button link="/newevent">Neues Event erstellen</Button>
-        </div>
+        <div></div>
+        <Button link="/newevent">Neues Event erstellen</Button>
     {/if}
 </AccLayout>
