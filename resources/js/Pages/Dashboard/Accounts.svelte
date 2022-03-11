@@ -88,7 +88,7 @@
 
     let submit = () => {
         let submitdata = formData.map(element => {
-            if(element["value"] !== "") {
+            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"] !== null) {
                 return {
                     [element["bind"]]: element["value"]
                 }
