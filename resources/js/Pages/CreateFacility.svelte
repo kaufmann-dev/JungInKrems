@@ -119,6 +119,7 @@
             }
         })
         .catch(error => {
+            console.log(error);
             if (error?.response?.status === 422) {
                 for (const [key, value] of Object.entries(formData)) {
                     if(error.response.data.errors[value["errorname"]]) {
@@ -128,7 +129,6 @@
                     }
                 }
             }
-            console.log(error);
         });
     }
 

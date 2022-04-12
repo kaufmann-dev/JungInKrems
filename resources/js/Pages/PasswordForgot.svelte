@@ -25,6 +25,7 @@
                 sent = true;
             })
             .catch(error => {
+                console.log(error);
                 if (error.response.status === 422) {
                     data[0]["error"] = error.response.data.errors[["email"]];
                 }
