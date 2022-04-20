@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Web\BookmarkController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\BookmarkController;
 use App\Http\Controllers\Web\AccountController;
 use App\Http\Controllers\Web\EventController;
 use App\Http\Controllers\Web\FacilityController;
-use App\Http\Controllers\Web\PasswordResetController;
+use App\Http\Controllers\Web\PasswordController;
 use App\Http\Controllers\Web\RequestController;
+use App\Http\Controllers\Web\VerificationController;
 
 require __DIR__.'/render.php';
 
@@ -27,18 +28,18 @@ Route::post('/login', [AccountController::class, 'login']);
 Route::post('/register', [AccountController::class, 'register']);
 
 // Password Forgotten Routes
-Route::post('/password/forgot', [PasswordResetController::class, 'sendResetLinkEmail']);
-Route::post('/password/reset', [PasswordResetController::class, 'resetPassword']);
+Route::post('/password/forgot', [PasswordController::class, 'sendResetLinkEmail']);
+Route::post('/password/reset', [PasswordController::class, 'resetPassword']);
 
 // Authenticated Middleware
 Route::middleware('auth')->group(function(){
 
     // Account Routes
     Route::post('/logout', [AccountController::class, 'logout']);
-    Route::post('/email/send-verification', [AccountController::class, 'sendVerificationEmail']);
+    Route::post('/email/send-verification', [VerificationController::class, 'sendVerificationEmail']);
     Route::post('/account/delete/', [AccountController::class, 'deleteAccount']);
     Route::post('/account', [AccountController::class, 'updateAccount']);
-    Route::post('/reset-password', [AccountController::class, 'resetPassword']);
+    Route::post('/password/change', [PasswordController::class, 'changePassword']);
 
     // Bookmark Routes
     Route::post('bookmarks/delete/{id}', [BookmarkController::class, 'deleteBookmark'])->middleware('isBookmarkOwnerWeb');

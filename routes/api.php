@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\BookmarkController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\FacilityController;
 use App\Http\Controllers\Api\RequestController;
+use App\Http\Controllers\Api\PasswordController;
+use App\Http\Controllers\Api\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +32,7 @@ Route::get('/facilities/{id}', [FacilityController::class, 'getFacility']);
 // Authentication Routes
 Route::post('/login', [AccountController::class, 'login'])->name('login');
 Route::post('/register', [AccountController::class, 'register'])->name('register');
-Route::post('/forgotpassword', [AccountController::class, 'forgotPassword']);
+Route::post('/forgotpassword', [PasswordController::class, 'forgotPassword']);
 
 // Authenticated Middleware
 Route::middleware('auth:sanctum')->group(function(){
@@ -43,8 +45,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/account', [AccountController::class, 'getAccount']);
     Route::put('/account', [AccountController::class, 'updateAccount']);
     Route::delete('/account', [AccountController::class, 'deleteAccount']);
-    Route::post('/verify', [AccountController::class, 'verifyEmail']);
-    Route::post('/resetpassword', [AccountController::class, 'resetPassword']);
+    Route::post('/verify', [VerificationController::class, 'verifyEmail']);
+    Route::post('/resetpassword', [PasswordController::class, 'resetPassword']);
 
     // Bookmark Routes
     Route::get('/bookmarks', [BookmarkController::class, 'getBookmarks']);

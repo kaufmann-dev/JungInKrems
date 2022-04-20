@@ -7,12 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Traits\AccountTrait;
-use Mail;
-use App\Mail\VerifyEmail;
-use App\Notifications\VerifyEmailNotification;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Auth\Events\Verified;
-use Inertia\Inertia;
 
 class AccountController extends Controller
 {
@@ -89,28 +83,6 @@ class AccountController extends Controller
         }
     }
 
-    public function resetPassword()
-    {
-        $this->validatePasswordReset(request());
-
-        if (Auth::check()) {
-            $account = Auth::user();
-            if(Hash::check(request('OLD_PASSWORD'), $account->PASSWORD)) {
-                $account->PASSWORD = Hash::make(request('PASSWORD'));
-                $account->save();
-            }
-        }
-    }
-
-    public function sendVerificationEmail()
-    {
-        $account = Auth::user();
-        if($account->hasVerifiedEmail()){
-            return response()->json(['message' => 'Email already verified'], 400);
-        }
-        $account->sendEmailVerificationNotification();
-    }
-
     public function adminUpdateAccount($id)
     {
         $this->validateRequest(request());
@@ -126,15 +98,5 @@ class AccountController extends Controller
         $account->update(request()->all());
     }
 
-    public function verifyEmail()
-    {
-        $account = request()->user();
-
-        if (!$account->hasVerifiedEmail()) {
-            $account->markEmailAsVerified();
-            event(new Verified($account));
-        }
-
-        return Inertia::render('Account/Verify');
-    }
+    
 }
