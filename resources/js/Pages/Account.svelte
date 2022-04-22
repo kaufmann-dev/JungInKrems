@@ -92,6 +92,7 @@
           }
       })
       .catch(error => {
+        console.log(error);
         if (error?.response?.status === 422) {
           for (const [key, value] of Object.entries(passwordArray)) {
             if(error.response.data.errors[value["errorname"]]) {
@@ -124,6 +125,7 @@
             }
         })
         .catch(error => {
+          console.log(error);
           if (error?.response?.status === 422) {
             for (const [key, value] of Object.entries(userArray)) {
                 if(error.response.data.errors[value["errorname"]]) {

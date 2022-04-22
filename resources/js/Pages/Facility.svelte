@@ -35,8 +35,8 @@
                 }
             })
             .catch(error => {
-                managerError = error.response.data.message;
                 console.log(error);
+                managerError = error.response.data.message;
             });
     };
 
@@ -276,6 +276,7 @@
                 }
             })
             .catch(error => {
+                console.log(error);
                 if (error?.response?.status === 422) {
                     for (const [key, value] of Object.entries(formData)) {
                         if(error.response.data.errors[value["errorname"]]) {
@@ -285,7 +286,6 @@
                         }
                     }
                 }
-                console.log(error);
             });
     }
 
@@ -318,6 +318,7 @@
                 }
             })
             .catch(error => {
+                console.log(error);
                 if (error?.response?.status === 422) {
                     for (const [key, value] of Object.entries(data)) {
                         if(error.response.data.errors[value["errorname"]]) {

@@ -77,14 +77,14 @@ trait AccountTrait
     public function validateRegister(Request $request)
     {   
         $this->validate($request, [
-            'name' => 'required|min:30|max:255',
+            'name' => 'string|required|max:30',
             'email' => 'required|email|unique:ACCOUNTS_ST,EMAIL|max:255',
             'password' => 'required|confirmed|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             'terms' => 'accepted'
         ], [
             'name.required' => 'Der Name ist erforderlich.',
-            'name.min' => 'Der Name muss mindestens 30 Zeichen lang sein.',
-            'name.max' => 'Der Name darf maximal 255 Zeichen lang sein.',
+            'name.max' => 'Der Name darf maximal 30 Zeichen lang sein.',
+            'name.string' => 'Der Name muss ein String sein.',
 
             'email.required' => 'Die E-Mail-Adresse ist erforderlich.',
             'email.email' => 'Die E-Mail-Adresse muss eine gültige E-Mail-Adresse sein.',

@@ -90,7 +90,7 @@ trait FacilityTrait
     public function requireUpdate(Request $request)
     {
         $this->validate($request, [
-            'TITLE' => 'required',
+            'NAME' => 'required',
             'DESCRIPTION' => 'required',
             'FACILITY_TYPE' => 'required',
             'POSTAL_CODE' => 'required',
@@ -100,7 +100,7 @@ trait FacilityTrait
             'EMAIL' => 'required',
             'WEBSITE_URL' => 'required',
         ], [
-            'TITLE.required' => 'Die E-Mail Adresse ist erforderlich.',
+            'NAME.required' => 'Der Name ist erforderlich.',
             'FACILITY_TYPE.required' => 'Die Einrichtungsart muss ausgefüllt werden.',
             'POSTAL_CODE.required' => 'Die Postleitzahl muss ausgefüllt werden.',
             'CITY.required' => 'Die Stadt muss ausgefüllt werden.',

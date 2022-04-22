@@ -18,6 +18,7 @@
                 sent = true;
             })
             .catch(error => {
+                console.log(error);
                 error500 = "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
             });
     };
