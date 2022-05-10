@@ -58,7 +58,7 @@ class PasswordController extends Controller
 
     public function changePassword()
     {
-        $this->validatePasswordReset(request());
+        $this->validateChange(request());
 
         if (Auth::check()) {
             $account = Auth::user();
