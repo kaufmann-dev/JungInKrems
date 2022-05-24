@@ -5,7 +5,6 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use App\Mail\ResetPassword as ResetPasswordMail;
-use Illuminate\Auth\Notifications\ResetPassword;
 
 class ResetPasswordNotification extends Notification 
 {
