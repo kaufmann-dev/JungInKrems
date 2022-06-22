@@ -37,6 +37,7 @@ class AccountController extends Controller
         ]);
 
         Auth::login($account);
+        $account->sendEmailVerificationNotification();
 
         if(Auth::check()) {
             Auth::logout();
