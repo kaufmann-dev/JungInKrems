@@ -1,7 +1,7 @@
 <script>
     import { page, router } from '@inertiajs/svelte';
     import axios from 'axios';
-    export let bookmarkUpdated = () => {};
+    //export let bookmarkUpdated = () => {};
     export let checkId;
 
     let bookmarks = $page.props.bookmarks;
@@ -11,12 +11,12 @@
         if(isChecked){
             axios.post('/bookmarks/delete/' + checkId)
             .then((x)=>{
-                bookmarkUpdated();
+                router.reload();
             });
         } else {
             axios.post('/bookmarks/' + checkId)
             .then((x)=>{
-                bookmarkUpdated();
+                router.reload();
             });
         }
         /* bookmarkUpdated();
