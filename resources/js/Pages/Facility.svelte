@@ -406,7 +406,7 @@
                         <i class="tw-mx-3 tw-text-blue-500 bi bi-telephone-fill"></i> <span>{facility.PHONE_NR}</span>
                     </div>
                     <div>
-                        <i class="tw-mx-3 tw-text-blue-500 bi bi-link-45deg"></i> <a href="{facility.WEBSITE_URL}">{facility.WEBSITE_URL}</a>
+                        <i class="tw-mx-3 tw-text-blue-500 bi bi-link-45deg"></i> <a href="{facility.WEBSITE_URL}" class="tw-underline">{facility.WEBSITE_URL}</a>
                     </div>
                     <div>
                         <i class="tw-mx-3 tw-text-blue-500 bi bi-envelope-fill"></i> <span>{facility.EMAIL}</span>
