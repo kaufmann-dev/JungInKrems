@@ -6,7 +6,7 @@ use App\Models\Account;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-trait PasswordResetTrait
+trait PasswordTrait
 {
     public function validateReset(Request $request)
     {
