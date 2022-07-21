@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\EventTrait;
+use App\Models\AccountHasBookmarks;
 use App\Models\Bookmark;
 use Illuminate\Support\Facades\Storage;
 
@@ -87,5 +88,10 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         $event->delete();
+
+        $bookmarks = AccountHasBookmarks::where('BOOKMARK_ID', $id)->get();
+        foreach($bookmarks as $bookmark) {
+            $bookmark->delete();
+        }
     }
 }
