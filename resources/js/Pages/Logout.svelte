@@ -21,9 +21,9 @@
     <CenterDiv>
         <div class="tw-text-center">
             {#if loggedOut}
-                <H1 class="tw-mb-6">Sie wurden abgemeldet.</H1>
+                <H1 mb={false}>Sie wurden abgemeldet.</H1>
             {:else}
-                <H1 class="tw-mb-6">Sie sind bereits abgemeldet.</H1>
+                <H1 mb={false}>Sie sind bereits abgemeldet.</H1>
             {/if}
             <Button link="/login">Anmelden</Button>
         </div>

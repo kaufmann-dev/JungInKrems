@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name') }}</title>
+    <title>Jung in Krems</title>
 
     <style>
         body {
@@ -71,13 +71,13 @@
 
         <p>Hallo {{ $name }},</p>
 
-        <p>Vielen Dank für die Erstellung eines Kontos auf {{ config('app.name') }}!</p>
+        <p>Vielen Dank für die Erstellung eines Kontos auf Jung in Krems!</p>
 
         <p><a href="{{ $verification_link }}" class="button">Email Adresse bestätigen</a></p>
 
         <p>Wenn du kein Konto erstellt hast oder deine E-Mail Adresse nicht verifizieren möchtest, sind keine weiteren Maßnahmen erforderlich.</p>
 
-        <p class="regards">Mit freundlichen Grüßen,<br>{{ config('app.name') }}</p>
+        <p class="regards">Mit freundlichen Grüßen,<br>Jung in Krems</p>
 
     </div>
 </body>

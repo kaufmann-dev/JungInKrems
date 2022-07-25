@@ -2,6 +2,7 @@
     import CenterDiv from '../Shared/CenterDiv.svelte';
     import Button from '../Shared/Button.svelte';
     import H1 from '../Shared/H1.svelte';
+    import Subtitle from '../Shared/Subtitle.svelte';
     export let status;
 
     $: title = {
@@ -10,6 +11,7 @@
     404: '404: Seite nicht gefunden',
     403: '403: Zugriff verweigert',
     401: '401: Nicht autorisiert',
+    419: '419: Sitzung abgelaufen',
   }[status]
 
   $: description = {
@@ -18,13 +20,14 @@
     404: 'Die angeforderte Seite konnte nicht gefunden werden.',
     403: 'Sie haben nicht die erforderlichen Rechte um diese Seite aufzurufen.',
     401: 'Sie müssen angemeldet sein um diese Seite aufzurufen.',
+    419: 'Ihr Sitzung ist abgelaufen.',
   }[status]
 </script>
 
 <CenterDiv>
   <div class="tw-text-center">
-    <H1>{title}</H1>
-    <span class="tw-mb-4">{description}</span>
+    <H1 mb={false}>{title}</H1>
+    <Subtitle>{description}</Subtitle>
     <Button link="/">Zurück zur Startseite</Button>
   </div>
 </CenterDiv>

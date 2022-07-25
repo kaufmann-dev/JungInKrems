@@ -13,7 +13,9 @@
     <H1 center={true}>Bildungsanstalten</H1>
     <SearchBar bind:query={query} />
     {#if facilities.length === 0}
-        <span class="tw-text-center tw-mt-3 tw-mb-4">Es existieren noch keine Bildungsanstalten.</span>
+        <div class="tw-text-center tw-mt-3">
+            <InfoText color="light">Es existieren noch keine Bildungsanstalten.</InfoText>
+        </div>
     {:else}
         {#each filteredFacilities as facility}
             <FacilityListItem facility={facility}/>

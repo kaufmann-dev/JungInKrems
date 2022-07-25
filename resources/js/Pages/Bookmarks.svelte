@@ -6,6 +6,7 @@
     import Pills from "../Shared/Pills.svelte";
     import H1 from "../Shared/H1.svelte";
     import SearchBar from "../Shared/SearchBar.svelte";
+    import InfoText from "../Shared/InfoText.svelte";
 
     let query = "";
     let activePill;
@@ -20,7 +21,9 @@
     <SearchBar bind:query={query} />
     {#if activePill == "Alle Lesezeichen"}
         {#if bookmarks.length === 0}
-            <span class="tw-text-center tw-mt-3 tw-mb-4">Sie haben noch keine Lesezeichen.</span>
+            <div class="tw-text-center tw-mt-3">
+                <InfoText color="light">Sie haben noch keine Lesezeichen.</InfoText>
+            </div>
         {:else}
             {#each events as event}
                 <!-- <EventListItem listUpdated={()=>router.reload} event={event}/> -->
@@ -32,7 +35,9 @@
         {/if}
     {:else if activePill == "Events"}
         {#if events.length === 0}
-            <span class="tw-text-center tw-mt-3 tw-mb-4">Sie haben noch keine Lesezeichen für Events.</span>
+            <div class="tw-text-center tw-mt-3">
+                <InfoText color="light">Sie haben noch keine Events gespeichert.</InfoText>
+            </div>
         {:else}
             {#each events as event}
                 <!-- <EventListItem event={event} listUpdated={()=>router.reload}/> -->
@@ -41,7 +46,9 @@
         {/if}
     {:else if activePill == "Bildung"}
         {#if facilities.length === 0}
-            <span class="tw-text-center tw-mt-3 tw-mb-4">Sie haben noch keine Lesezeichen für Bildungseinrichtungen.</span>
+            <div class="tw-text-center tw-mt-3">
+                <InfoText color="light">Sie haben noch keine Bildungseinrichtungen gespeichert.</InfoText>
+            </div>
         {:else}
             {#each facilities as facility}
                 <FacilityListItem facility={facility}/>

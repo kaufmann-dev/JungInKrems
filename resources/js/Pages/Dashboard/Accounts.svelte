@@ -81,7 +81,7 @@
     function deleteAccount(event){
         if(!confirm("Wollen Sie diesen Account wirklich löschen?"))
             return;
-        axios.post('/accounts/delete/' + {...accounts[event.detail]}.ACCOUNT_ID);
+        axios.post('/admin/accounts/delete/' + {...accounts[event.detail]}.ACCOUNT_ID);
         editing = false;
         router.reload();
     }
@@ -120,7 +120,7 @@
     let deleteEvent = () => {
         if(!confirm("Wollen Sie diesen Account wirklich löschen?"))
             return;
-        axios.post('/accounts/delete/' + {...accounts[index]}.ACCOUNT_ID);
+        axios.post('/admin/accounts/delete/' + {...accounts[index]}.ACCOUNT_ID);
         editing = false;
         router.reload();
     }

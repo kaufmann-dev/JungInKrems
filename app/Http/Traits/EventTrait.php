@@ -100,7 +100,6 @@ trait EventTrait
             'POSTAL_CODE' => 'required',
             'CITY' => 'required',
             'ADDRESS' => 'required',
-            'IMAGE' =>'required',
         ], [
             'TITLE.required' => 'Der Titel muss ausgefüllt sein.',
             'DESCRIPTION.required' => 'Die Beschreibung muss ausgefüllt sein.',
@@ -108,7 +107,6 @@ trait EventTrait
             'POSTAL_CODE.required' => 'Die Postleitzahl muss ausgefüllt sein.',
             'CITY.required' => 'Die Stadt muss ausgefüllt sein.',
             'ADDRESS.required' => 'Die Adresse muss ausgefüllt sein.',
-            'IMAGE.required' => 'Die Bild muss ausgefüllt sein.',
         ]);
     }
 }

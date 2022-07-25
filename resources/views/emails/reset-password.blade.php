@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name') }}</title>
+    <title>Jung in Krems</title>
 
     <style>
         body {
@@ -77,7 +77,7 @@
         
         <p>Wenn du dein Passwort nicht zurücksetzen möchtest, sind keine weiteren Maßnahmen erforderlich.</p>
         
-        <p class="regards">Mit freundlichen Grüßen,<br>{{ config('app.name') }}</p>
+        <p class="regards">Mit freundlichen Grüßen,<br>Jung in Krems</p>
     </div>
 </body>
 </html>

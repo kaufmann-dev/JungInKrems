@@ -4,6 +4,7 @@
     import Pills from "../Shared/Pills.svelte";
     import H1 from "../Shared/H1.svelte";
     import SearchBar from "../Shared/SearchBar.svelte";
+    import InfoText from "../Shared/InfoText.svelte";
 
     let activePill;
     let query = "";
@@ -20,7 +21,9 @@
     <SearchBar bind:query={query} />
     {#if activePill == "Alle Events"}
         {#if events.length === 0}
-            <span class="tw-text-center tw-mt-3 tw-mb-4">Es existieren noch keine Events.</span>
+            <div class="tw-text-center tw-mt-3">
+                <InfoText color="light">Es existieren noch keine Events.</InfoText>
+            </div>
         {:else}
             {#each filteredEvents as event}
                 <EventListItem event={event}/>
@@ -28,7 +31,9 @@
         {/if}
     {:else if activePill == "Freizeit"}
         {#if freizeitEvents.length === 0}
-            <span class="tw-text-center tw-mt-3 tw-mb-4">Es existieren noch keine Freizeit-Events.</span>
+            <div class="tw-text-center tw-mt-3">
+                <InfoText color="light">Es existieren noch keine Freizeit-Events.</InfoText>
+            </div>
         {:else}
             {#each freizeitEvents as event}
                 <EventListItem event={event}/>
@@ -37,7 +42,9 @@
             
     {:else if activePill == "Bildung"}
         {#if bildungEvents.length === 0}
-            <span class="tw-text-center tw-mt-3 tw-mb-4">Es existieren noch keine Bildungs-Events.</span>
+            <div class="tw-text-center tw-mt-3">
+                <InfoText color="light">Es existieren noch keine Bildungs-Events.</InfoText>
+            </div>
         {:else}
             {#each bildungEvents as event}
                 <EventListItem event={event}/>

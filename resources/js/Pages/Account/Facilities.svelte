@@ -11,7 +11,7 @@
 </script>
 
 <AccLayout>
-    <H1 class="tw-mt-6">Meine Bildungsanstalten</H1>
+    <H1 mb={false}>Meine Bildungsanstalten</H1>
     <Subtitle>Alle Bildungsanstalten die sie verwalten dürfen. Um sichtbar zu werden muss die Stadt Krems jene zuerst noch verifizieren.</Subtitle>
     {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
         <span class="tw-mb-4 tw-block">Sie müssen Ihre E-Mail Adresse bestätigen um Bildungsanstalten verwalten zu können.</span>

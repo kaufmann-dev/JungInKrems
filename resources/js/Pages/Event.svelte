@@ -224,7 +224,7 @@
                 {/if}
                 <BookmarkButton checkId={event.EVENT_ID}></BookmarkButton>
                 <div class="tw-text-lg tw-grid tw-gap-2 tw-mt-4">
-                    <div class="tw-flex">
+                    <div>
                         <i class="tw-mx-3 tw-text-blue-500 bi bi-geo-alt-fill"></i> <span>{event.ADDRESS}, {event.POSTAL_CODE} {event.CITY}</span>
                     </div>
                     <div>

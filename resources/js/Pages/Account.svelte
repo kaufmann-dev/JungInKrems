@@ -11,7 +11,7 @@
     let editingPassword = false;
     $: userArray = [
       {
-        name: 'Name',
+        name: 'Benutzername',
         value: user.NAME,
         bind: 'NAME',
         type: 'text',
@@ -19,7 +19,7 @@
         error: ''
       },
       {
-        name: 'E-Mail-Adresse',
+        name: 'E-Mail',
         value: user.EMAIL,
         bind: 'EMAIL',
         type: 'string',
@@ -142,27 +142,38 @@
 <AccLayout>
   {#if editing}
 
-    <H1 class="tw-my-6">Benutzerdaten ändern</H1>
+    <H1 mb={false}>Benutzerdaten ändern</H1>
     <div class="tw-border-b tw-mb-3"></div>
     <Form newInstance={true} data={userArray} onCancel={cancel} onSubmit={submit}></Form>
 
   {:else if editingPassword}
 
-    <H1 class="tw-my-6">Passwort ändern</H1>
+    <H1 mb={false}>Passwort ändern</H1>
     <div class="tw-border-b tw-mb-3"></div>
     <Form newInstance={true} data={passwordArray} onCancel={cancel} onSubmit={resetPassword}></Form>
 
     {:else}
 
-    <H1 class="tw-my-6">Willkommen <span class="tw-text-yellow-400">{user.NAME}</span>!</H1>
-        <span>E-Mail-Adresse: </span><InfoText>{user.EMAIL}</InfoText>
-        {#if user.IS_EMAIL_VERIFIED}
-            <span class="tw-text-green-700">Deine E-Mail-Adresse wurde bestätigt!</span>
-        {:else}
+    <H1 mb={false}>Willkommen <span class="tw-text-yellow-400">{user.NAME}</span>!</H1>
+    <div class="tw-flex tw-gap-2 tw-flex-col-reverse">
+      <div>
+        <InfoText color="light">E-Mail</InfoText>
+        <div class="tw-mx-1 tw-inline">
+          {user.EMAIL}
+        </div>
+        {#if !user.IS_EMAIL_VERIFIED}
             <Button size="small" link="/account/verify"><div class="tw-mx-2">Jetzt bestätigen</div></Button>
         {/if}
+      </div>
+      <div>
+        <InfoText color="light">Benutzername</InfoText>
+        <div class="tw-mx-1 tw-inline">
+          {user.NAME}
+        </div>
+      </div>
+    </div>
     <div class="tw-border-b tw-my-3"></div>
-    <div class="tw-grid tw-gap-4 md:tw-grid-cols-3">
+    <div class="tw-grid tw-gap-2 md:tw-grid-cols-3">
         <Button onClick={()=>editing = true}><i class="bi bi-pencil-fill"></i> Benutzerdaten ändern</Button>
         <Button onClick={()=>editingPassword = true}><i class="bi bi-key-fill"></i> Passwort ändern</Button>
         <Button type='danger' onClick={deleteAccount}><i class="bi bi-trash-fill"></i> Account löschen</Button>

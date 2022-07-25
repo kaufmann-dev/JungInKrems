@@ -103,11 +103,11 @@
 
 <AccLayout>
     {#if creating}
-        <H1 class="tw-mt-6">Neuen Antrag erstellen</H1>
+        <H1 mb={false}>Neuen Antrag erstellen</H1>
         <Subtitle>Erstelle Sie einen neuen Antrag.</Subtitle>
         <Form newInstance={true} {data} onSubmit={submit} onCancel={cancel}></Form>
     {:else}
-        <H1 class="tw-mt-6">Meine Anträge</H1>
+        <H1 mb={false}>Meine Anträge</H1>
         <Subtitle>Alle Anträge die Sie erstellt haben.</Subtitle>
         {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
             <span class="tw-mb-4 tw-block">Sie müssen Ihre E-Mail Adresse bestätigen um einen Antrag erstellen zu könnnen.</span>
