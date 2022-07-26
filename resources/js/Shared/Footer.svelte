@@ -2,8 +2,8 @@
     import { Link } from "@inertiajs/svelte";
 </script>
 
-<footer class="py-3">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+<footer class="pt-3">
+    <ul class="tw-mx-3 nav justify-content-center border-bottom pb-3 mb-3">
         <li class="nav-item"><a href="https://www.krems.at/impressum-1" class="nav-link px-2 text-muted">Impressum</a></li>
         <li class="nav-item"><Link href="/handbuch-jung-in-krems.pdf" class="nav-link px-2 text-muted">Handbuch</Link></li>
         <li class="nav-item"><a href="https://www.krems.at/" class="nav-link px-2 text-muted">Stadt Krems</a></li>

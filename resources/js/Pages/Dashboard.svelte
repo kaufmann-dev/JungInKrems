@@ -4,16 +4,26 @@
     import DashLayout from '../Shared/DashLayout.svelte';
     import D1 from '../Shared/D1.svelte';
     import Subtitle from '../Shared/Subtitle.svelte';
+    
+	$: innerWidth = 0;
 </script>
 
+<svelte:window bind:innerWidth />
+
 <DashLayout>
-    <CenterDiv>
-    <div class="tw-w-full">
-        <div class="tw-text-center">
-            <D1>Willkommen im Dashboard</D1>
-            <span class="tw-text-lg tw-mb-4 tw-mt-2 tw-block">Beginnen Sie mit der Erforschung Ihrer Daten und gewinnen Sie Erkenntnisse!</span>
-            <Button link="/dashboard/accounts">Konten erkunden</Button>
-        </div>
-    </div>
-</CenterDiv>
+    {#if innerWidth >= 1024}
+        <CenterDiv>
+            <div class="tw-w-full">
+                <D1>Willkommen im Dashboard</D1>
+                <div class="tw-mt-3"></div>
+                <Subtitle>Beginnen Sie mit der Erforschung Ihrer Daten und gewinnen Sie Erkenntnisse!</Subtitle>
+                <Button link="/dashboard/accounts">Konten erkunden</Button>
+            </div>
+        </CenterDiv>
+    {:else}
+        <D1>Willkommen im Dashboard</D1>
+        <div class="tw-mt-3"></div>
+        <Subtitle>Beginnen Sie mit der Erforschung Ihrer Daten und gewinnen Sie Erkenntnisse!</Subtitle>
+        <Button link="/dashboard/accounts">Konten erkunden</Button>
+    {/if}
 </DashLayout>

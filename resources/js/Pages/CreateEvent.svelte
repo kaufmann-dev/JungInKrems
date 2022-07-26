@@ -3,6 +3,7 @@
     import Form from "../Shared/Form.svelte";
     import { router, Link } from "@inertiajs/svelte";
     import H1 from "../Shared/H1.svelte";
+    import Subtitle from "../Shared/Subtitle.svelte";
 
     $: formData = [{
         name: "Titel",
@@ -124,7 +125,7 @@
 
 <Layout>
     <H1 mb={false}>Event anmelden</H1>
-    <span class="tw-text-gray-500 tw-mb-4">Hier kannst du ein neues Freizeit Event anmelden. <Link href="/account/facilities">Bildungs Event erstellen</Link></span>
+    <Subtitle>Hier kannst du ein neues Freizeit Event anmelden. <Link href="/account/facilities">Bildungs Event erstellen</Link></Subtitle>
 
     <Form newInstance={true} bind:data={formData} onSubmit={submit} onCancel={cancel} />
 </Layout>

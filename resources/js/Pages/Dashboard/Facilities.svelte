@@ -6,6 +6,7 @@
     import axios from 'axios';
     import Button from '../../Shared/Button.svelte';
     import H1 from '../../Shared/H1.svelte';
+    import HR from '../../Shared/HR.svelte';
 
     export let facilities;
     let editing = false;
@@ -195,7 +196,8 @@
 </script>
 
 <DashLayout>
-    <H1>Bildungseinrichtungen</H1>
+    <H1 mb={false}>Bildungseinrichtungen</H1>
+    <HR/>
     {#if editing}
         <Form newInstance={false} data={formData} onSubmit={handleFormEdit} onDelete={deleteFacility} onCancel={handleFormCancel}></Form>
     {:else}
