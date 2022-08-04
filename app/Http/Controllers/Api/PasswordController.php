@@ -14,37 +14,32 @@ class PasswordController extends Controller
 {
     use PasswordTrait;
 
-    public function resetPassword(Request $request)
+    public function changePassword(Request $request)
     {
-        $request->validate([
-            'required|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'
-        ],[
-            'password.required' => 'Das Passwort ist erforderlich.',
-            'password.min' => 'Das Passwort muss mindestens 8 Zeichen lang sein.',
-            'password.max' => 'Das Passwort darf maximal 255 Zeichen lang sein.',
-            'password.regex' => 'Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.',
-        ]);
+        $this->validateChange(request());
 
-        $account = Auth::user();
+        if (Auth::check()) {
+            $account = Auth::user();
+            if(Hash::check(request('OLD_PASSWORD'), $account->PASSWORD)) {
+                $account->PASSWORD = Hash::make(request('PASSWORD'));
+                $account->save();
+                return response()->json(['message' => "Changed password."], 200);
+            }
+            return response()->json(['error' => 'Old password does not match.'], 401);
+        }
 
-        $account->password = Hash::make(request('password'));
-        $account->save();
+        return response()->json(['error' => 'Unauthenticated.'], 401);
     }
 
-    public function forgotPassword(Request $request)
+    public function sendResetLinkEmail(Request $request)
     {
-        $request->validate([
-            'email' => 'required',
-        ]);
+        $this->validateResetEmail(request());
 
-        $account = Account::where('EMAIL', request('email'))->first();
-
-        if(!$account)
-            return response()->json(['message' => 'Email does not exist.']);
-
-        $status = Password::sendResetLink(
+        Password::sendResetLink(
             $request->only('email')
         );
+
+        return response()->json(['message' => "Sent password reset email."], 200);
     }
     
 }

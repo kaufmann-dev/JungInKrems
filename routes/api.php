@@ -32,7 +32,7 @@ Route::get('/facilities/{id}', [FacilityController::class, 'getFacility']);
 // Authentication Routes
 Route::post('/login', [AccountController::class, 'login'])->name('login');
 Route::post('/register', [AccountController::class, 'register'])->name('register');
-Route::post('/forgotpassword', [PasswordController::class, 'forgotPassword']);
+Route::post('/forgotpassword', [PasswordController::class, 'sendResetLinkEmail']);
 
 // Authenticated Middleware
 Route::middleware('auth:sanctum')->group(function(){
@@ -46,7 +46,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::put('/account', [AccountController::class, 'updateAccount']);
     Route::delete('/account', [AccountController::class, 'deleteAccount']);
     Route::post('/verify', [VerificationController::class, 'verifyEmail']);
-    Route::post('/resetpassword', [PasswordController::class, 'resetPassword']);
+    Route::post('/resetpassword', [PasswordController::class, 'changePassword']);
 
     // Bookmark Routes
     Route::get('/bookmarks', [BookmarkController::class, 'getBookmarks']);

@@ -10,18 +10,11 @@ class VerificationController extends Controller
 {
     public function verifyEmail(Request $request)
     {
-        $request->validate([
-            'email' => 'required',
-        ]);
+        if($request->user()->hasVerifiedEmail()){
+            return response()->json(['error' => 'Email is already verified.'], 400);
+        }
+        $request->user()->sendEmailVerificationNotification();
 
-        $account = Account::where('email', request('email'))->first();
-
-        if(!$account)
-            return response()->json(['message' => 'Email already exists.']);
-        
-        if($account->hasVerifiedEmail())
-            return response()->json(['message' => 'Email already verified.']);
-
-        $account->sendEmailVerificationNotification();
+        return response()->json(['message' => "Sent verification email."], 200);
     }
 }
