@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
+use App\Models\Account;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,14 +21,15 @@ class VerificationController extends Controller
 
     public function verifyEmail()
     {
-        $account = request()->user();
+        $accountId = request()->get('id');
+        $account = Account::findOrFail($accountId);
 
         if (!$account->hasVerifiedEmail()) {
             $account->markEmailAsVerified();
             event(new Verified($account));
         }
 
-        return Inertia::render('Account/Verify');
+        return Inertia::render('Verify');
     }
     
 }

@@ -52,6 +52,11 @@ Route::middleware('guest')->group(function (){
     Route::inertia('/resetpassword', 'PasswordReset')->name('password.reset');
 });
 
+// Signed Middleware
+Route::middleware('signed')->group(function(){
+    Route::get('/verify', [VerificationController::class, 'verifyEmail'])->name('verification.verify');
+});
+
 // Authenticated Middleware
 Route::middleware('auth')->group(function(){
 
@@ -76,11 +81,6 @@ Route::middleware('auth')->group(function(){
         return Inertia::render('Account/Facilities', [
             'facilities' => AccountHasFacilities::with(['facility'])->where('ACCOUNT_ID', Auth::user()->ACCOUNT_ID)->get()
         ]);
-    });
-
-    // Signed Middleware
-    Route::middleware('signed')->group(function(){
-        Route::get('/account/verify/fresh', [VerificationController::class, 'verifyEmail'])->name('verification.verify');
     });
 
     // Verified Email Middleware
