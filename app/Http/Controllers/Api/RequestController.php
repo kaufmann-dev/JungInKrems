@@ -10,21 +10,21 @@ class RequestController extends Controller
 {
     use RequestTrait;
 
-    public function getRequest(Request $request, $id)
+    public function getRequest($id)
     {
-        $request = $request->user()->requests()->where('REQUEST_ID', $id)->first();
+        $request = request()->user()->requests()->where('REQUEST_ID', $id)->first();
 
         return response()->json($request, 200);
     }
 
-    public function getRequests(Request $request)
+    public function getRequests()
     {
-        $requests = $request->user()->requests;
+        $requests = request()->user()->requests;
 
         return response()->json($requests, 200);
     }
 
-    public function addRequest(Request $request)
+    public function addRequest()
     {
         $this->validateRequest(request());
         $this->requireUpdate(request());
@@ -39,9 +39,9 @@ class RequestController extends Controller
         return response()->json($request, 200);
     }
 
-    public function deleteRequest(Request $request, $id)
+    public function deleteRequest($id)
     {
-        $request = $request->user()->requests()->where('REQUEST_ID', $id)->first();
+        $request = request()->user()->requests()->where('REQUEST_ID', $id)->first();
 
         $request->delete();
 

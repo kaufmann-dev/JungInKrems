@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Models\AccountHasBookmarks;
@@ -26,7 +25,7 @@ class EventController extends Controller
         return response()->json($event, 200);
     }
 
-    public function addEvent(Request $request)
+    public function addEvent()
     {
         $this->validateRequest(request());
         $this->requireUpdate(request());
@@ -61,23 +60,23 @@ class EventController extends Controller
         return response()->json($event, 200);
     }
 
-    public function updateEvent(Request $request, $id)
+    public function updateEvent($id)
     {
         $this->validateRequest(request());
         $this->requireUpdate(request());
 
-        if($request->has('IMAGE')){
-            $file = $request->file('IMAGE');
+        if(request()->has('IMAGE')){
+            $file = request()->file('IMAGE');
             $fileName = $file->getClientOriginalName();
             Storage::disk('uploads')->putFileAs('/images/uploads', $file, $fileName);
-            $request->merge(['IMAGE_PATH' => $fileName]);
+            request()->merge(['IMAGE_PATH' => $fileName]);
         }
 
         $event = Event::find($id);
-        if(!$request->has('EVENT_TYPE')) {
-            $request->merge(['EVENT_TYPE' => 'Freizeit']);
+        if(!request()->has('EVENT_TYPE')) {
+            request()->merge(['EVENT_TYPE' => 'Freizeit']);
         }
-        $event->update($request->all());
+        $event->update(request()->all());
 
         return response()->json($event, 200);
     }
