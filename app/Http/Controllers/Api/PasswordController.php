@@ -14,16 +14,13 @@ class PasswordController extends Controller
 
     public function changePassword()
     {
-        $this->validateChange(request());
+        $this->validateChangeApi(request());
 
         if (Auth::check()) {
             $account = Auth::user();
-            if(Hash::check(request('OLD_PASSWORD'), $account->PASSWORD)) {
-                $account->PASSWORD = Hash::make(request('PASSWORD'));
-                $account->save();
-                return response()->json(['message' => "Changed password."], 200);
-            }
-            return response()->json(['error' => 'Old password does not match.'], 401);
+            $account->PASSWORD = Hash::make(request('password'));
+            $account->save();
+            return response()->json(['message' => "Changed password."], 200);
         }
 
         return response()->json(['error' => 'Unauthenticated.'], 401);
