@@ -6,6 +6,7 @@
     import Form from "../../Shared/Form.svelte";
     import H1 from "../../Shared/H1.svelte";
     import Subtitle from "../../Shared/Subtitle.svelte";
+    import InfoText from "../../Shared/InfoText.svelte";
 
     export let requests = [];
     export let facilities = [];
@@ -110,14 +111,14 @@
         <H1 mb={false}>Meine Anträge</H1>
         <Subtitle>Alle Anträge die Sie erstellt haben.</Subtitle>
         {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
-            <span class="tw-mb-4 tw-block">Sie müssen Ihre E-Mail Adresse bestätigen um einen Antrag erstellen zu könnnen.</span>
-            <Button link="/account/verify">Jetzt bestätigen</Button>
+            <InfoText mb="true" color="light">Sie müssen Ihre E-Mail Adresse bestätigen um einen Antrag erstellen zu könnnen.</InfoText>
+            <Button size="small" link="/account/verify"><div class="tw-mx-2">Jetzt bestätigen</div></Button>
         {:else if facilities.length === 0}
-            <span class="tw-mb-4 tw-block">Momentan stehen Anträge nur Bildungsanstalten zur Verfügung. Sie verwalten derzeit keine Bildungsanstalten.</span>
+            <InfoText mb="true" color="light">Momentan stehen Anträge nur Bildungsanstalten zur Verfügung. Sie verwalten derzeit keine Bildungsanstalten.</InfoText>
             <Button link="/newfacility">Bildungsanstalt anmelden</Button>
         {:else}
             {#if requests.length === 0}
-                <span class="tw-mb-4 tw-block">Sie haben noch keine Anträge erstellt.</span>
+                <InfoText mb="true" color="light">Sie haben noch keine Anträge erstellt.</InfoText>
             {:else}
                 {#each requests as request}
                     <RequestListItem request={request}/>

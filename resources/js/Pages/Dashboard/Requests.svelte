@@ -7,6 +7,7 @@
     import H1 from '../../Shared/H1.svelte';
     import Table from '../../Shared/Table.svelte'
     import HR from '../../Shared/HR.svelte';
+    import InfoText from '../../Shared/InfoText.svelte';
 
     export let requests = [];
     let editing = false;
@@ -153,7 +154,7 @@
         <Form onSubmit={submit} onDelete={deletion} onCancel={cancel} newInstance={false} data={formData}></Form>
     {:else}
         {#if requests.length == 0}
-            <span class="tw-mb-4">Keine Anträge vorhanden</span>
+            <InfoText mb="true" color="light">Keine Anträge vorhanden.</InfoText>
         {:else}
             <Table on:editData={handleEdit} on:deleteData={handleDeletion} on:decline={handleDecline} on:accept={handleAccept} bind:data={data}></Table>
         {/if}
