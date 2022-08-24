@@ -353,13 +353,13 @@
     {#if updating}
         <Form newInstance={false} {data} onSubmit={submit} onCancel={cancel} onDelete={deleteFacility}></Form>
     {:else if editingManagers}
-            <div class="lg:tw-columns-2 tw-gap-3">
-                <div>
+            <div class="lg:tw-flex lg:tw-flex-row lg:tw-gap-3">
+                <div class="lg:tw-flex-1">
                     <H1 mb={false}>Verantwortliche</H1>
                     <Subtitle>Verantwortliche können Ihre Einrichtung verwalten.</Subtitle>
                     <Table onlyDelete={true} on:deleteData={managerDelete} data={tableData}></Table>
                 </div>
-                <div>
+                <div class="lg:tw-flex-1">
                     <H1 mb={false}>Hinzufügen</H1>
                     <Subtitle>Füge neue Verantwortliche für deine Bildungsanstalt hinzu..</Subtitle>
                     <form on:submit|preventDefault={managerSubmit} class="tw-w-full tw-flex tw-flex-col tw-items-center">
@@ -463,7 +463,7 @@
         {#if facility.managers.map(manager => manager.ACCOUNT_ID).includes($page.props.auth.user?.ACCOUNT_ID)}
             <div class="tw-flex tw-flex-col sm:tw-flex-row sm:tw-justify-end tw-gap-2 tw-mb-8">
                 <Button onClick={()=>updating=true}>Bearbeiten</Button>
-                <Button onClick={()=>editingManagers=true}>Verwalter hinzufügen</Button>
+                <Button onClick={()=>editingManagers=true}>Verwalter verwalten</Button>
                 <Button onClick={()=>creatingEvent=true}>Event anmelden</Button>
             </div>
         {/if}

@@ -1,12 +1,6 @@
 <script>
     import Button from './Button.svelte';
-    import { useForm } from '@inertiajs/svelte'
     import { inertia, page } from '@inertiajs/svelte';
-    import axios from 'axios';
-
-    /* function logout() {
-        axios.post('logout');
-    } */
 </script>
 
 <style>
