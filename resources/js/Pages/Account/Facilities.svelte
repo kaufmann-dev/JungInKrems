@@ -27,6 +27,7 @@
                 {/each}
             </div>
         {/if}
+        <div></div>
         <Button link="/newfacility">Neue Bildungsanstalt anmelden</Button>
     {/if}
 </AccLayout>

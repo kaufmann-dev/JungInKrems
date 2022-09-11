@@ -10,12 +10,9 @@
     import H1 from "../Shared/H1.svelte";
     import Subtitle from "../Shared/Subtitle.svelte";
     import SubmitButton from "../Shared/SubmitButton.svelte";
-    import CenterDiv from "../Shared/CenterDiv.svelte";
     import ErrorMessage from "../Shared/ErrorMessage.svelte";
-    import H2 from "../Shared/H2.svelte";
     import H3 from "../Shared/H3.svelte";
     import Table from "../Shared/Table.svelte";
-    import Input from "../Shared/Input.svelte";
 
     $: tableData = facility.managers.map(manager =>{
         return {
