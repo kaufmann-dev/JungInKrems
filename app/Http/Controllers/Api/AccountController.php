@@ -39,6 +39,8 @@ class AccountController extends Controller
 
         $token = $account->createToken('Token Name')->plainTextToken;
 
+        $account->sendEmailVerificationNotification();
+
         return response()->json(['token' => $token], 200);
     }
 
