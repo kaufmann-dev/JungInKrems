@@ -11,9 +11,8 @@ class Event extends Model
 
     protected $table = 'EVENTS_ST';
     protected $primaryKey = 'EVENT_ID';
-    protected $foreignKey = 'ACCOUNT_ID';
+    
     public $incrementing = false;
-
     public $timestamps = true;
 
     protected $fillable = [
@@ -28,36 +27,11 @@ class Event extends Model
 
     public function account()
     {
-        return $this->belongsTo(Account::class, 'ACCOUNT_ID')->select('ACCOUNT_ID', 'NAME');
+        return $this->belongsTo(Account::class, 'ACCOUNT_ID', 'ACCOUNT_ID')->select('ACCOUNT_ID', 'NAME');
     }
 
     public function facility()
     {
-        return $this->belongsTo(Facility::class, 'FACILITY_ID')->with("managers")->withDefault();
+        return $this->belongsTo(Facility::class, 'FACILITY_ID', 'FACILITY_ID')->with("managers")->withDefault();
     }
-
-    /* public static function create(array $data)
-    {
-        $bookmark = new Bookmark();
-        $bookmark->save();
-
-        $event = new Event();
-        $event->ACCOUNT_ID = $data['EVENT_ID'];
-        $event->ACCOUNT_ID = $data['ACCOUNT_ID'];
-        $event->FACILITY_ID = $data['FAICILITY_ID'];
-        $event->TITLE = $data['TITLE'];
-        $event->DESCRIPTION = $data['DESCRIPTION'];
-        $event->STARTING_TIME = $data['STARTING_TIME'];
-        $event->ENDING_TIME = $data['ENDING_TIME'];
-        $event->WEBSITE_URL = $data['WEBSITE_URL'];
-        $event->PHONE_NR = $data['PHONE_NR'];
-        $event->EMAIL = $data['EMAIL'];
-        $event->POSTAL_CODE = $data['POSTAL_CODE'];
-        $event->CITY = $data['CITY'];
-        $event->ADDRESS = $data['ADDRESS'];
-        $event->IMAGE_PATH = $data['IMAGE_PATH'];
-        $event->EVENT_TYPE = $data['EVENT_TYPE'];
-        $event->save();
-        return $event;
-    } */
 }
