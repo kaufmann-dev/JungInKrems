@@ -19,6 +19,10 @@ class Facility extends Model
         'NAME', 'DESCRIPTION', 'WEBSITE_URL', 'PHONE_NR',
         'EMAIL', 'POSTAL_CODE', 'CITY', 'ADDRESS', 'IS_CITY_VERIFIED', 'FACILITY_TYPE', 'IMAGE_PATH', 'FACILITY_ID'
     ];
+    
+    protected $casts = [
+        'IS_CITY_VERIFIED' => 'boolean',
+    ];
 
     public function managers()
     {
@@ -29,8 +33,4 @@ class Facility extends Model
     {
         return $this->hasMany(Event::class, 'FACILITY_ID', 'FACILITY_ID')->with(['account', 'facility']);
     }
-    
-    protected $casts = [
-        'IS_CITY_VERIFIED' => 'boolean',
-    ];
 }
