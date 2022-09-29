@@ -3,8 +3,6 @@
 namespace App\Http\Traits;
 use App\Models\Account;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 trait AccountTrait
 {

@@ -2,9 +2,7 @@
 
 namespace App\Http\Middleware\Web;
 
-use App\Models\AccountHasBookmarks;
 use Closure;
-use Illuminate\Http\Request;
 
 class BookmarkOwner
 {
