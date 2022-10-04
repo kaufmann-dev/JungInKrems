@@ -54,24 +54,6 @@
             errorname: "DESCRIPTION",
             error: ""
         },
-        /* {
-            name: "Typ",
-            bind: "EVENT_TYPE",
-            type: "array",
-            options: [
-                {
-                    name: "Freizeit",
-                    value: "Freizeit"
-                },
-                {
-                    name: "Bildung",
-                    value: "Bildung"
-                }
-            ],
-            value: event.EVENT_TYPE,
-            errorname: "EVENT_TYPE",
-            error: ""
-        }, */
         {
             name: "Startzeit",
             bind: "STARTING_TIME",
@@ -153,25 +135,8 @@
         }
     }
 
-    /* let javaToMysqlDatetime = (java) => {
-        let dateObj = new Date(java);
-        //return dateObj.toISOString().replace('Z', '.000000Z');
-
-        let year = dateObj.getFullYear();
-        let month = dateObj.getMonth() + 1;
-        let day = dateObj.getDate();
-        let hour = dateObj.getHours() - 2;
-        let minute = dateObj.getMinutes();
-        
-        return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-    } */
-
     let submit = () => {
-        let submitdata = data/* .map(element => {
-            if(element.type === "datetime")
-                element.value = javaToMysqlDatetime(element.value);
-            return element;
-        }) */.map(element => {
+        let submitdata = data.map(element => {
             if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"] !== null) {
                 return {
                     [element["bind"]]: element["value"]

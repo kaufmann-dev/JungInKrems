@@ -32,7 +32,6 @@ class VerifyEmailNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        // return new verifyEmail 
         return (new VerifyEmail)
             ->with([
                 'verification_link' => $this->verificationUrl($notifiable),

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 class Kernel extends HttpKernel
 {
     // The application's global HTTP middleware stack
-     // These middleware are run during every request to your application
+    // These middleware are run during every request to your application
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
@@ -56,19 +56,17 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'auth:sanctum' => \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
 
-        // Custom middleware
+        // Custom Api middleware
+        'forceJsonApi' => \App\Http\Middleware\Api\ForceJsonResponse::class,
+        'isEventOwnerApi' => \App\Http\Middleware\Api\EventOwner::class,
+        'isFacilityManagerApi' => \App\Http\Middleware\Api\FacilityManager::class,
 
-            // Api middleware
-            'forceJsonApi' => \App\Http\Middleware\Api\ForceJsonResponse::class,
-            'isEventOwnerApi' => \App\Http\Middleware\Api\EventOwner::class,
-            'isFacilityManagerApi' => \App\Http\Middleware\Api\FacilityManager::class,
-
-            // Web middleware
-            'accountTypeWeb' => \App\Http\Middleware\Web\AccountType::class,
-            'isEventOwnerWeb' => \App\Http\Middleware\Web\EventOwner::class,
-            'isFacilityManagerWeb' => \App\Http\Middleware\Web\FacilityManager::class,
-            'isFacilityManagerByIdWeb' => \App\Http\Middleware\Web\FacilityManagerById::class,
-            'isRequestOwnerWeb' => \App\Http\Middleware\Web\RequestOwner::class,
-            'isBookmarkOwnerWeb' => \App\Http\Middleware\Web\BookmarkOwner::class,
+        // Custom Web middleware
+        'accountTypeWeb' => \App\Http\Middleware\Web\AccountType::class,
+        'isEventOwnerWeb' => \App\Http\Middleware\Web\EventOwner::class,
+        'isFacilityManagerWeb' => \App\Http\Middleware\Web\FacilityManager::class,
+        'isFacilityManagerByIdWeb' => \App\Http\Middleware\Web\FacilityManagerById::class,
+        'isRequestOwnerWeb' => \App\Http\Middleware\Web\RequestOwner::class,
+        'isBookmarkOwnerWeb' => \App\Http\Middleware\Web\BookmarkOwner::class,
     ];
 }

@@ -2,7 +2,7 @@
     import Layout from "../Shared/Layout.svelte";
     import EventListItem from "../Shared/EventListItem.svelte";
     import FacilityListItem from "../Shared/FacilityListItem.svelte";
-    import { page, router } from '@inertiajs/svelte';
+    import { page } from '@inertiajs/svelte';
     import Pills from "../Shared/Pills.svelte";
     import H1 from "../Shared/H1.svelte";
     import SearchBar from "../Shared/SearchBar.svelte";
@@ -26,7 +26,6 @@
             </div>
         {:else}
             {#each events as event}
-                <!-- <EventListItem listUpdated={()=>router.reload} event={event}/> -->
                 <EventListItem event={event}/>
             {/each}
             {#each facilities as facility}
@@ -40,7 +39,6 @@
             </div>
         {:else}
             {#each events as event}
-                <!-- <EventListItem event={event} listUpdated={()=>router.reload}/> -->
                 <EventListItem event={event}/>
             {/each}
         {/if}

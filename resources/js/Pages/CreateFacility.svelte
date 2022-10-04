@@ -1,7 +1,7 @@
 <script>
     import Layout from "../Shared/Layout.svelte";
     import Form from "../Shared/Form.svelte";
-    import { router, Link } from "@inertiajs/svelte";
+    import { router } from "@inertiajs/svelte";
     import H1 from "../Shared/H1.svelte";
     import Subtitle from "../Shared/Subtitle.svelte";
 

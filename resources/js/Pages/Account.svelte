@@ -180,21 +180,3 @@
     </div>
   {/if}
 </AccLayout>
-
-<!-- <div class="tw-bg-white tw-p-6 tw-shadow-md tw-rounded-lg">
-    <h1 class="tw-text-lg tw-font-bold tw-mb-4">User Settings</h1>
-    <form class="tw-flex tw-flex-col tw-w-full tw-mb-4">
-      <label class="tw-mb-2 tw-text-gray-700">Name:</label>
-      <input type="text" class="tw-border tw-border-gray-400 tw-py-2 tw-px-4 tw-rounded-lg tw-w-full">
-    </form>
-    <form class="tw-flex tw-flex-col tw-w-full tw-mb-4">
-      <label class="tw-mb-2 tw-text-gray-700">Email:</label>
-      <input type="email" class="tw-border tw-border-gray-400 tw-py-2 tw-px-4 tw-rounded-lg tw-w-full">
-    </form>
-    <form class="tw-flex tw-flex-col tw-w-full">
-      <label class="tw-mb-2 tw-text-gray-700">Password:</label>
-      <input type="password" class="tw-border tw-border-gray-400 tw-py-2 tw-px-4 tw-rounded-lg tw-w-full">
-    </form>
-    <button class="tw-bg-blue-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-lg tw-mt-4 tw-w-full tw-text-center tw-text-sm tw-font-medium tw-hover:bg-blue-600">Save Changes</button>
-  </div>
-   -->

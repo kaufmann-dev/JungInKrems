@@ -78,15 +78,6 @@
         .catch(error => {
             console.log(error);
             if (error?.response?.status === 422) {  
-                /* for (const [key, value] of Object.entries(error.response.data.errors)) {
-                    data.forEach(element => {
-                        if(element["errorname"] === key) {
-                            element["error"] = value[0];
-                        } else {
-                            element["error"] = "";
-                        }
-                    });
-                } */
                 for (const [key, value] of Object.entries(data)) {
                     if(error.response.data.errors[value["errorname"]]) {
                         data[key]["error"] = error.response.data.errors[value["errorname"]][0];
@@ -130,20 +121,3 @@
         {/if}
     {/if}
 </AccLayout>
-
-<!-- <div class="tw-fixed tw-top-0 tw-left-0 tw-w-full tw-h-full tw-bg-black tw-opacity-50 tw-flex tw-justify-center tw-items-center">
-    <div class="tw-bg-white tw-w-1/2 tw-p-6 tw-rounded">
-        <h1 class="tw-text-2xl tw-mb-6">Neuen Antrag erstellen</h1>
-        <p class="tw-mb-6">Bitte wählen Sie eine Bildungseinrichtung aus.</p>
-        <div class="tw-flex tw-flex-wrap tw-justify-center">
-            {#each $page.props.facilities as facility}
-                <div class="tw-m-2">
-                    <Button link="/newfacility/{facility.id}">{facility.name}</Button>
-                </div>
-            {/each}
-        </div>
-        <div class="tw-mt-6 tw-flex tw-justify-end">
-            <Button on:click={()=>creating=false}>Abbrechen</Button>
-        </div>
-    </div>
-</div> -->
