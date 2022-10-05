@@ -3,12 +3,6 @@
     import { inertia, page } from '@inertiajs/svelte';
 </script>
 
-<style>
-    #navbarImage {
-        height: 30px;
-    }
-</style>
-
 <div class="tw-p-3">
     <nav class="navbar navbar-expand-lg navbar-light tw-bg-gray-50 tw-rounded-lg tw-border">
         <div class="container">
@@ -44,7 +38,6 @@
                         <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/dashboard", method: 'get' }}"><i class="bi bi-table"></i> Dashboard</span></li>
                       {/if}
                       <li><hr class="dropdown-divider"></li>
-                      <!-- logout -->
                         <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/logout", method: 'get' }}"><i class="bi bi-box-arrow-right"></i> Abmelden</span></li>
                     </ul>
                   </div>

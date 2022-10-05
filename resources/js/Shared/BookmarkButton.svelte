@@ -1,7 +1,6 @@
 <script>
     import { page, router } from '@inertiajs/svelte';
     import axios from 'axios';
-    //export let bookmarkUpdated = () => {};
     export let checkId;
 
     let bookmarks = $page.props.bookmarks;
@@ -19,13 +18,9 @@
                 router.reload();
             });
         }
-        /* bookmarkUpdated();
-        router.reload(); */
     }
 
     let isHovering = false;
-
-
 </script>
 
 {#if $page.props.auth.user}

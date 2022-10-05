@@ -1,7 +1,6 @@
 <script>
     export let event;
-    //export let listUpdated = () => {};
-    import { inertia, router } from "@inertiajs/svelte";
+    import { router } from "@inertiajs/svelte";
     import InfoText from "../Shared/InfoText.svelte";
     import BookmarkButton from "./BookmarkButton.svelte";
     import H4 from "../Shared/H4.svelte";

@@ -1,9 +1,10 @@
 <script>
-    export let facility;
     import { inertia } from '@inertiajs/svelte';
     import InfoText from './InfoText.svelte';
     import BookmarkButton from './BookmarkButton.svelte';
     import H4 from './H4.svelte';
+    
+    export let facility;
 </script>
 
 <div class="tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mt-4 tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-4 tw-gap-4">
