@@ -3,11 +3,17 @@
     import { inertia, page } from '@inertiajs/svelte';
 </script>
 
+<style>
+    #navbarImage {
+        height: 30px;
+    }
+</style>
+
 <div class="tw-p-3">
     <nav class="navbar navbar-expand-lg navbar-light tw-bg-gray-50 tw-rounded-lg tw-border">
         <div class="container">
             <span class="tw-cursor-pointer navbar-brand" use:inertia="{{ href: "/", method: 'get' }}">
-                <img id="navbarImage" src="/images/logo.png" alt="The Second Directory logo" height="30" class="d-inline-block align-text-top">
+                <img id="navbarImage" src="/images/logo.png" alt="The Second Directory logo" class="d-inline-block align-text-top">
             </span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
