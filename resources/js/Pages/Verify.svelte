@@ -13,7 +13,7 @@
 </svelte:head>
 
 <CenterDiv>
-    <div class="tw-text-center">
+    <div class="tw-text-center tw-p-3">
       <H1 mb={false}>E-Mail bestätigt</H1>
       <Subtitle>Sie haben Ihre E-Mail Adresse erfolgreich bestätigt.</Subtitle>
       <Button link="/">Zurück zur Startseite</Button>

@@ -33,7 +33,7 @@
 </svelte:head>
 
 <CenterDiv>
-  <div class="tw-text-center">
+  <div class="tw-text-center tw-p-3">
     <H1 mb={false}>{title}</H1>
     <Subtitle>{description}</Subtitle>
     <Button link="/">Zurück zur Startseite</Button>
