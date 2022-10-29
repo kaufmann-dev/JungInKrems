@@ -76,7 +76,7 @@
     {#if reset}
         <InfoText mb="true" color="light">Dein Passwort wurde erfolgreich zurückgesetzt.</InfoText>
         <div></div>
-        <Button link="/login">Zum Login</Button>
+        <Button link="/">Zur Startseite</Button>
     {:else}
         <Form newInstance={true} onSubmit={submit} onCancel={cancel} {data}></Form>
         <ErrorMessage>{error500}</ErrorMessage>
