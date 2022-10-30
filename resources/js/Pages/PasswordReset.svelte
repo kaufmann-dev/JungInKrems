@@ -5,8 +5,8 @@
     import { router } from "@inertiajs/svelte";
     import ErrorMessage from "../Shared/ErrorMessage.svelte";
     import Button from "../Shared/Button.svelte";
-    import InfoText from "../Shared/InfoText.svelte";
-    import Subtitle from "../Shared/Subtitle.svelte";
+    import CenterDiv from "../Shared/CenterDiv.svelte";
+    import HR from "../Shared/HR.svelte";
 
     let searcher = new URLSearchParams(window.location.search);
     let email = searcher.get('email');
@@ -70,15 +70,16 @@
     };
 </script>
 
-<Layout>
-    <H1 mb={false}>Passwort zurücksetzen</H1>
-    <Subtitle>Wähle ein neues Passwort.</Subtitle>
-    {#if reset}
-        <InfoText mb="true" color="light">Dein Passwort wurde erfolgreich zurückgesetzt.</InfoText>
-        <div></div>
-        <Button link="/">Zur Startseite</Button>
-    {:else}
-        <Form newInstance={true} onSubmit={submit} onCancel={cancel} {data}></Form>
-        <ErrorMessage>{error500}</ErrorMessage>
-    {/if}
-</Layout>
+<CenterDiv>
+    <div class="tw-text-center tw-p-3">
+        <H1 mb={false}>Passwort zurücksetzen</H1>
+        <HR/>
+        {#if reset}
+            <span class="tw-text-green-700 tw-mb-4 tw-block">Sie haben Ihre E-Mail Adresse erfolgreich bestätigt.</span>
+            <Button link="/">Zurück zur Startseite</Button>
+        {:else}
+            <Form newInstance={true} onSubmit={submit} onCancel={cancel} {data}></Form>
+            <ErrorMessage>{error500}</ErrorMessage>
+        {/if}
+    </div>
+</CenterDiv>
