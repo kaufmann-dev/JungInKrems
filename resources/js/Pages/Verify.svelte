@@ -13,7 +13,7 @@
 </svelte:head>
 
 <CenterDiv>
-    <div class="tw-text-center tw-p-3">
+    <div class="tw-p-3">
       <H1 mb={false}>E-Mail bestätigt</H1>
       <HR/>
       <span class="tw-text-green-700 tw-mb-4 tw-block">Sie haben Ihre E-Mail Adresse erfolgreich bestätigt.</span>
