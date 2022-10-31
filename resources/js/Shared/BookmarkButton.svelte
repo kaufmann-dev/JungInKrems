@@ -1,6 +1,5 @@
 <script>
     import { page, router } from '@inertiajs/svelte';
-    import axios from 'axios';
     export let checkId;
 
     let bookmarks = $page.props.bookmarks;

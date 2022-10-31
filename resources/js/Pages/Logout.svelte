@@ -1,5 +1,4 @@
 <script>
-    import axios from 'axios';
     import { router } from '@inertiajs/svelte';
     import Button from '../Shared/Button.svelte';
     import Layout from '../Shared/Layout.svelte';

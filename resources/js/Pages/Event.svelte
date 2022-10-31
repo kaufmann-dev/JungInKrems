@@ -6,7 +6,6 @@
     import { page, router } from '@inertiajs/svelte';
     import BookmarkButton from "../Shared/BookmarkButton.svelte";
     import Form from "../Shared/Form.svelte";
-    import axios from "axios";
     import H1 from "../Shared/H1.svelte";
     import H3 from "../Shared/H3.svelte";
 

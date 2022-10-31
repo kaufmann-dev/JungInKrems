@@ -2,7 +2,6 @@
     import { page, router, Link } from '@inertiajs/svelte';
     import Layout from '../Shared/Layout.svelte';
     import Button from '../Shared/Button.svelte';
-    import axios from 'axios';
     import CenterDiv from '../Shared/CenterDiv.svelte';
     import H1 from '../Shared/H1.svelte';
     import FloatingForm from '../Shared/FloatingForm.svelte';
