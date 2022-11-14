@@ -8,8 +8,6 @@
 
     let loggedIn = false;
 
-    let wrongPassword = '';
-
     $: credentials = [{
         name: 'E-Mail',
         bind: 'email',
@@ -59,12 +57,6 @@
                         credentials[key]["error"] = "";
                     }
                 }
-                wrongPassword = '';
-            } else if (error?.response?.status === 401) {
-                for (const [key, value] of Object.entries(credentials)) {
-                    credentials[key]["error"] = "";
-                }
-                wrongPassword = error.response.data.message;
             }
         });
     }
@@ -83,7 +75,7 @@
                     <Button link="/events">Events entdecken</Button>
                 </div>
             {:else}
-                <FloatingForm name="Anmelden" data={credentials} onSubmit={submit} additionalError={wrongPassword}></FloatingForm>
+                <FloatingForm name="Anmelden" data={credentials} onSubmit={submit}></FloatingForm>
                 <div class="tw-text-center tw-mt-2">
                     <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/forgotpassword">Passwort vergessen?</Link><br>
                     <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/register">Registrieren</Link>

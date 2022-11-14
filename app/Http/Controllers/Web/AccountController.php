@@ -22,7 +22,7 @@ class AccountController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             return response()->json(['message' => 'Successfully logged in'], 200);
         } else {
-            return response()->json(['message' => 'Das Passwort ist falsch.'], 401);
+            return response()->json(['errors' => ["password" => ["Das Passwort ist falsch."]]], 422);
         }
     }
 
