@@ -7,7 +7,7 @@ trait FacilityTrait
 {
     public function validateRequest(Request $request)
     {
-        $this->validate($request, [
+        /* $this->validate($request, [
             'FACILITY_ID' => 'integer',
             'NAME' => 'string|min:5|max:45',
             'DESCRIPTION' => 'string|min:10|max:1000',
@@ -65,7 +65,7 @@ trait FacilityTrait
             'FACILITY_TYPE.in' => 'Die Einrichtungsart muss entweder BHS, Gymnasium, Realschule, Hauptschule, Grundschule, Kindergarten oder Universität sein.',
 
             'IS_CITY_VERIFIED.boolean' => 'Die Stadtverifizierung muss ein Boolean sein.',
-        ]);
+        ]); */
     }
 
     public function validateNewManager(Request $request)
@@ -80,16 +80,16 @@ trait FacilityTrait
 
     public function requireNew(Request $request)
     {
-        $this->validate($request, [
+        /* $this->validate($request, [
             'IMAGE' => 'required',
         ], [
             'IMAGE.required' => 'Die Bild muss vorhanden sein.',
-        ]);
+        ]); */
     }
 
     public function requireUpdate(Request $request)
     {
-        $this->validate($request, [
+        /* $this->validate($request, [
             'NAME' => 'required',
             'DESCRIPTION' => 'required',
             'FACILITY_TYPE' => 'required',
@@ -108,7 +108,7 @@ trait FacilityTrait
             'PHONE_NR.required' => 'Die Telefonnummer muss ausgefüllt werden.',
             'EMAIL.required' => 'Die E-Mail Adresse ist erforderlich.',
             'WEBSITE_URL.required' => 'Die Website-URL muss ausgefüllt werden.',
-        ]);
+        ]); */
     }
 
     public function requireAdminUpdate(Request $request)
