@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('FACILITIES_ST', function (Blueprint $table) {
             $table->foreignId("FACILITY_ID")->primary()->constrained('BOOKMARKS_BT','BOOKMARK_ID')->onDelete('cascade');
             $table->string('NAME')->unique();
-            $table->text('DESCRIPTION');
+            $table->text('DESCRIPTION', 10000);
             $table->string('WEBSITE_URL')->unique();
             $table->string('PHONE_NR')->unique();
             $table->string('EMAIL')->unique();
