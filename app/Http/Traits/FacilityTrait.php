@@ -11,7 +11,7 @@ trait FacilityTrait
             'FACILITY_ID' => 'integer',
             'NAME' => 'string|min:5|max:45',
             'DESCRIPTION' => 'string|min:10|max:1000',
-            'WEBSITE_URL' => 'url|max:255',
+            'WEBSITE_URL' => 'max:255',
             'PHONE_NR' => array(
                 'string',
                 'max:20'
@@ -34,7 +34,7 @@ trait FacilityTrait
             'DESCRIPTION.min' => 'Die Beschreibung muss mindestens 10 Zeichen lang sein.',
             'DESCRIPTION.max' => 'Die Beschreibung darf maximal 1000 Zeichen lang sein.',
 
-            'WEBSITE_URL.url' => 'Die Website URL muss eine gültige URL sein.',
+            //'WEBSITE_URL.url' => 'Die Website URL muss eine gültige URL sein.',
             'WEBSITE_URL.max' => 'Die Website URL darf maximal 255 Zeichen lang sein.',
 
             'PHONE_NR.string' => 'Die Telefonnummer muss ein String sein.',
