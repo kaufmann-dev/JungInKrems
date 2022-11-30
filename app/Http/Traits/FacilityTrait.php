@@ -11,7 +11,10 @@ trait FacilityTrait
             'FACILITY_ID' => 'integer',
             'NAME' => 'string|min:5|max:45',
             'DESCRIPTION' => 'string|min:10|max:1000',
-            'WEBSITE_URL' => 'url|max:255',
+            'WEBSITE_URL' => array(
+                'regex:/^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/',
+                'max:255'
+            ),
             'PHONE_NR' => array(
                 'string',
                 'max:20'
@@ -34,8 +37,8 @@ trait FacilityTrait
             'DESCRIPTION.min' => 'Die Beschreibung muss mindestens 10 Zeichen lang sein.',
             'DESCRIPTION.max' => 'Die Beschreibung darf maximal 1000 Zeichen lang sein.',
 
-            'WEBSITE_URL.url' => 'Die Website URL muss eine gültige URL sein.',
-            'WEBSITE_URL.max' => 'Die Website URL darf maximal 255 Zeichen lang sein.',
+            'WEBSITE_URL.regex' => 'Die Webseite muss eine gültige URL sein.',
+            'WEBSITE_URL.max' => 'Die Webseite darf maximal 255 Zeichen lang sein.',
 
             'PHONE_NR.string' => 'Die Telefonnummer muss ein String sein.',
             'PHONE_NR.max' => 'Die Telefonnummer darf maximal 20 Zeichen lang sein.',
@@ -98,6 +101,7 @@ trait FacilityTrait
             'WEBSITE_URL' => 'required',
         ], [
             'NAME.required' => 'Der Name ist erforderlich.',
+            'DESCRIPTION.required' => 'Die Beschreibung ist erforderlich.',
             'FACILITY_TYPE.required' => 'Die Einrichtungsart muss ausgefüllt werden.',
             'POSTAL_CODE.required' => 'Die Postleitzahl muss ausgefüllt werden.',
             'CITY.required' => 'Die Stadt muss ausgefüllt werden.',
