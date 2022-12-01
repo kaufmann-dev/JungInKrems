@@ -12,7 +12,7 @@ trait FacilityTrait
             'NAME' => 'string|min:5|max:45',
             'DESCRIPTION' => 'string|min:10|max:1000',
             'WEBSITE_URL' => array(
-                'regex:/^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/',
+                'regex:/^((?:https?:\/\/)[\w-]+(?:\.[\w-]+)*\.[a-zA-Z]{2,63}(?:\.[a-zA-Z]{2,63})?(?:\/\S*)?)$/',
                 'max:255'
             ),
             'PHONE_NR' => array(
@@ -37,7 +37,7 @@ trait FacilityTrait
             'DESCRIPTION.min' => 'Die Beschreibung muss mindestens 10 Zeichen lang sein.',
             'DESCRIPTION.max' => 'Die Beschreibung darf maximal 1000 Zeichen lang sein.',
 
-            'WEBSITE_URL.regex' => 'Die Webseite muss eine gültige URL sein.',
+            'WEBSITE_URL.regex' => 'Die Webseite muss eine gültige URL die mit http:// oder https:// startet sein.',
             'WEBSITE_URL.max' => 'Die Webseite darf maximal 255 Zeichen lang sein.',
 
             'PHONE_NR.string' => 'Die Telefonnummer muss ein String sein.',
