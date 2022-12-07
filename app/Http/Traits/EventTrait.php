@@ -20,7 +20,7 @@ trait EventTrait
                 'regex:/^((?:https?:\/\/)[\w-]+(?:\.[\w-]+)*\.[a-zA-Z]{2,63}(?:\.[a-zA-Z]{2,63})?(?:\/\S*)?)$/',
                 'max:255'
             ),
-            'POSTAL_CODE' => 'digits_between:4,5',
+            'POSTAL_CODE' => 'digits_between:4,10',
             'CITY' => 'string|min:2|max:45',
             'ADDRESS' => 'string|min:4|max:100',
             'IMAGE' => 'file|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
