@@ -20,7 +20,7 @@
     </div>
     <div>
         <H4>Kontakt</H4>
-        <InfoText mb="false" color="light">Addresse</InfoText>
+        <InfoText mb="false" color="light">Adresse</InfoText>
         {facility.ADDRESS}, {facility.POSTAL_CODE} {facility.CITY}<br>
         <InfoText mt="true" mb="false" color="light">E-Mail</InfoText>
         {facility.EMAIL}
