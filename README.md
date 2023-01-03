@@ -4,8 +4,8 @@
 npm install
 composer install
 
-mv .env.example .env
-php artisan migrate:fresh
+mv .env.example .env (edit accordingly)
+php artisan migrate:fresh (only if using a new database)
 
 npm run dev
 php artisan serve
@@ -19,8 +19,8 @@ php artisan serve
 npm install
 composer install
 
-mv .env.example .env
-php artisan migrate:fresh
+mv .env.example .env (edit accordingly)
+php artisan migrate:fresh (only if using a new database)
 
 chmod -R 777
 npm run build
@@ -33,5 +33,6 @@ npm run build
 ```
 git reset --hard
 git pull origin master
+chmod -R 777
 npm run build
 ```
