@@ -23,7 +23,7 @@ trait EventTrait
             'POSTAL_CODE' => 'digits_between:4,10',
             'CITY' => 'string|min:2|max:45',
             'ADDRESS' => 'string|min:4|max:100',
-            'IMAGE' => 'file|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
+            'IMAGE' => 'file|image|mimes:webp,jpeg,png,jpg,gif,svg|max:4096',
             'STARTING_TIME' => 'string|max:255',
             'ENDING_TIME' => 'string|max:255',
         ], [
@@ -62,7 +62,7 @@ trait EventTrait
             'IMAGE.file' => 'Das Bild muss eine Datei sein.',
             'IMAGE.image' => 'Das Bild muss ein Bild sein.',
             'IMAGE.mimes' => 'Das Bild muss eine der folgenden Dateiendungen haben: webp, jpeg, png, jpg, gif, svg.',
-            'IMAGE.max' => 'Das Bild darf maximal 2048 Kilobytes groß sein.',
+            'IMAGE.max' => 'Das Bild darf maximal 4096 Kilobytes groß sein.',
 
             'STARTING_TIME.string' => 'Die Startzeit muss ein String sein.',
             'STARTING_TIME.max' => 'Die Startzeit darf maximal 255 Zeichen lang sein.',

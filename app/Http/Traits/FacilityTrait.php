@@ -23,7 +23,7 @@ trait FacilityTrait
             'POSTAL_CODE' => 'digits_between:4,10',
             'CITY' => 'string|min:2|max:45',
             'ADDRESS' => 'string|min:4|max:100',
-            'IMAGE' => 'file|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
+            'IMAGE' => 'file|image|mimes:webp,jpeg,png,jpg,gif,svg|max:4096',
             'FACILITY_TYPE' => 'string|in:BHS,Gymnasium,Realschule,Hauptschule,Grundschule,Kindergarten,Universität',
             'IS_CITY_VERIFIED' => 'boolean',
         ], [
@@ -59,7 +59,7 @@ trait FacilityTrait
             'IMAGE.file' => 'Das Bild muss eine Datei sein.',
             'IMAGE.image' => 'Das Bild muss eine Bilddatei sein.',
             'IMAGE.mimes' => 'Das Bild muss im Format .webp, .jpeg, .png, .jpg, .gif oder .svg sein.',
-            'IMAGE.max' => 'Das Bild darf maximal 2048 KB groß sein.',
+            'IMAGE.max' => 'Das Bild darf maximal 4096 KB groß sein.',
 
             'FACILITY_TYPE.string' => 'Die Einrichtungsart muss ein String sein.',
             'FACILITY_TYPE.in' => 'Die Einrichtungsart muss entweder BHS, Gymnasium, Realschule, Hauptschule, Grundschule, Kindergarten oder Universität sein.',
