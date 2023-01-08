@@ -27,7 +27,7 @@
         let year = dateObj.getFullYear();
         let month = dateObj.getMonth() + 1;
         let day = dateObj.getDate();
-        let hour = dateObj.getUTCHours();
+        let hour = dateObj.getHours();
         let minute = dateObj.getMinutes();
         
         return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
