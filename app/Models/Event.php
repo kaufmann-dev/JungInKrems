@@ -34,4 +34,10 @@ class Event extends Model
     {
         return $this->belongsTo(Facility::class, 'FACILITY_ID', 'FACILITY_ID')->with("managers")->withDefault();
     }
+
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        // Return the date as a string without any timezone conversion
+        return $date->format('Y-m-d H:i:s');
+    }
 }
