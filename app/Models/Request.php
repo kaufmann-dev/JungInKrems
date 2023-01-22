@@ -28,4 +28,9 @@ class Request extends Model
     {
         return $this->belongsTo(Facility::class, 'FACILITY_ID', 'FACILITY_ID');
     }
+    
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 }

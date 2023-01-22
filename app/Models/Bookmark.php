@@ -14,4 +14,9 @@ class Bookmark extends Model
     
     public $incrementing = true;
     public $timestamps = true;
+    
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 }
