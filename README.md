@@ -1,4 +1,4 @@
-# Jugendliches Krems
+# Jung in Krems
 ## Building the development environment
 ```
 npm install
@@ -33,6 +33,11 @@ npm run build
 ```
 git reset --hard
 git pull origin master
-chmod -R 777
+chmod -R 777 .
 npm run build
 ```
+### nginx config
+```
+location / {
+   try_files $uri $uri/ /index.php?$query_string;
+}
