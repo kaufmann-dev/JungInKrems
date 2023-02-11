@@ -1,8 +1,7 @@
 # Jung in Krems
 ## Building the development environment
 ```
-npm install
-composer install
+npm install && composer install
 
 mv .env.example .env (edit accordingly)
 php artisan migrate:fresh (only if using a new database)
@@ -16,14 +15,12 @@ php artisan serve
 - update `DB` variables
 ## Building the production environment
 ```
-npm install
-composer install
+npm install && composer install
 
 mv .env.example .env (edit accordingly)
 php artisan migrate:fresh (only if using a new database)
 
-chmod -R 777
-npm run build
+chmod -R 777 && npm run build
 ```
 ### .env
 - set `APP_ENV=production`
@@ -31,10 +28,7 @@ npm run build
 - update `DB` variables
 ### Applaying changes to the production environment
 ```
-git reset --hard
-git pull origin master
-chmod -R 777 .
-npm run build
+git reset --hard && git pull origin master && chmod -R 777 . && npm run build
 ```
 ### nginx config
 ```
