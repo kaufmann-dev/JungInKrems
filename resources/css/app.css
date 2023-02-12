@@ -1,0 +1,11 @@
+/* Import Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#app {
+    @apply tw-h-full;
+    @apply tw-box-border;
+    @apply tw-flex;
+    @apply tw-flex-col;
+}
