@@ -5,10 +5,10 @@ name: Deploy
 on:
   push:
     branches:
-      - production
+      - master
   pull_request:
     branches:
-      - production
+      - master
 
 # Authenticate to the the server via ssh 
 # and run our deployment script 
@@ -24,4 +24,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.SSHKEY }}
-          script: "cd /var/www/html && ./.scripts/deploy.sh"
+          script: "cd /var/www/laravel && ./.scripts/deploy.sh"
