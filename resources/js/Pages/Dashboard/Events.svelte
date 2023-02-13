@@ -209,6 +209,7 @@
       {:else}
           <Table on:deleteData={handleTableDelete} on:editData={handleTableEdit} {data} ignore={["ACCOUNT_ID", "FACILITY_ID", "STARTING_TIME", "ENDING_TIME", "WEBSITE_URL", "PHONE_NR", "EMAIL", "POSTAL_CODE", "CITY", "ADDRESS", "IMAGE_PATH", "remember_token", "created_at", "updated_at"]}></Table>
       {/if}
+      <div></div>
       <Button link="/newevent">Neues Event erstellen</Button>
     {/if}
 </DashLayout>

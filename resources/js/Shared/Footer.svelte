@@ -1,5 +1,6 @@
 <script>
     import { page } from "@inertiajs/svelte";
+    import { inertia } from '@inertiajs/svelte';
 </script>
 
 <footer class="pt-3">
@@ -7,6 +8,7 @@
         <li class="nav-item"><a href="https://www.krems.at/impressum-1" class="nav-link px-2 text-muted">Impressum</a></li>
         <li class="nav-item"><a href="https://www.krems.at/datenschutzerklaerung" class="nav-link px-2 text-muted">Datenschutz</a></li>
         <li class="nav-item"><a href="https://www.krems.at/" class="nav-link px-2 text-muted">Stadt Krems</a></li>
+        <li class="nav-item"><span use:inertia="{{ href: "/about", method: 'get' }}" class="tw-cursor-pointer nav-link px-2 text-muted">Über Uns</span></li>
         <li class="nav-item"><a href="/handbuch-jung-in-krems.pdf" class="nav-link px-2 text-muted">Handbuch</a></li>
         {#if $page.props.auth.user?.ACCOUNT_TYPE == 'Systemverwalter'}
             <li class="nav-item"><a href="/dashboard-handbuch-jung-in-krems.pdf" class="nav-link px-2 text-muted">Dashboard-Handbuch</a></li>

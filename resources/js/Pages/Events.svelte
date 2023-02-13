@@ -9,16 +9,18 @@
     let activePill;
     let query = "";
     export let events = [];
-    $: filteredEvents = events.filter(event =>
-        event.TITLE.toLowerCase().includes(query.toLowerCase()) ||
-        event.facility.NAME?.toLowerCase().includes(query.toLowerCase()) ||
-        event.account.NAME?.toLowerCase().includes(query.toLowerCase()) ||
-        event.STARTING_TIME.toLowerCase().includes(query.toLowerCase()) ||
-        event.ADDRESS.toLowerCase().includes(query.toLowerCase()) ||
-        event.POSTAL_CODE.toLowerCase().includes(query.toLowerCase()) ||
-        event.CITY.toLowerCase().includes(query.toLowerCase()) ||
-        event.ENDING_TIME?.toLowerCase().includes(query.toLowerCase()))
-    .sort((event1, event2) => event2.ENDING_TIME ? new Date(event2.ENDING_TIME) - new Date(event1.ENDING_TIME) : (event1.ENDING_TIME ? -1 : new Date(event2.STARTING_TIME) - new Date(event1.STARTING_TIME)));
+
+    $: filteredEvents = events
+        .filter(event => (event.ENDING_TIME ? new Date(event.ENDING_TIME) >= new Date() : new Date(event.STARTING_TIME) >= new Date() - 24 * 60 * 60 * 1000))
+        .sort((event1, event2) => (event1.ENDING_TIME && !event2.ENDING_TIME) ? new Date(event1.ENDING_TIME) - new Date(event2.STARTING_TIME) : (!event1.ENDING_TIME && event2.ENDING_TIME) ? new Date(event1.STARTING_TIME) - new Date(event2.ENDING_TIME) : (event2.ENDING_TIME ? new Date(event2.ENDING_TIME) - new Date(event1.ENDING_TIME) : new Date(event2.STARTING_TIME) - new Date(event1.STARTING_TIME)))
+        .filter(event => event.TITLE.toLowerCase().includes(query.toLowerCase()) ||
+                         event.facility.NAME?.toLowerCase().includes(query.toLowerCase()) ||
+                         event.account.NAME?.toLowerCase().includes(query.toLowerCase()) ||
+                         event.STARTING_TIME.toLowerCase().includes(query.toLowerCase()) ||
+                         event.ADDRESS.toLowerCase().includes(query.toLowerCase()) ||
+                         event.POSTAL_CODE.toLowerCase().includes(query.toLowerCase()) ||
+                         event.CITY.toLowerCase().includes(query.toLowerCase()) ||
+                         event.ENDING_TIME?.toLowerCase().includes(query.toLowerCase()));
     
     $: freizeitEvents = filteredEvents.filter(event => event.EVENT_TYPE === "Freizeit");
     $: bildungEvents = filteredEvents.filter(event => event.EVENT_TYPE === "Bildung");

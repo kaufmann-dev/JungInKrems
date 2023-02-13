@@ -157,6 +157,7 @@
         {:else}
             <Table on:editData={handleEdit} on:deleteData={handleDeletion} on:decline={handleDecline} on:accept={handleAccept} bind:data={data}></Table>
         {/if}
+        <div></div>
         <Button link="/account/requests">Antrag erstellen</Button>
     {/if}
 </DashLayout>
