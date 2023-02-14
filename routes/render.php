@@ -82,3 +82,4 @@ Route::get('/error', function () {
     return Inertia::render('Error');
 })->name('error');
 //
+//
