@@ -4,26 +4,21 @@ namespace App\Http\Controllers\Web;
 
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use App\Models\Account;
+use App\Http\Traits\AccountTrait;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
-    /* public function display(){
-        return Inertia::render('Dashboard');
-    }
+    use AccountTrait;
 
-    public function displayAccounts(){
-        return Inertia::render('Dashboard/Accounts');
+    public function updateAccount($id)
+    {
+        $this->validateAdminUpdate(request());
+        $account = Account::find($id);
+        if(request()->has('PASSWORD')) {
+            request()->merge(['PASSWORD' => Hash::make(request()->input('PASSWORD'))]);
+        }
+        $account->update(request()->all());
     }
-
-    public function displayEvents(){
-        return Inertia::render('Dashboard/Events');
-    }
-
-    public function displayFacilities(){
-        return Inertia::render('Dashboard/Facilities');
-    }
-
-    public function displayRequests(){
-        return Inertia::render('Dashboard/Requests');
-    } */
 }

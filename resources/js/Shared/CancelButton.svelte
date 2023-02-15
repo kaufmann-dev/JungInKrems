@@ -1,11 +1,19 @@
 <script>
-    export let text;
     export let link;
+    export let onClick = () => {};
     import { inertia } from '@inertiajs/svelte';
 </script>
 
-{#if link}
-<button use:inertia="{{ href: link, method: 'get' }}" type="button" class="tw-text-white tw-bg-gray-400 hover:tw-bg-gray-500 focus:tw-outline-none  tw-font-medium tw-rounded-full tw-text-sm tw-px-5 tw-py-2.5 tw-text-center">{#if text}{text}{:else}<slot />{/if}</button>
-{:else}
-<button type="button" class="tw-text-white tw-bg-gray-400 hover:tw-bg-gray-500 focus:tw-outline-none  tw-font-medium tw-rounded-full tw-text-sm tw-px-5 tw-py-2.5 tw-text-center">{#if text}{text}{:else}<slot />{/if}</button>
-{/if}
+<div on:click={onClick} class="tw-cursor-pointer tw-text-white tw-bg-gray-400 hover:tw-bg-gray-500 focus:tw-outline-none  tw-font-medium tw-rounded-full tw-text-sm tw-text-center tw-inline-block">
+    {#if link}
+        <div class="tw-px-5 tw-py-2.5" use:inertia="{{ href: link, method: 'get' }}">
+            <slot></slot>
+        </div>
+    {:else}
+        <div class="tw-px-5 tw-py-2.5">
+            <slot></slot>
+        </div>
+    {/if}
+</div>
+
+

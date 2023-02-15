@@ -22,6 +22,9 @@ class EventController extends Controller
         if(!request()->has('ACCOUNT_ID')) {
             request()->merge(['ACCOUNT_ID' => request()->user()->ACCOUNT_ID]);
         }
+        if(!request()->has('EVENT_TYPE')) {
+            request()->merge(['EVENT_TYPE' => 'Freizeit']);
+        }
         
         $this->validateRequest(request());
         $event = Event::create(request()->all());
@@ -31,6 +34,10 @@ class EventController extends Controller
     public function updateEvent($id)
     {
         $event = Event::find($id);
+        
+        if(!request()->has('EVENT_TYPE')) {
+            request()->merge(['EVENT_TYPE' => 'Freizeit']);
+        }
         $this->validateRequest(request());
         $event->update(request()->all());
     }

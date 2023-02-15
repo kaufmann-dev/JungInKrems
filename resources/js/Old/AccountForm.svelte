@@ -1,6 +1,6 @@
 <script>
     import SubmitButton from "../Shared/SubmitButton.svelte";
-    import DeleteButton from "./DeleteButton.svelte";
+    import DeleteButton from "../Shared/DeleteButton.svelte";
 
     export let onSubmit;
     export let onDelete;

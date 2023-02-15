@@ -8,7 +8,7 @@ trait FacilityTrait
     public function validateRequest(Request $request)
     {
         $this->validate($request, [
-            'FACILITY_ID' => 'required|numeric',
+            'FACILITY_ID' => 'numeric',
             'NAME' => 'required|string',
             'DESCRIPTION' => 'required|string',
             'WEBSITE_URL' => 'required|url',
@@ -19,7 +19,7 @@ trait FacilityTrait
             'ADDRESS' => 'required|string',
             'IMAGE_PATH' => 'required|url',
             'FACILITY_TYPE' => 'required|string|in:BHS,Gymnasium,Realschule,Hauptschule,Grundschule,Kindergarten,Universität',
-            'IS_CITY_VERIFIED' => 'required|boolean',
+            'IS_CITY_VERIFIED' => 'boolean',
         ], [
             'FACILITY_ID.required' => 'Die Facility ID ist erforderlich.',
             'FACILITY_ID.numeric' => 'Die Facility ID muss eine Zahl sein.',

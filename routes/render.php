@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Event;
 use App\Models\Facility;
 use App\Models\Account;
+use App\Models\AccountHasFacilities;
 use App\Models\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,10 +17,29 @@ Route::inertia('/', 'Home');
 Route::inertia('/login', 'Login')->name('login');
 Route::inertia('/register', 'Register')->name('register');
 Route::inertia('/logout', 'Logout')->name('logout');
+Route::inertia('/resetpassword', 'ResetPassword')->name('reset-password');
 
 // Account
-Route::inertia('/bookmarks', 'Bookmarks');
-Route::inertia('/account', 'Account');
+Route::middleware('auth')->group(function () {
+    Route::inertia('/bookmarks', 'Bookmarks');
+    Route::inertia('/account', 'Account');
+    Route::get('/account/events', function () {
+        return Inertia::render('Account/Events', [
+            'events' => Event::with(['account', 'facility'])->where('ACCOUNT_ID', Auth::user()->ACCOUNT_ID)->get()
+        ]);
+    });
+    Route::get('/account/requests', function () {
+        return Inertia::render('Account/Requests', [
+            'requests' => Request::where('ACCOUNT_ID', Auth::user()->ACCOUNT_ID)->get(),
+            'facilities' => AccountHasFacilities::with(['facility'])->where('ACCOUNT_ID', Auth::user()->ACCOUNT_ID)->get()
+        ]);
+    });
+    Route::get('/account/facilities', function () {
+        return Inertia::render('Account/Facilities', [
+            'facilities' => AccountHasFacilities::with(['facility'])->where('ACCOUNT_ID', Auth::user()->ACCOUNT_ID)->get()
+        ]);
+    });
+});
 
 // Dashboard
 Route::middleware('accountTypeWeb:Systemverwalter')->group(function () {
@@ -46,7 +66,7 @@ Route::middleware('accountTypeWeb:Systemverwalter')->group(function () {
     });
     Route::get('/dashboard/requests', function () {
         return Inertia::render('Dashboard/Requests', [
-            'requests' => Request::all()
+            'requests' => Request::with(['account', 'facility'])->get()
         ]);
     });
 });
@@ -62,26 +82,23 @@ Route::get('/events/{id}', function ($id) {
         'event' => Event::with(['account', 'facility'])->find($id)
     ]);
 });
-Route::get('/new', function () {
-    return Inertia::render('CreateEvent');
-});
+Route::inertia('/newevent', 'CreateEvent')->middleware('isVerifiedWeb');
 
 // Facilities
 Route::get('/facilities', function () {
     return Inertia::render('Facilities', [
-        'facilities' => Facility::all()
+        'facilities' => Facility::where('IS_CITY_VERIFIED', 1)->get()
     ]);
 });
 Route::get('/facilities/{id}', function ($id) {
     return Inertia::render('Facility', [
-        'facility' => Facility::find($id)
+        /* 'facility' => Facility::where('IS_CITY_VERIFIED', 1)->find($id) */
+        'facility' => Facility::with(['managers', 'events'])->find($id)
     ]);
 });
+Route::inertia('/newfacility', 'CreateFacility')->middleware('isVerifiedWeb');
 
+// Other
 Route::get('/error', function () {
     return Inertia::render('Error');
 })->name('error');
-//
-//
-//
-//

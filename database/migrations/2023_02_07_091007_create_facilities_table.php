@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('POSTAL_CODE');
             $table->string('CITY');
             $table->string('ADDRESS');
-            $table->boolean('IS_CITY_VERIFIED');
+            $table->boolean('IS_CITY_VERIFIED')->default(false);
             $table->string('FACILITY_TYPE');
             $table->string('IMAGE_PATH');
             $table->rememberToken();

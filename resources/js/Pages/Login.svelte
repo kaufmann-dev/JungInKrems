@@ -1,9 +1,10 @@
 <script>
-    import { page, router } from '@inertiajs/svelte';
+    import { page, router, Link } from '@inertiajs/svelte';
     import Layout from '../Shared/Layout.svelte';
     import Button from '../Shared/Button.svelte';
     import SubmitButton from '../Shared/SubmitButton.svelte';
     import axios from 'axios';
+    import CenterDiv from '../Shared/CenterDiv.svelte';
 
     let loggedIn = false;
 
@@ -60,46 +61,45 @@
 </script>
 
 <Layout>
-    {#if $page.props.auth.user}
-        <div class="tw-grid tw-h-full tw-place-items-center">
-            <div class="tw-text-center">
-                {#if loggedIn == true}
-                    <h1 class="tw-mb-6">Sie wurden angemeldet.</h1>
-                {:else}
-                    <h1 class="tw-mb-6">Sie sind bereits angemeldet.</h1>
-                {/if}
-                <Button link="/events" text="Events"/>
-            </div>
+    <CenterDiv>
+        <div class="tw-text-center">
+            {#if $page.props.auth.user}
+                <div class="tw-text-center">
+                    {#if loggedIn == true}
+                        <h1 class="tw-mb-6">Sie wurden angemeldet.</h1>
+                    {:else}
+                        <h1 class="tw-mb-6">Sie sind bereits angemeldet.</h1>
+                    {/if}
+                    <Button link="/events">Events</Button>
+                </div>
+            {:else}
+                <div class=" tw-bg-gray-50 tw-border tw-p-5 tw-rounded-xl">
+                    <h1 class="tw-mb-5">Anmelden</h1>
+                    <form on:submit|preventDefault={submit}>
+                        <div class="tw-mb-3">
+                            <label for="email" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">E-Mail</label>
+                            <input type="email" name="email" id="email" class="tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" placeholder="E-Mail" bind:value={credentials.email}>
+                            <span class="tw-text-red-500 tw-text-sm">{errors.email}</span>
+                        </div>
+                        <div class="tw-mb-3">
+                            <label for="password" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">Passwort</label>
+                            <input type="password" name="password" id="password" class="tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" placeholder="Passwort" bind:value={credentials.password}>
+                            <span class="tw-text-red-500 tw-text-sm">{errors.password}</span>
+                        </div>
+                        <div class="tw-mb-3">
+                            <label for="remember" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">Sitzung speichern</label>
+                            <input type="checkbox" name="remember" id="remember" class="tw-shadow-none tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" bind:checked={credentials.remember}>
+                        </div>
+                        <div class="tw-mb-3">
+                            <SubmitButton>Login</SubmitButton>
+                        </div>
+                    </form>
+                </div>
+                <div class="tw-text-center tw-mt-2">
+                    <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/resetpassword">Passwort vergessen?</Link><br>
+                    <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/register">Registrieren</Link>
+                </div>
+            {/if}
         </div>
-    {:else}
-        <div class="tw-grid tw-h-full tw-place-items-center">
-            <div class="tw-text-center">
-            <div class=" tw-bg-gray-200 tw-p-5 tw-rounded-xl">
-                <h1 class="tw-mb-5">Login</h1>
-                <form on:submit|preventDefault={submit}>
-                    <div class="tw-mb-3">
-                        <label for="email" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">Email</label>
-                        <input type="email" name="email" id="email" class="tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" placeholder="Email" bind:value={credentials.email}>
-                        <span class="tw-text-red-500 tw-text-sm">{errors.email}</span>
-                    </div>
-                    <div class="tw-mb-3">
-                        <label for="password" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">Password</label>
-                        <input type="password" name="password" id="password" class="tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" placeholder="Password" bind:value={credentials.password}>
-                        <span class="tw-text-red-500 tw-text-sm">{errors.password}</span>
-                    </div>
-                    <div class="tw-mb-3">
-                        <label for="remember" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">Remember me</label>
-                        <input type="checkbox" name="remember" id="remember" class="tw-shadow-none tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" bind:checked={credentials.remember}>
-                    </div>
-                    <div class="tw-mb-3">
-                        <SubmitButton>Login</SubmitButton>
-                    </div>
-                </form>
-            </div>
-            <div class="py-2">
-                <a href="/register">Registrieren</a>
-            </div>
-        </div>
-        </div>
-    {/if}
+    </CenterDiv>
 </Layout>
