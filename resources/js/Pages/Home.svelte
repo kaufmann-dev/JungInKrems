@@ -2,12 +2,13 @@
     import Layout from '../Shared/Layout.svelte'
     import Button from '../Shared/Button.svelte'
     import CenterDiv from '../Shared/CenterDiv.svelte';
+    import H1 from '../Shared/H1.svelte';
 </script>
 
 <Layout>
     <CenterDiv>
     <div class="tw-text-center tw-my-10">
-        <h1 class="tw-text-5xl tw-mb-6">Jung in Krems</h1>
+        <H1 mb={false}>Jung in Krems</H1>
         <h2 class="tw-text-yellow-400 tw-mb-10 tw-text-4xl">Willkommen!</h2>
         <div class="tw-grid tw-gap-6 md:tw-gap-20 md:tw-grid-cols-2 tw-mb-10">
             <div>
@@ -19,7 +20,7 @@
                 <span>Die Stadt Krems an der Donau hat viele junge Menschen, die sich hier wohlfühlen und die Stadt mitgestalten. Jung in Krems ist eine Plattform, die junge Menschen in Krems an der Donau zusammenbringt und ihnen hilft, sich in der Stadt zurechtzufinden.</span>
             </div>
         </div>
-        <Button link="/events">Entdecke Events</Button>
+        <Button link="/events">Events entdecken</Button>
     </div>
 </CenterDiv>
 </Layout>

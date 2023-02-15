@@ -10,7 +10,7 @@
 
     export let newInstance = false;
     export let data;
-    export let ignore = ["created_at", "updated_at", "remember_token"];
+    export let ignore = [];
 
     let handleDelete = () => {
         onDelete();

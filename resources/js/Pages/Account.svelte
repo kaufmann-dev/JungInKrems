@@ -1,10 +1,11 @@
 <script>
-    import { page, Link, router } from '@inertiajs/svelte';
+    import { page, router } from '@inertiajs/svelte';
     import AccLayout from "../Shared/AccLayout.svelte";
     import InfoText from '../Shared/InfoText.svelte';
     import Button from '../Shared/Button.svelte';
     import DeleteButton from '../Shared/DeleteButton.svelte';
     import Form from '../Shared/Form.svelte';
+    import H1 from "../Shared/H1.svelte";
     
     $: user = $page.props.auth.user;
     let editing = false;
@@ -63,9 +64,6 @@
                 if (response.status === 200) {
                   router.reload();
                 }
-            })
-            .catch(error => {
-                console.log(error);
             });
         }
     }
@@ -139,22 +137,22 @@
 <AccLayout>
   {#if editing}
 
-    <h1 class="tw-my-6">Benutzerdaten ändern</h1>
+    <H1 class="tw-my-6">Benutzerdaten ändern</H1>
     <Form newInstance={true} data={userArray} onCancel={cancel} onSubmit={submit}></Form>
 
   {:else if editingPassword}
 
-    <h1 class="tw-my-6">Passwort ändern</h1>
+    <H1 class="tw-my-6">Passwort ändern</H1>
     <Form newInstance={true} data={passwordArray} onCancel={cancel} onSubmit={resetPassword}></Form>
 
     {:else}
 
-    <h1 class="tw-my-6">Willkommen <span class="tw-text-yellow-400">{user.NAME}</span>!</h1>
-        <span>E-Mail-Adresse: </span><InfoText>{user.EMAIL}</InfoText><br>
+    <H1 class="tw-my-6">Willkommen <span class="tw-text-yellow-400">{user.NAME}</span>!</H1>
+        <span>E-Mail-Adresse: </span><InfoText>{user.EMAIL}</InfoText>
         {#if user.IS_EMAIL_VERIFIED}
             <span class="tw-text-green-700">Deine E-Mail-Adresse wurde bestätigt!</span>
         {:else}
-            <Button link="/account/verify">Jetzt bestätigen</Button>
+            <Button size="small" link="/account/verify">Jetzt bestätigen</Button>
         {/if}
     <hr>
     <div class="tw-grid tw-gap-4 md:tw-grid-cols-3">

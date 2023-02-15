@@ -2,27 +2,31 @@
     import Layout from "../Shared/Layout.svelte";
     import EventListItem from "../Shared/EventListItem.svelte";
     import Pills from "../Shared/Pills.svelte";
+    import H1 from "../Shared/H1.svelte";
+    import SearchBar from "../Shared/SearchBar.svelte";
 
     let activePill;
+    let query = "";
     export let events = [];
-    console.log(events);
-    let freizeitEvents = events.filter(event => event.EVENT_TYPE === "Freizeit");
-    let bildungEvents = events.filter(event => event.EVENT_TYPE === "Bildung");
+    $: filteredEvents = events.filter(event => event.TITLE.toLowerCase().includes(query.toLowerCase()) || event.facility.NAME?.toLowerCase().includes(query.toLowerCase()) || event.account.NAME?.toLowerCase().includes(query.toLowerCase()) || event.STARTING_TIME.toLowerCase().includes(query.toLowerCase()) || event.ADDRESS.toLowerCase().includes(query.toLowerCase()) || event.POSTAL_CODE.toLowerCase().includes(query.toLowerCase()) || event.CITY.toLowerCase().includes(query.toLowerCase()) || event.ENDING_TIME?.toLowerCase().includes(query.toLowerCase()));
+    
+    $: freizeitEvents = filteredEvents.filter(event => event.EVENT_TYPE === "Freizeit");
+    $: bildungEvents = filteredEvents.filter(event => event.EVENT_TYPE === "Bildung");
 </script>
 
 <Layout>
     <Pills on:pillsUpdate={(evt)=>(activePill = evt.detail)} pills={["Alle Events", "Freizeit", "Bildung"]}/>
+    <H1 center={true}>{activePill}</H1>
+    <SearchBar bind:query={query} />
     {#if activePill == "Alle Events"}
-        <h1 class="tw-text-5xl tw-mb-6">Alle Events</h1>
         {#if events.length === 0}
             <p>Es existieren noch keine Events.</p>
         {:else}
-            {#each events as event}
+            {#each filteredEvents as event}
                 <EventListItem event={event}/>
             {/each}
         {/if}
     {:else if activePill == "Freizeit"}
-        <h1 class="tw-text-5xl tw-mb-6">Freizeit</h1>
         {#if freizeitEvents.length === 0}
             <p>Es existieren noch keine Freizeit-Events.</p>
         {:else}
@@ -32,7 +36,6 @@
         {/if}
             
     {:else if activePill == "Bildung"}
-        <h1 class="tw-text-5xl tw-mb-6">Bildung</h1>
         {#if bildungEvents.length === 0}
             <p>Es existieren noch keine Bildungs-Events.</p>
         {:else}

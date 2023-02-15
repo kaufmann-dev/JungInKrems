@@ -2,6 +2,7 @@
     import Layout from "../Shared/Layout.svelte";
     import Form from "../Shared/Form.svelte";
     import { router, Link } from "@inertiajs/svelte";
+    import H1 from "../Shared/H1.svelte";
 
     $: formData = [{
         name: "Name",
@@ -132,7 +133,7 @@
 </script>
 
 <Layout>
-    <h1 class="tw-mt-6">Bildungsanstalt anmelden</h1>
+    <H1 mb={false}>Bildungsanstalt anmelden</H1>
     <p class="tw-text-gray-500">Hier kannst du eine neue Bildungsanstalt anmelden.</p>
     <Form newInstance={true} bind:data={formData} onSubmit={submit} onCancel={cancel} />
 </Layout>
