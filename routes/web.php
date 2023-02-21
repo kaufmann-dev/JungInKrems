@@ -39,8 +39,6 @@ Route::middleware('auth')->group(function(){
     // Account Routes
     Route::post('/logout', [AccountController::class, 'logout']);
     Route::post('/email/send-verification', [AccountController::class, 'sendVerificationEmail']);
-
-    // Account Routes
     Route::post('/account/delete/', [AccountController::class, 'deleteAccount']);
     Route::post('/account', [AccountController::class, 'updateAccount']);
     Route::post('/reset-password', [AccountController::class, 'resetPassword']);

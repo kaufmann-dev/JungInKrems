@@ -9,10 +9,9 @@ use App\Models\Facility;
 use App\Models\Account;
 use App\Models\AccountHasFacilities;
 use App\Models\Request;
-use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 
-// Home
+// Home Route
 Route::inertia('/', 'Home')->name('home');
 
 // Authentication Routes
@@ -82,7 +81,6 @@ Route::middleware('auth')->group(function(){
     Route::middleware('signed')->group(function(){
         Route::get('/account/verify/fresh', [AccountController::class, 'verifyEmail'])->name('verification.verify');
     });
-    
 
     // Verified Email Middleware
     Route::middleware('verified')->group(function(){

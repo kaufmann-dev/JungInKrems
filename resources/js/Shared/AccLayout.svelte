@@ -22,15 +22,18 @@
         {
             name: 'Meine Anträge',
             href: '/account/requests',
+        },{
+            name: 'E-Mail Bestätigung',
+            href: '/account/verify',
         }
     ];
 
-    $: if(user.EMAIL == "d.kaufmann@htlkrems.at"){
+    /* $: if(user.EMAIL == "d.kaufmann@htlkrems.at"){
         data.push({
             name: 'E-Mail bestätigen',
             href: '/account/verify',
         });
-    }
+    } */
 </script>
 
 <svelte:head>
