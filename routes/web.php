@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\AccountController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\EventController;
 use App\Http\Controllers\Web\FacilityController;
+use App\Http\Controllers\Web\PasswordResetController;
 use App\Http\Controllers\Web\RequestController;
 use Inertia\Inertia;
 
@@ -23,10 +24,18 @@ require __DIR__.'/dashboard.php';
 |
 */
 
+
 // Auth Routes
 Route::post('/login', [AccountController::class, 'login']);
 Route::post('/logout', [AccountController::class, 'logout']);
 Route::post('/register', [AccountController::class, 'register']);
+
+// Password Reset Routes
+Route::post('/password/forgot', [PasswordResetController::class, 'sendResetLinkEmail']);
+Route::post('/password/reset', [PasswordResetController::class, 'resetPassword']);
+
+// E-Mail Verification Routes
+Route::post('/email/send-verification', [AccountController::class, 'sendVerificationEmail']);
 
 // Account Routes
 Route::delete('/account', [AccountController::class, 'deleteAccount']);
@@ -55,7 +64,6 @@ Route::post('request-accept/{id}', [RequestController::class, 'acceptRequest']);
 Route::post('request-decline/{id}', [RequestController::class, 'declineRequest']);
 
 // Admin Routes
-// middleware
 Route::middleware('accountTypeWeb:Systemverwalter')->group(function () {
     Route::put('accounts/{id}', [DashboardController::class, 'updateAccount']);
 });

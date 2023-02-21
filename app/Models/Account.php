@@ -4,20 +4,33 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+//use Illuminate\Foundation\Auth\User as Authenticatable;
+use \Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+// can reset password
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+// use ResetPasswordNotification
+use App\Notifications\ResetPasswordNotification;
+// use reset password
+use Illuminate\Auth\Notifications\ResetPassword;
+// email verification
+use App\Notifications\VerifyEmailNotification;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
-class Account extends Model implements \Illuminate\Contracts\Auth\Authenticatable
+class Account extends Model implements Authenticatable, CanResetPasswordContract, MustVerifyEmailContract
 {
 
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, CanResetPassword, MustVerifyEmail;
 
     protected $table = 'ACCOUNTS_ST';
     protected $primaryKey = 'ACCOUNT_ID';
     public $timestamps = true;
     public $incrementing = true;
+    protected $emailVerifiedColumn = 'IS_EMAIL_VERIFIED';
 
     protected $fillable = [
         'NAME', 'EMAIL', 'PASSWORD', 'ACCOUNT_TYPE'
@@ -25,7 +38,6 @@ class Account extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
 
     protected $casts = [
         'IS_EMAIL_VERIFIED' => 'boolean',
-        'email_verified_at' => 'datetime',
     ];
 
     protected $hidden = [
@@ -84,5 +96,37 @@ class Account extends Model implements \Illuminate\Contracts\Auth\Authenticatabl
         $account->IS_EMAIL_VERIFIED = false;
         $account->save();
         return $account;
+    }
+
+    public function getEmailForPasswordReset()
+    {
+        return $this->EMAIL;
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function getEmailForVerification()
+    {
+        return $this->EMAIL;
+    }
+    
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification());
+    }
+    
+    public function markEmailAsVerified()
+    {
+        return $this->forceFill([
+            'IS_EMAIL_VERIFIED' => true,
+        ])->save();
+    }
+
+    public function hasVerifiedEmail()
+    {
+        return $this->IS_EMAIL_VERIFIED;
     }
 }

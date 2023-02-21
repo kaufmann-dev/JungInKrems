@@ -18,6 +18,7 @@
     let errors = {
         email: '',
         password: '',
+        remember: ''
     };
 
     function submit() {
@@ -31,12 +32,17 @@
         .catch(error => {
             errors.email = '';
             errors.password = '';
+            errors.remember = '';
             if(error.response.data.email) {
                 errors.email = error.response.data.email;
             }
             if(error.response.data.password) {
                 errors.password = error.response.data.password;
             }
+            if(error.response.data.remember) {
+                errors.remember = error.response.data.remember;
+            }
+            console.log(error);
         });
         /* fetch('login', {
             method: 'POST',
@@ -90,6 +96,7 @@
                         <div class="tw-mb-3">
                             <label for="remember" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">Sitzung speichern</label>
                             <input type="checkbox" name="remember" id="remember" class="tw-shadow-none tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" bind:checked={credentials.remember}>
+                            <span class="tw-text-red-500 tw-text-sm">{errors.remember}</span>
                         </div>
                         <div class="tw-mb-3">
                             <SubmitButton>Anmelden</SubmitButton>
@@ -97,7 +104,7 @@
                     </form>
                 </div>
                 <div class="tw-text-center tw-mt-2">
-                    <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/resetpassword">Passwort vergessen?</Link><br>
+                    <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/forgotpassword">Passwort vergessen?</Link><br>
                     <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/register">Registrieren</Link>
                 </div>
             {/if}

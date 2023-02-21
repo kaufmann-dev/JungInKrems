@@ -12,11 +12,10 @@
 
 <AccLayout>
     <H1 class="tw-mt-6">Meine Bildungsanstalten</H1>
-    <p class="tw-text-gray-500">Alle Bildungsanstalten die sie verwalten dürfen. Um sichtbar zu werden muss die Stadt Krems jene zuerst noch verifizieren.</p>
+    <p class="tw-text-gray-500 tw-border-b tw-pb-3">Alle Bildungsanstalten die sie verwalten dürfen. Um sichtbar zu werden muss die Stadt Krems jene zuerst noch verifizieren.</p>
     {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
-        <hr>
         <p>Sie müssen Ihre E-Mail Adresse bestätigen um Bildungsanstalten verwalten zu können.</p>
-        <Button link="/verify">Jetzt bestätigen</Button>
+        <Button link="/account/verify">Jetzt bestätigen</Button>
     {:else}
         {#if myfacilities.length === 0}
             <p>Sie verwalten noch keine Bildungsanstalten.</p>

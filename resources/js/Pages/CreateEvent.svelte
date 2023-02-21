@@ -90,14 +90,15 @@
       error: ""
     },{
       name: "Bild",
-      type: "text",
+      type: "file",
       value: "",
-      bind: "IMAGE_PATH",
+      bind: "IMAGE",
       errorname: "IMAGE_PATH",
       error: ""
     }];
 
     let submit = () => {
+      console.log(formData);
         let submitdata = formData.map(element => {
             if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN") {
                 return {
@@ -105,8 +106,13 @@
                 }
             }
         }).reduce((a, b) => Object.assign(a, b), {});
+        console.log(submitdata);
+        var cooldata = new FormData();
+        for (const [key, value] of Object.entries(submitdata)) {
+            cooldata.append(key, value);
+        }
 
-        axios.post('/events', submitdata)
+        axios.post('/events', cooldata)
         .then(response => {
             if (response.status === 200) {
                 router.get('events');
@@ -122,6 +128,7 @@
                     }
                 }
             }
+            console.log(error);
         });
     }
 

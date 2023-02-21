@@ -20,7 +20,7 @@ trait EventTrait
             'POSTAL_CODE' => 'required|numeric',
             'CITY' => 'required',
             'ADDRESS' => 'required',
-            'IMAGE_PATH' => 'url|required',
+            /* 'IMAGE_PATH' => 'file|image|mimes:jpeg,png,jpg,gif,svg|max:2048|required', */
             'EVENT_TYPE' => 'required',
         ], [
             'FACILITY_ID.in' => 'You are not allowed to add an event to this facility.',

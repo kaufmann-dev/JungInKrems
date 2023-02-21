@@ -117,7 +117,7 @@
                 element["error"] = "";
               });
               cancel();
-              router.reload();
+              router.get("/account/verify");
             }
         })
         .catch(error => {
@@ -138,11 +138,13 @@
   {#if editing}
 
     <H1 class="tw-my-6">Benutzerdaten ändern</H1>
+    <div class="tw-border-b tw-mb-3"></div>
     <Form newInstance={true} data={userArray} onCancel={cancel} onSubmit={submit}></Form>
 
   {:else if editingPassword}
 
     <H1 class="tw-my-6">Passwort ändern</H1>
+    <div class="tw-border-b tw-mb-3"></div>
     <Form newInstance={true} data={passwordArray} onCancel={cancel} onSubmit={resetPassword}></Form>
 
     {:else}
@@ -154,7 +156,7 @@
         {:else}
             <Button size="small" link="/account/verify">Jetzt bestätigen</Button>
         {/if}
-    <hr>
+    <div class="tw-border-b tw-my-3"></div>
     <div class="tw-grid tw-gap-4 md:tw-grid-cols-3">
         <Button onClick={()=>editing = true}><i class="bi bi-pencil-fill"></i> Benutzerdaten ändern</Button>
         <Button onClick={()=>editingPassword = true}><i class="bi bi-key-fill"></i> Passwort ändern</Button>
