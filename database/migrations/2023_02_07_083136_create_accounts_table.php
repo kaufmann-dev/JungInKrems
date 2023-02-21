@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('PASSWORD');
             $table->boolean('IS_EMAIL_VERIFIED')->default(false);
             $table->string('ACCOUNT_TYPE');
-            $table->rememberToken();
+            $table->string('REMEMBER_TOKEN', 100)->nullable();
             $table->timestamps();
         });
     }

@@ -24,7 +24,7 @@
                 <FacilityListItem facility={facility}/>
             {/each}
         {/if}
-        <div class="mt-3" on:click={()=>creating=true}>
+        <div class="mt-3">
             <!-- <Button link="/new">Als Verwalter anmelden</Button> -->
             <Button link="/newfacility">Neue Bildungsanstalt anmelden</Button>
         </div>

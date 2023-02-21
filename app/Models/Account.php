@@ -41,7 +41,7 @@ class Account extends Model implements Authenticatable, CanResetPasswordContract
     ];
 
     protected $hidden = [
-        'remember_token',
+        'REMEMBER_TOKEN',
     ];
 
     // ------------------- RELATIONSHIPS ------------------- //
@@ -90,7 +90,7 @@ class Account extends Model implements Authenticatable, CanResetPasswordContract
 
     public function getRememberTokenName()
     {
-        return 'remember_token';
+        return 'REMEMBER_TOKEN';
     }
     public function getAuthIdentifier()
     {
