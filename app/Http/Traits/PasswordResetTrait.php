@@ -10,15 +10,17 @@ trait PasswordResetTrait
     public function validateRequest(Request $request)
     {
         $this->validate($request, [
-            'PASSWORD' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+            'PASSWORD' => 'required|string|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             'PASSWORD_CONFIRMATION' => 'required|same:PASSWORD',
         ], [
-            'PASSWORD.required' => 'The new password is required.',
-            'PASSWORD.string' => 'The new password must be a string.',
-            'PASSWORD.min' => 'The new password must be at least 8 characters long.',
-            'PASSWORD.regex' => 'The new password must contain at least 1 uppercase, 1 lowercase and 1 number.',
-            'PASSWORD_CONFIRMATION.required' => 'The password confirmation is required.',
-            'PASSWORD_CONFIRMATION.same' => 'The password confirmation does not match the new password.',
+            'PASSWORD.required' => 'Das Passwort ist erforderlich.',
+            'PASSWORD.string' => 'Das Passwort muss ein String sein.',
+            'PASSWORD.min' => 'Das Passwort muss mindestens 8 Zeichen lang sein.',
+            'PASSWORD.max' => 'Das Passwort darf maximal 255 Zeichen lang sein.',
+            'PASSWORD.regex' => 'Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.',
+
+            'PASSWORD_CONFIRMATION.required' => 'Die Passwortbestätigung ist erforderlich.',
+            'PASSWORD_CONFIRMATION.same' => 'Die Passwörter stimmen nicht überein.',
         ]);
     }
 }

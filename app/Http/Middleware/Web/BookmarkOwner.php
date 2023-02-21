@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware\Web;
 
+use App\Models\AccountHasBookmarks;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -11,10 +12,9 @@ class BookmarkOwner
     {
         $bookmarkId = $request->route('id');
 
-        if($request->user()->bookmarks->contains($bookmarkId) || $request->user()->ACCOUNT_TYPE == 'Systemverwalter'){
+        if($request->user()->bookmarks->contains('BOOKMARK_ID', $bookmarkId) || $request->user()->ACCOUNT_TYPE == 'Systemverwalter')
             return $next($request);
-        } else {
-            return abort(403, 'Sie sind nicht der Besitzer dieses Lesezeichens.');
-        }
+        
+        return abort(403, 'Sie sind nicht der Besitzer dieses Lesezeichens.');
     }
 }

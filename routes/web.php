@@ -3,15 +3,12 @@
 use App\Http\Controllers\Web\BookmarkController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\AccountController;
-use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\EventController;
 use App\Http\Controllers\Web\FacilityController;
 use App\Http\Controllers\Web\PasswordResetController;
 use App\Http\Controllers\Web\RequestController;
-use Inertia\Inertia;
 
 require __DIR__.'/render.php';
-require __DIR__.'/dashboard.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +42,7 @@ Route::middleware('auth')->group(function(){
 
     // Bookmark Routes
     Route::post('bookmarks/delete/{id}', [BookmarkController::class, 'deleteBookmark'])->middleware('isBookmarkOwnerWeb');
-    Route::post('bookmarks/{id}', [BookmarkController::class, 'createBookmark'])->middleware('isBookmarkOwnerWeb');
+    Route::post('bookmarks/{id}', [BookmarkController::class, 'createBookmark']);
 
     // Verified Email Middleware
     Route::middleware('verified')->group(function(){
@@ -57,11 +54,11 @@ Route::middleware('auth')->group(function(){
 
         // Facility Routes
         Route::post('facilities', [FacilityController::class, 'createFacility']);
-        Route::post('facilities/{id}', [FacilityController::class, 'updateFacility'])->middleware('isFacilityManagerWeb');
-        Route::post('facilities/delete/{id}', [FacilityController::class, 'deleteFacility'])->middleware('isFacilityManagerWeb');;
+        Route::post('facilities/{id}', [FacilityController::class, 'updateFacility'])->middleware('isFacilityManagerByIdWeb');
+        Route::post('facilities/delete/{id}', [FacilityController::class, 'deleteFacility'])->middleware('isFacilityManagerByIdWeb');;
 
         // Request Routes
-        Route::post('requests', [RequestController::class, 'createRequest']);
+        Route::post('requests', [RequestController::class, 'createRequest'])->middleware('isFacilityManagerWeb');
         Route::post('requests/{id}', [RequestController::class, 'updateRequest'])->middleware('isRequestOwnerWeb');
         Route::post('requests/delete/{id}', [RequestController::class, 'deleteRequest'])->middleware('isRequestOwnerWeb');
 
@@ -71,8 +68,8 @@ Route::middleware('auth')->group(function(){
             Route::post('admin/events/{id}', [EventController::class, 'adminUpdateEvent']);
             Route::post('admin/facilities/{id}', [FacilityController::class, 'adminUpdateFacility']);
             Route::post('admin/requests/{id}', [RequestController::class, 'adminUpdateRequest']);
-            Route::post('admin/requests-accept/{id}', [RequestController::class, 'adminAcceptRequest']);
-            Route::post('admin/requests-decline/{id}', [RequestController::class, 'adminDeclineRequest']);
+            Route::post('admin/requests/accept/{id}', [RequestController::class, 'adminAcceptRequest']);
+            Route::post('admin/requests/decline/{id}', [RequestController::class, 'adminDeclineRequest']);
         });
     });
 });

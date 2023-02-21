@@ -11,10 +11,9 @@ class RequestOwner
     {
         $requestId = $request->route('id');
 
-        if($request->user()->requests->contains($requestId) || $request->user()->ACCOUNT_TYPE == 'Systemverwalter'){
+        if($request->user()->requests->contains('REQUEST_ID', $requestId) || $request->user()->ACCOUNT_TYPE == 'Systemverwalter')
             return $next($request);
-        } else {
-            return abort(403, 'Sie sind nicht der Antragsteller.');
-        }
+        
+        return abort(403, 'Sie sind nicht der Antragsteller.');
     }
 }

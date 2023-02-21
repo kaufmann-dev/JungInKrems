@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web;
 
 use App\Models\Event;
-use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\EventTrait;
 use App\Models\Bookmark;
@@ -43,7 +42,7 @@ class EventController extends Controller
 
     public function adminUpdateEvent($id)
     {
-        $this->validateUpdate(request());
+        $this->validateAdminUpdate(request());
 
         if(request()->has('IMAGE')) {
             $file = request()->file('IMAGE');

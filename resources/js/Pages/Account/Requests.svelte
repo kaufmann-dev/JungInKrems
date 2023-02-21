@@ -108,6 +108,9 @@
         {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
             <p>Sie müssen Ihre E-Mail Adresse bestätigen um einen Antrag erstellen zu könnnen.</p>
             <Button link="/account/verify">Jetzt bestätigen</Button>
+        {:else if facilities.length === 0}
+            <p>Momentan stehen Anträge nur Bildungsanstalten zur Verfügung. Sie verwalten derzeit keine Bildungsanstalten.</p>
+            <Button link="/newfacility">Bildungsanstalt anmelden</Button>
         {:else}
             {#if requests.length === 0}
                 <p>Sie haben noch keine Anträge erstellt.</p>
