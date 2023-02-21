@@ -31,7 +31,6 @@ return new class extends Migration
             $table->string('IMAGE_PATH');
             $table->string('DESCRIPTION');
             $table->string('EVENT_TYPE');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -11,14 +11,9 @@ class PasswordResets extends Model
     protected $primaryKey = 'email';
     public $incrementing = false;
     protected $keyType = 'string';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'email', 'token', 'created_at'
     ];
-
-    /* public function account()
-    {
-        return $this->belongsTo(Account::class, 'EMAIL', 'EMAIL');
-    } */
 }

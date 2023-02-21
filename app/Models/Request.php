@@ -23,11 +23,6 @@ class Request extends Model
         return $this->belongsTo(Account::class, 'ACCOUNT_ID', 'ACCOUNT_ID');
     }
 
-    /* public function account()
-    {
-        return $this->belongsTo(AccountHasFacility::class, 'ACCOUNT_ID', 'ACCOUNT_ID');
-    } */
-
     public function facility()
     {
         return $this->belongsTo(Facility::class, 'FACILITY_ID', 'FACILITY_ID');

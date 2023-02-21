@@ -25,10 +25,14 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountHasBookmarks> $bookmarks
  * @property-read int|null $bookmarks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Event> $events
+ * @property-read int|null $events_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountHasFacilities> $managesFacilities
  * @property-read int|null $manages_facilities_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Request> $requests
+ * @property-read int|null $requests_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @method static \Illuminate\Database\Eloquent\Builder|Account newModelQuery()
@@ -74,8 +78,8 @@ namespace App\Models{
  *
  * @property int $FACILITY_ID
  * @property int $ACCOUNT_ID
- * @property string|null $created_at
- * @property string|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Account $account
  * @property-read \App\Models\Facility $facility
  * @method static \Illuminate\Database\Eloquent\Builder|AccountHasFacilities newModelQuery()
@@ -206,7 +210,7 @@ namespace App\Models{
  *
  * @property string $email
  * @property string $token
- * @property string|null $created_at
+ * @property \Illuminate\Support\Carbon|null $created_at
  * @method static \Illuminate\Database\Eloquent\Builder|PasswordResets newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PasswordResets newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PasswordResets query()

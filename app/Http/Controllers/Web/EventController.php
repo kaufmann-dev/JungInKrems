@@ -15,14 +15,14 @@ class EventController extends Controller
 
     public function createEvent()
     {
+        $this->validateNew(request());
+
         $file = request()->file('IMAGE');
         $fileName = $file->getClientOriginalName();
 
         Storage::disk('uploads')->putFileAs('/images/uploads', $file, $fileName);
 
-
         request()->merge(['IMAGE_PATH' => $fileName]);
-        $this->validateRequest(request());
 
 
         if(!request()->has('EVENT_ID')) {
@@ -41,14 +41,38 @@ class EventController extends Controller
         
     }
 
+    public function adminUpdateEvent($id)
+    {
+        $this->validateUpdate(request());
+
+        if(request()->has('IMAGE')) {
+            $file = request()->file('IMAGE');
+            $fileName = $file->getClientOriginalName();
+            Storage::disk('uploads')->putFileAs('/images/uploads', $file, $fileName);
+            request()->merge(['IMAGE_PATH' => $fileName]);
+        }
+
+        $event = Event::find($id);
+        
+        $event->update(request()->all());
+    }
+
     public function updateEvent($id)
     {
+        $this->validateUpdate(request());
+
+        if(request()->has('IMAGE')){
+            $file = request()->file('IMAGE');
+            $fileName = $file->getClientOriginalName();
+            Storage::disk('uploads')->putFileAs('/images/uploads', $file, $fileName);
+            request()->merge(['IMAGE_PATH' => $fileName]);
+        }
+
         $event = Event::find($id);
         
         if(!request()->has('EVENT_TYPE')) {
             request()->merge(['EVENT_TYPE' => 'Freizeit']);
         }
-        $this->validateRequest(request());
         $event->update(request()->all());
     }
 

@@ -20,11 +20,6 @@ class AccountHasBookmarks extends Model
         'BOOKMARK_ID', 'ACCOUNT_ID'
     ];
 
-    /* public function bookmarks()
-    {
-        return $this->hasMany(Bookmark::all(), 'BOOKMARK_ID')->with('event');
-    } */
-
     public function event()
     {
         return $this->belongsTo(Event::class, 'BOOKMARK_ID', 'EVENT_ID')->with(['account', 'facility']);

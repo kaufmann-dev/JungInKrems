@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Web;
 
 use App\Models\Facility;
 use App\Models\Bookmark;
-use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\FacilityTrait;
 use App\Models\AccountHasFacilities;
 use App\Models\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FacilityController extends Controller
 {
@@ -46,6 +46,13 @@ class FacilityController extends Controller
 
     public function updateFacility($id)
     {
+        if(request()->has('IMAGE')){
+            $file = request()->file('IMAGE');
+            $fileName = $file->getClientOriginalName();
+            Storage::disk('uploads')->putFileAs('/images/uploads', $file, $fileName);
+            request()->merge(['IMAGE_PATH' => $fileName]);
+        }
+
         $facility = Facility::find($id);
         $this->validateRequest(request());
         $facility->update(request()->all());
@@ -55,5 +62,21 @@ class FacilityController extends Controller
     {
         $facility = Facility::find($id);
         $facility->delete();
+    }
+
+    public function adminUpdateFacility($id)
+    {
+        $this->validateRequest(request());
+
+        if(request()->has('IMAGE')){
+            $file = request()->file('IMAGE');
+            $fileName = $file->getClientOriginalName();
+            Storage::disk('uploads')->putFileAs('/images/uploads', $file, $fileName);
+            request()->merge(['IMAGE_PATH' => $fileName]);
+        }
+
+        $facility = Facility::find($id);
+
+        $facility->update(request()->all());
     }
 }

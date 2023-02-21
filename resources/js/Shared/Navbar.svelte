@@ -44,14 +44,14 @@
                       {$page.props.auth.user.NAME}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/account", method: 'get' }}">Account</span></li>
-                      <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/newevent", method: 'get' }}">Event anmelden</span></li>
+                      <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/account", method: 'get' }}"><i class="bi bi-person-fill"></i> Account</span></li>
+                      <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/newevent", method: 'get' }}"><i class="bi bi-file-earmark-plus-fill"></i> Event anmelden</span></li>
                       {#if $page.props.auth.user.ACCOUNT_TYPE == 'Systemverwalter'}
-                        <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/dashboard", method: 'get' }}">Dashboard</span></li>
+                        <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/dashboard", method: 'get' }}"><i class="bi bi-table"></i> Dashboard</span></li>
                       {/if}
                       <li><hr class="dropdown-divider"></li>
                       <!-- logout -->
-                        <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/logout", method: 'get' }}">Abmelden</span></li>
+                        <li><span class="tw-cursor-pointer dropdown-item" use:inertia="{{ href: "/logout", method: 'get' }}"><i class="bi bi-box-arrow-right"></i> Abmelden</span></li>
                     </ul>
                   </div>
                 {/if}

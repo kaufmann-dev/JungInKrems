@@ -26,16 +26,6 @@ class Event extends Model
         'ENDING_TIME' => 'datetime',
     ];
 
-/*     public function bookmark()
-    {
-        return $this->belongsTo(Bookmark::class, 'EVENT_ID', 'BOOKMARK_ID');
-    } */
-
-    /* public function account()
-    {
-        return $this->belongsTo(Account::class, 'ACCOUNT_ID');
-    } */
-
     public function account()
     {
         return $this->belongsTo(Account::class, 'ACCOUNT_ID')->select('ACCOUNT_ID', 'NAME');

@@ -1,37 +1,60 @@
 <script>
     import { Link } from '@inertiajs/svelte';
     import Layout from '../Shared/Layout.svelte';
-    import SubmitButton from '../Shared/SubmitButton.svelte';
     import Button from '../Shared/Button.svelte';
     import CenterDiv from '../Shared/CenterDiv.svelte';
-    import H1 from '../Shared/H1.svelte';
+    import FloatingForm from '../Shared/FloatingForm.svelte';
+    import axios from 'axios';
 
     let registered = false;
 
-    let data = {
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
-      terms: false
-    };
-
-    let errors = {
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
-      terms: ''
-    };
+    $: data = [{
+      name: 'Name',
+      bind: 'name',
+      type: 'text',
+      value: '',
+      errorname: 'name',
+      error: '',
+    },{
+      name: 'E-Mail',
+      bind: 'email',
+      type: 'email',
+      value: '',
+      errorname: 'email',
+      error: '',
+    },{
+      name: 'Passwort',
+      bind: 'password',
+      type: 'password',
+      value: '',
+      errorname: 'password',
+      error: '',
+    },{
+      name: 'Passwort bestätigen',
+      bind: 'password_confirmation',
+      type: 'password',
+      value: '',
+      errorname: 'password_confirmation',
+      error: '',
+    },{
+      name: 'Datenschutzerklärung akzeptieren',
+      bind: 'terms',
+      type: 'checkbox',
+      value: false,
+      errorname: 'terms',
+      error: '',
+    }];
 
     let submit = () => {
-      axios.post('register', {
-          name: data.name,
-          email: data.email,
-          password: data.password,
-          password_confirmation: data.password_confirmation,
-          terms: data.terms
-      })
+      let submitdata = data.map(element => {
+            return {
+                [element["bind"]]: element["value"]
+            }
+        }).reduce((a, b) => Object.assign(a, b), {});
+
+        console.log(submitdata);
+
+      axios.post('/register', submitdata)
       .then(response => {
           if (response.status === 200) {
             registered = true;
@@ -39,11 +62,11 @@
       })
       .catch(error => {
           if (error?.response?.status === 422) {
-            for (const [key, value] of Object.entries(errors)) {
-              if(error.response.data.errors[key]) {
-                errors[key] = error.response.data.errors[key][0];
+            for (const [key, value] of Object.entries(data)) {
+              if(error.response.data.errors[value["errorname"]]) {
+                data[key]["error"] = error.response.data.errors[value["errorname"]][0];
               } else {
-                errors[key] = '';
+                data[key]["error"] = "";
               }
             }
           }
@@ -95,39 +118,7 @@
               <div class="tw-text-center tw-mt-2">
                 <Link href="/login" class="tw-text-sm tw-text-gray-700 hover:tw-text-black">Anmelden</Link>
               </div> -->
-              <div class=" tw-bg-gray-50 tw-border tw-p-5 tw-rounded-xl">
-                <h1 class="tw-mb-5  tw-border-b tw-border-black">Registrieren</h1>
-                <form on:submit|preventDefault={submit}>
-                    <div class="tw-mb-3">
-                      <label for="name" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">Name</label>
-                      <input type="text" name="name" id="name" class="tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" placeholder="Max Mustermann" bind:value={data.name}>
-                      <span class="tw-text-red-500 tw-text-sm">{errors.name}</span>
-                  </div>
-                    <div class="tw-mb-3">
-                        <label for="email" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">E-Mail</label>
-                        <input type="email" name="email" id="email" class="tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" placeholder="E-Mail" bind:value={data.email}>
-                        <span class="tw-text-red-500 tw-text-sm">{errors.email}</span>
-                    </div>
-                    <div class="tw-mb-3">
-                        <label for="password" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">Passwort</label>
-                        <input type="password" name="password" id="password" class="tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" placeholder="Passwort" bind:value={data.password}>
-                        <span class="tw-text-red-500 tw-text-sm">{errors.password}</span>
-                    </div>
-                    <div class="tw-mb-3">
-                        <label for="password_confirmation" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700">Passwort bestätigen</label>
-                        <input type="password" name="password_confirmation" id="password_confirmation" class="tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" placeholder="Passwort" bind:value={data.password_confirmation}>
-                        <span class="tw-text-red-500 tw-text-sm">{errors.password_confirmation}</span>
-                    </div>
-                    <div class="tw-mb-3">
-                        <label for="terms" class="tw-block tw-text-sm tw-font-medium tw-text-gray-700"><Link href="https://www.krems.at/datenschutzerklaerung">Datenschutzrichtlinien</Link> akzeptieren</label>
-                        <input type="checkbox" name="terms" id="terms" class="tw-shadow-none tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm" bind:checked={data.terms}>
-                        <span class="tw-text-red-500 tw-text-sm">{errors.terms}</span>
-                    </div>
-                    <div class="tw-mb-3">
-                        <SubmitButton>Registrieren</SubmitButton>
-                    </div>
-                </form>
-            </div>
+            <FloatingForm name="Registrieren" {data} onSubmit={submit}></FloatingForm>
             <div class="tw-text-center tw-mt-2">
                 <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/login">Anmelden</Link>
             </div>

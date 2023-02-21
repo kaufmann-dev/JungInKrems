@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Web\PasswordResetController;
+use App\Http\Controllers\Web\AccountController;
 use App\Models\AccountHasBookmarks;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,43 +13,54 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 
 // Home
-Route::get('/', function () {
-    return Inertia::render('Home');
-})->name('home');
+Route::inertia('/', 'Home')->name('home');
 
-// Authentication
+// Authentication Routes
 Route::inertia('/login', 'Login')->name('login');
 Route::inertia('/register', 'Register')->name('register');
 Route::inertia('/logout', 'Logout')->name('logout');
 
-// Password Reset
+// Event Routes
+Route::get('/events', function () {
+    return Inertia::render('Events', [
+        'events' => Event::with(['account', 'facility'])->get()
+    ]);
+})->name('events');
+Route::get('/events/{id}', function ($id) {
+    return Inertia::render('Event', [
+        'event' => Event::with(['account', 'facility'])->find($id)
+    ]);
+});
+
+// Facility Routes
+Route::get('/facilities', function () {
+    return Inertia::render('Facilities', [
+        'facilities' => Facility::where('IS_CITY_VERIFIED', 1)->get()
+    ]);
+});
+Route::get('/facilities/{id}', function ($id) {
+    return Inertia::render('Facility', [
+        'facility' => Facility::with(['managers', 'events'])->find($id)
+    ]);
+});
+
+// Guest Middleware
 Route::middleware('guest')->group(function (){
+
+    // Password Forgotten Routes
     Route::inertia('/forgotpassword', 'PasswordForgot');
     Route::inertia('/resetpassword', 'PasswordReset')->name('password.reset');
 });
 
-// Email Verification
-Route::inertia('/account/verify', 'Account/Verify')->name('verification.verify');
-Route::get('/account/verify', function(){
-    return Inertia::render('Account/Verify');
-});
+// Authenticated Middleware
+Route::middleware('auth')->group(function(){
 
-Route::middleware(['auth', 'signed'])->group(function (){
-    Route::get('/account/verify/fresh', function(){
-        $account = request()->user();
-        if (!$account->hasVerifiedEmail()) {
-            $account->markEmailAsVerified();
-            event(new Verified($account));
-        }
-        return Inertia::render('Account/Verify');
-    })->name('verification.verify');
-});
-
-
-// Account
-Route::middleware('auth')->group(function () {
+    // Bookmarks Routes
     Route::inertia('/bookmarks', 'Bookmarks');
+
+    // Account Routes
     Route::inertia('/account', 'Account');
+    Route::inertia('/account/verify', 'Account/Verify')->name('verification.notice');
     Route::get('/account/events', function () {
         return Inertia::render('Account/Events', [
             'events' => Event::with(['account', 'facility'])->where('ACCOUNT_ID', Auth::user()->ACCOUNT_ID)->get()
@@ -66,66 +77,50 @@ Route::middleware('auth')->group(function () {
             'facilities' => AccountHasFacilities::with(['facility'])->where('ACCOUNT_ID', Auth::user()->ACCOUNT_ID)->get()
         ]);
     });
-});
 
-// Dashboard
-Route::middleware('accountTypeWeb:Systemverwalter')->group(function () {
-    Route::inertia('/dashboard', 'Dashboard');
-    Route::get('/dashboard/accounts', function () {
-        return Inertia::render('Dashboard/Accounts', [
-            'accounts' => Account::all()
-        ]);
+    // Signed Middleware
+    Route::middleware('signed')->group(function(){
+        Route::get('/account/verify/fresh', [AccountController::class, 'verifyEmail'])->name('verification.verify');
     });
-    Route::get('/dashboard/facilities', function () {
-        return Inertia::render('Dashboard/Facilities', [
-            'facilities' => Facility::all()
-        ]);
-    });
-    Route::get('/dashboard/events', function () {
-        return Inertia::render('Dashboard/Events', [
-            'events' => Event::all()
-        ]);
-    });
-    Route::get('/dashboard/bookmarks', function () {
-        return Inertia::render('Dashboard/Bookmarks', [
-            'bookmarks' => AccountHasBookmarks::all()
-        ]);
-    });
-    Route::get('/dashboard/requests', function () {
-        return Inertia::render('Dashboard/Requests', [
-            'requests' => Request::with(['account', 'facility'])->get()
-        ]);
-    });
-});
+    
 
-// Events
-Route::get('/events', function () {
-    return Inertia::render('Events', [
-        'events' => Event::with(['account', 'facility'])->get()
-    ]);
-})->name('events');
-Route::get('/events/{id}', function ($id) {
-    return Inertia::render('Event', [
-        'event' => Event::with(['account', 'facility'])->find($id)
-    ]);
-});
-Route::inertia('/newevent', 'CreateEvent')->middleware('isVerifiedWeb');
+    // Verified Email Middleware
+    Route::middleware('verified')->group(function(){
 
-// Facilities
-Route::get('/facilities', function () {
-    return Inertia::render('Facilities', [
-        'facilities' => Facility::where('IS_CITY_VERIFIED', 1)->get()
-    ]);
-});
-Route::get('/facilities/{id}', function ($id) {
-    return Inertia::render('Facility', [
-        /* 'facility' => Facility::where('IS_CITY_VERIFIED', 1)->find($id) */
-        'facility' => Facility::with(['managers', 'events'])->find($id)
-    ]);
-});
-Route::inertia('/newfacility', 'CreateFacility')->middleware('isVerifiedWeb');
+        // Event Routes
+        Route::inertia('/newevent', 'CreateEvent');
 
-// Other
-Route::get('/error', function () {
-    return Inertia::render('Error');
-})->name('error');
+        // Facility Routes
+        Route::inertia('/newfacility', 'CreateFacility');
+
+        // System Admin Middleware
+        Route::middleware('accountTypeWeb:Systemverwalter')->group(function(){
+            Route::inertia('/dashboard', 'Dashboard');
+            Route::get('/dashboard/accounts', function () {
+                return Inertia::render('Dashboard/Accounts', [
+                    'accounts' => Account::all()
+                ]);
+            });
+            Route::get('/dashboard/facilities', function () {
+                return Inertia::render('Dashboard/Facilities', [
+                    'facilities' => Facility::all()
+                ]);
+            });
+            Route::get('/dashboard/events', function () {
+                return Inertia::render('Dashboard/Events', [
+                    'events' => Event::all()
+                ]);
+            });
+            Route::get('/dashboard/bookmarks', function () {
+                return Inertia::render('Dashboard/Bookmarks', [
+                    'bookmarks' => AccountHasBookmarks::all()
+                ]);
+            });
+            Route::get('/dashboard/requests', function () {
+                return Inertia::render('Dashboard/Requests', [
+                    'requests' => Request::with(['account', 'facility'])->get()
+                ]);
+            });
+        });
+    });
+});

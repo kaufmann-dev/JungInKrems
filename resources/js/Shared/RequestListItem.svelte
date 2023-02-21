@@ -19,7 +19,7 @@
 
     let deltrose = () => {
         if(window.confirm('Möchten Sie die Anfrage wirklich löschen?')) {
-            router.delete('/requests/' + request.REQUEST_ID);
+            router.post('/requests/delete/' + request.REQUEST_ID);
         }
     }
 </script>

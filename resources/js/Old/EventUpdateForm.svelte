@@ -43,12 +43,12 @@
     let deleteEvent = () => {
         if(window.confirm('Möchten Sie das Event wirklich löschen?')) {
             
-            router.delete('/events/' + event.EVENT_ID).get('/events');
+            router.post('/events/delete/' + event.EVENT_ID).get('/events');
         }
     }
 
     let submit = () => {
-      axios.put('/events/' + event.EVENT_ID, data)
+      axios.post('/events/' + event.EVENT_ID, data)
       .then(response => {
           if (response.status === 200) {
             updateVariable();

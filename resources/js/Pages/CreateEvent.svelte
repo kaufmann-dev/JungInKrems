@@ -93,12 +93,11 @@
       type: "file",
       value: "",
       bind: "IMAGE",
-      errorname: "IMAGE_PATH",
+      errorname: "IMAGE",
       error: ""
     }];
 
     let submit = () => {
-      console.log(formData);
         let submitdata = formData.map(element => {
             if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN") {
                 return {
@@ -106,7 +105,7 @@
                 }
             }
         }).reduce((a, b) => Object.assign(a, b), {});
-        console.log(submitdata);
+        
         var cooldata = new FormData();
         for (const [key, value] of Object.entries(submitdata)) {
             cooldata.append(key, value);

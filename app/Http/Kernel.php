@@ -58,16 +58,16 @@ class Kernel extends HttpKernel
 
         // Custom middleware
 
-        // Api middleware
-        'forceJsonApi' => \App\Http\Middleware\Api\ForceJsonResponse::class,
-        'isVerifiedApi' => \App\Http\Middleware\Api\AccountVerified::class,
-        'isEventOwnerApi' => \App\Http\Middleware\Api\EventOwner::class,
-        'isFacilityManagerApi' => \App\Http\Middleware\Api\FacilityManager::class,
+            // Api middleware
+            'forceJsonApi' => \App\Http\Middleware\Api\ForceJsonResponse::class,
+            'isEventOwnerApi' => \App\Http\Middleware\Api\EventOwner::class,
+            'isFacilityManagerApi' => \App\Http\Middleware\Api\FacilityManager::class,
 
-        // Web middleware
-        'accountTypeWeb' => \App\Http\Middleware\Web\AccountType::class,
-        'isVerifiedWeb' => \App\Http\Middleware\Web\AccountVerified::class,
-        'isEventOwnerWeb' => \App\Http\Middleware\Web\EventOwner::class,
-        'isFacilityManagerWeb' => \App\Http\Middleware\Web\FacilityManager::class,
+            // Web middleware
+            'accountTypeWeb' => \App\Http\Middleware\Web\AccountType::class,
+            'isEventOwnerWeb' => \App\Http\Middleware\Web\EventOwner::class,
+            'isFacilityManagerWeb' => \App\Http\Middleware\Web\FacilityManager::class,
+            'isRequestOwnerWeb' => \App\Http\Middleware\Web\RequestOwner::class,
+            'isBookmarkOwnerWeb' => \App\Http\Middleware\Web\BookmarkOwner::class,
     ];
 }

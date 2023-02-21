@@ -19,41 +19,54 @@ use App\Http\Controllers\Api\RequestController;
 |
 */
 
-// Event Routes - DONE
+// Event Routes
 Route::get('/events', [EventController::class, 'getEvents']);
 Route::get('/events/{id}', [EventController::class, 'getEvent']);
-Route::middleware(['auth:sanctum', 'isVerifiedApi'])->group(function () {
-    Route::post('/events', [EventController::class, 'addEvent']);
-});
-Route::middleware(['auth:sanctum', 'isEventOwnerApi'])->group(function () {
-    Route::put('/events/{id}', [EventController::class, 'updateEvent']);
-    Route::delete('/events/{id}', [EventController::class, 'deleteEvent']);
-});
 
 // Facility Routes
 Route::get('/facilities', [FacilityController::class, 'getFacilities']);
 Route::get('/facilities/{id}', [FacilityController::class, 'getFacility']);
-Route::post('/facilities', [FacilityController::class, 'addFacility']);
-Route::middleware(['auth:sanctum', 'isFacilityManagerApi'])->group(function () {
-    Route::put('/facilities/{id}', [FacilityController::class, 'updateFacility']);
-    Route::delete('/facilities/{id}', [FacilityController::class, 'deleteFacility']);
-});
 
-// Account Routes - DONE
+// Authentication Routes
 Route::post('/login', [AccountController::class, 'login'])->name('login');
 Route::post('/register', [AccountController::class, 'register'])->name('register');
-Route::middleware('auth:sanctum')->group(function () {
+Route::post('/forgotpassword', [AccountController::class, 'forgotPassword']);
+
+// Authenticated Middleware
+Route::middleware('auth:sanctum')->group(function(){
+
+    // Request Routes
+    Route::get('/requests', [RequestController::class, 'getRequests']);
+    Route::get('/requests/{id}', [RequestController::class, 'getRequest']);
+
+    // Account Routes
     Route::get('/account', [AccountController::class, 'getAccount']);
     Route::put('/account', [AccountController::class, 'updateAccount']);
     Route::delete('/account', [AccountController::class, 'deleteAccount']);
-});
+    Route::post('/verify', [AccountController::class, 'verifyEmail']);
+    Route::post('/resetpassword', [AccountController::class, 'resetPassword']);
 
-// Bookmark Routes - DONE
-Route::middleware(['auth:sanctum'])->group(function () { 
-    Route::get('/bookmarks', [BookmarkController::class, 'getBookmarks'])->middleware('auth:sanctum');
+    // Bookmark Routes
+    Route::get('/bookmarks', [BookmarkController::class, 'getBookmarks']);
     Route::delete('/bookmarks/{id}', [BookmarkController::class, 'deleteBookmark']);
     Route::post('/bookmarks/{id}', [BookmarkController::class, 'addBookmark']);
-});
 
-// Request Routes
-Route::post('/requests', [RequestController::class, 'addRequest'])->middleware(['auth:sanctum', 'isFacilityManagerApi']);
+    // Verified Email Middleware
+    Route::middleware('verified')->group(function(){
+
+        // Facility Routes
+        Route::post('/facilities', [FacilityController::class, 'addFacility']);
+        Route::put('/facilities/{id}', [FacilityController::class, 'updateFacility']);
+        Route::delete('/facilities/{id}', [FacilityController::class, 'deleteFacility']);
+
+        // Event Routes
+        Route::post('/events', [EventController::class, 'addEvent']);
+        Route::put('/events/{id}', [EventController::class, 'updateEvent']);
+        Route::delete('/events/{id}', [EventController::class, 'deleteEvent']);
+
+        // Request Routes
+        Route::post('/requests', [RequestController::class, 'addRequest']);
+        Route::delete('/requests/{id}', [RequestController::class, 'deleteRequest']);
+
+    });
+});
