@@ -67,4 +67,14 @@ trait FacilityTrait
             'IS_CITY_VERIFIED.boolean' => 'Die Stadtverifizierung muss ein Boolean sein.',
         ]);
     }
+
+    public function validateNewManager(Request $request)
+    {
+        $this->validate($request, [
+            'EMAIL' => 'required|exists:ACCOUNTS_ST,EMAIL',
+        ], [
+            'EMAIL.required' => 'Die E-Mail Adresse ist erforderlich.',
+            'EMAIL.exists' => 'Die E-Mail Adresse existiert nicht.',
+        ]);
+    }
 }

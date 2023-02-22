@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Traits\FacilityTrait;
 use App\Models\AccountHasFacilities;
 use App\Models\Request;
+use App\Models\Account;
 use Illuminate\Support\Facades\Storage;
 
 class FacilityController extends Controller
@@ -85,5 +86,28 @@ class FacilityController extends Controller
         $facility = Facility::find($id);
 
         $facility->update(request()->all());
+    }
+
+    public function addFacilityManager()
+    {
+        $this->validateRequest(request());
+        $this->validateNewManager(request());
+
+        $accountId = Account::where('EMAIL', request()->EMAIL)->first()->ACCOUNT_ID;
+        $facility = Facility::find(request()->FACILITY_ID);
+
+        if(AccountHasFacilities::where('ACCOUNT_ID', $accountId)->where('FACILITY_ID', request()->FACILITY_ID)->first()) {
+            return response()->json(['message' => 'Dieser Account ist bereits Manager dieser Einrichtung.'], 400);
+        }
+
+        $facility->managers()->attach($accountId);
+        $facility->load('managers');
+    }
+
+    public function deleteFacilityManager($id)
+    {
+        $facility = Facility::find(request()->FACILITY_ID);
+        $facility->managers()->detach($id);
+        $facility->load('managers');
     }
 }
