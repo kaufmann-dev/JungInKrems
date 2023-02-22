@@ -38,6 +38,10 @@ class EventController extends Controller
         
         Event::create(request()->all());
         
+        if(request()->user()->ACCOUNT_TYPE == 'Benutzer') {
+            request()->user()->ACCOUNT_TYPE = 'Veranstalter';
+            request()->user()->save();
+        }
     }
 
     public function adminUpdateEvent($id)
