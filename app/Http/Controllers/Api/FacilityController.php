@@ -16,7 +16,7 @@ class FacilityController extends Controller
 
     public function getFacility($id)
     {
-        $facility = Facility::find($id);
+        $facility = Facility::find($id)->with('managers')->first();
         return response()->json($facility);
     }
 
