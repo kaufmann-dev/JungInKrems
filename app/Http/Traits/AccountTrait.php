@@ -13,7 +13,7 @@ trait AccountTrait
         $this->validate($request, [
             'ACCOUNT_ID' => 'integer',
             'NAME' => 'string|max:30',
-            'EMAIL' => 'email|unique:ACCOUNTS_ST,EMAIL|max:45',
+            'EMAIL' => 'email|max:45',
             'PASSWORD' => 'string|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
             'IS_EMAIL_VERIFIED' => 'boolean',
             'ACCOUNT_TYPE' => 'string|in:Systemverwalter,Benutzer,Veranstalter',
@@ -24,7 +24,6 @@ trait AccountTrait
             'NAME.max' => 'Der Name darf maximal 30 Zeichen lang sein.',
 
             'EMAIL.email' => 'Die E-Mail-Adresse muss eine gültige E-Mail-Adresse sein.',
-            'EMAIL.unique' => 'Die E-Mail-Adresse ist bereits vergeben.',
             'EMAIL.max' => 'Die E-Mail-Adresse darf maximal 45 Zeichen lang sein.',
 
             'PASSWORD.min' => 'Das Passwort muss mindestens 8 Zeichen lang sein.',

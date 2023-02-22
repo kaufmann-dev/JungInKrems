@@ -85,7 +85,7 @@ class AccountController extends Controller
 
     public function updateAccount()
     {
-        $this->validateUserDetailUpdate(request());
+        $this->validateRequest(request());
 
         if (Auth::check()) {
             $account = Auth::user();
@@ -100,7 +100,7 @@ class AccountController extends Controller
 
     public function resetPassword()
     {
-        $this->validateUserPasswordReset(request());
+        $this->validatePasswordReset(request());
 
         if (Auth::check()) {
             $account = Auth::user();
@@ -122,7 +122,7 @@ class AccountController extends Controller
 
     public function adminUpdateAccount($id)
     {
-        $this->validateAdminUpdate(request());
+        $this->validateRequest(request());
 
         $account = Account::find($id);
 

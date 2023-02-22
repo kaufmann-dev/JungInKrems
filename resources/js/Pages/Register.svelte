@@ -30,7 +30,7 @@
       errorname: 'password',
       error: '',
     },{
-      name: 'Passwort bestätigen',
+      name: 'Passwort wiederholen',
       bind: 'password_confirmation',
       type: 'password',
       value: '',
@@ -118,7 +118,8 @@
               </div> -->
             <FloatingForm name="Registrieren" {data} onSubmit={submit}></FloatingForm>
             <div class="tw-text-center tw-mt-2">
-                <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/login">Anmelden</Link>
+              <a class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="https://www.krems.at/datenschutzerklaerung">Datenschutzerklärung</a><br>
+              <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/login">Anmelden</Link>
             </div>
         {/if}
       </div>

@@ -1,9 +1,8 @@
 <script>
     export let request;
     import { router } from "@inertiajs/svelte";
-    import axios from "axios";
     import InfoText from "../Shared/InfoText.svelte";
-    import DeleteButton from "./DeleteButton.svelte";
+    import Button from "./Button.svelte";
 
     function formatDate(dateString) {
         let date = new Date(dateString);
@@ -38,6 +37,6 @@
     <p>Erstellt: <InfoText color="light">{formatDate(request.created_at)}</InfoText></p>
     <p>Letzte Änderung: <InfoText color="light">{formatDate(request.updated_at)}</InfoText></p>
     <div on:click={deltrose}>
-        <DeleteButton>Antrag löschen</DeleteButton>
+        <Button type="danger">Antrag löschen</Button>
     </div>
 </div>

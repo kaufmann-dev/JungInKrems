@@ -3,7 +3,6 @@
     import AccLayout from "../Shared/AccLayout.svelte";
     import InfoText from '../Shared/InfoText.svelte';
     import Button from '../Shared/Button.svelte';
-    import DeleteButton from '../Shared/DeleteButton.svelte';
     import Form from '../Shared/Form.svelte';
     import H1 from "../Shared/H1.svelte";
     
@@ -117,7 +116,7 @@
                 element["error"] = "";
               });
               cancel();
-              router.get("/account/verify");
+              router.reload();
             }
         })
         .catch(error => {
@@ -154,13 +153,13 @@
         {#if user.IS_EMAIL_VERIFIED}
             <span class="tw-text-green-700">Deine E-Mail-Adresse wurde bestätigt!</span>
         {:else}
-            <Button size="small" link="/account/verify">Jetzt bestätigen</Button>
+            <Button size="small" link="/account/verify"><div class="tw-mx-2">Jetzt bestätigen</div></Button>
         {/if}
     <div class="tw-border-b tw-my-3"></div>
     <div class="tw-grid tw-gap-4 md:tw-grid-cols-3">
         <Button onClick={()=>editing = true}><i class="bi bi-pencil-fill"></i> Benutzerdaten ändern</Button>
         <Button onClick={()=>editingPassword = true}><i class="bi bi-key-fill"></i> Passwort ändern</Button>
-        <DeleteButton onClick={deleteAccount}><i class="bi bi-trash-fill"></i> Account löschen</DeleteButton>
+        <Button type='danger' onClick={deleteAccount}><i class="bi bi-trash-fill"></i> Account löschen</Button>
     </div>
   {/if}
 </AccLayout>

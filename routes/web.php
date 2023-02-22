@@ -55,7 +55,9 @@ Route::middleware('auth')->group(function(){
         // Facility Routes
         Route::post('facilities', [FacilityController::class, 'createFacility']);
         Route::post('facilities/{id}', [FacilityController::class, 'updateFacility'])->middleware('isFacilityManagerByIdWeb');
-        Route::post('facilities/delete/{id}', [FacilityController::class, 'deleteFacility'])->middleware('isFacilityManagerByIdWeb');;
+        Route::post('facilities/delete/{id}', [FacilityController::class, 'deleteFacility'])->middleware('isFacilityManagerByIdWeb');
+        Route::post('facilities/manager', [FacilityController::class, 'addFacilityManager'])->middleware('isFacilityManagerByIdWeb'); //!
+        Route::post('facilities/manager/delete/{id}', [FacilityController::class, 'deleteFacilityManager'])->middleware('isFacilityManagerByIdWeb'); //!
 
         // Request Routes
         Route::post('requests', [RequestController::class, 'createRequest'])->middleware('isFacilityManagerWeb');

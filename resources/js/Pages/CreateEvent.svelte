@@ -18,21 +18,7 @@
         bind: "DESCRIPTION",
         errorname: "DESCRIPTION",
         error: ""
-    }, {
-      name: "Typ",
-      type: "array",
-      options: [{
-        value: "Freizeit",
-        name: "Freizeit"
-      },{
-        value: "Bildung",
-        name: "Bildung"
-      }],
-      value: "",
-      bind: "EVENT_TYPE",
-      errorname: "EVENT_TYPE",
-      error: ""
-    }, {
+    },{
       name: "Startdatum",
       type: "datetime",
       value: "",

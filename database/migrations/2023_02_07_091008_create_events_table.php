@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('ADDRESS');
             $table->string('IMAGE_PATH');
             $table->string('DESCRIPTION');
-            $table->string('EVENT_TYPE');
+            $table->string('EVENT_TYPE')->withDefault('Freizeit');
             $table->timestamps();
         });
     }

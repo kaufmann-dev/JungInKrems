@@ -28,12 +28,17 @@ class FacilityController extends Controller
 
         $this->validateRequest(request());
 
+        if(request()->has('IMAGE')) {
+            $file = request()->file('IMAGE');
+            $fileName = $file->getClientOriginalName();
+            Storage::disk('uploads')->putFileAs('/images/uploads', $file, $fileName);
+            request()->merge(['IMAGE_PATH' => $fileName]);
+        }
+
         $facility = Facility::create(request()->all());
 
-        AccountHasFacilities::create([
-            'ACCOUNT_ID' => request()->user()->ACCOUNT_ID,
-            'FACILITY_ID' => $facility->FACILITY_ID,
-        ]);
+        $facility->managers()->attach(request()->user());
+        $facility->load('managers');
 
         Request::create([
             'ACCOUNT_ID' => request()->user()->ACCOUNT_ID,
@@ -68,7 +73,7 @@ class FacilityController extends Controller
     {
         request()->IS_CITY_VERIFIED == 'true' ? request()->merge(['IS_CITY_VERIFIED' => 1]) : request()->merge(['IS_CITY_VERIFIED' => 0]);
 
-        $this->validateAdminUpdate(request());
+        $this->validateRequest(request());
 
         if(request()->has('IMAGE')){
             $file = request()->file('IMAGE');

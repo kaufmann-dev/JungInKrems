@@ -8,16 +8,23 @@
     import Button from "../Shared/Button.svelte";
     import EventListItem from "../Shared/EventListItem.svelte";
     import H1 from "../Shared/H1.svelte";
+    import Subtitle from "../Shared/Subtitle.svelte";
+    import SubmitButton from "../Shared/SubmitButton.svelte";
+    import CenterDiv from "../Shared/CenterDiv.svelte";
 
     let updating = false;
+    let editingManagers = false;
+    let creatingEvent = false;
 
-    function facilityUpdated() {
-        updating = false;
+    function handleReload() {
+        cancel();
         router.reload();
     }
 
     function cancel() {
-        facilityUpdated();
+        updating = false;
+        editingManagers = false;
+        creatingEvent = false;
     }
 
     let data = [
@@ -115,15 +122,17 @@
     let deleteFacility = () => {
         if(window.confirm("Möchten Sie die Einrichtung wirklich löschen?")) {
             updating = true;
-            axios.post('/facilities/delete' + facility.FACILITY_ID);
+            axios.post('/facilities/delete/' + facility.FACILITY_ID);
             router.get('/facilities');
         }
     }
 
     let submit = () => {
         let submitdata = data.map(element => {
-            return {
-                [element["bind"]]: element["value"]
+            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"]) {
+                return {
+                    [element["bind"]]: element["value"]
+                }
             }
         }).reduce((a, b) => Object.assign(a, b), {});
 
@@ -135,7 +144,7 @@
         axios.post('/facilities/' + facility.FACILITY_ID, formdata)
             .then(response => {
                 if (response.status === 200) {
-                    facilityUpdated();
+                    handleReload();
                 }
             })
             .catch(error => {
@@ -148,6 +157,7 @@
                         }
                     }
                 }
+                console.log(error);
             });
     } 
 </script>
@@ -155,6 +165,56 @@
 <Layout>
     {#if updating}
         <Form newInstance={false} {data} onSubmit={submit} onCancel={cancel} onDelete={deleteFacility}></Form>
+    {:else if editingManagers}
+        <div class="tw-flex tw-flex-col tw-h-full">
+            <div>
+                <H1>Verantwortliche</H1>
+                <Subtitle>Verantwortliche können Ihre Einrichtung verwalten.</Subtitle>
+            </div>
+            <CenterDiv>
+                <div class="tw-flex tw-flex-col tw-items-center tw-justify-center">
+                    <!-- <h2 class="tw-mt-7 tw-text-left tw-block tw-w-full tw-pb-1.5 tw-border-b tw-border-black">Eingetragene Verwalter</h2> -->
+                    <div class="tw-flex tw-flex-col tw-items-center tw-w-full tw-max-w-lg">
+                        <table class="tw-w-full tw-border tw-border-gray-400 tw-rounded-lg tw-shadow-lg">
+                            <thead class="tw-bg-gray-200">
+                            <tr>
+                                <th class="tw-py-2 tw-px-4 tw-text-left tw-font-bold">Benutzername</th>
+                                <th class="tw-py-2 tw-px-4 tw-text-left tw-font-bold">E-Mail</th>
+                                <th class="tw-py-2 tw-px-4 tw-text-left tw-font-bold"> </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {#each facility.managers as manager}
+                                    <tr class="tw-border-b tw-border-gray-400">
+                                        <td class="tw-py-2 tw-px-4">{manager.NAME}</td>
+                                        <td class="tw-py-2 tw-px-4">{manager.EMAIL}</td>
+                                        <td class="tw-py-2 tw-px-4">
+                                            <Button size="small" type="danger">Löschen</Button>
+                                        </td>
+                                    </tr>
+                                {/each}
+                            </tbody>
+                        </table>
+                        <h2 class="tw-mt-7 tw-text-left tw-block tw-w-full tw-pb-1.5 tw-border-b tw-border-black">Hinzufügen</h2>
+                        <form class="tw-w-full tw-max-w-lg tw-mt-2 tw-flex tw-flex-col tw-items-center">
+                            <div class="tw-w-full tw-flex tw-flex-col tw-items-center">
+                            <!-- <label for="email" class="tw-text-left tw-font-bold tw-mb-2">E-Mail</label> -->
+                            <input autocomplete="off" placeholder="E-Mail" id="bru" type="text" class="tw-border tw-border-gray-400 tw-rounded-lg tw-py-2 tw-px-4 tw-w-full tw-mb-4">
+                            </div>
+                            <div class="tw-flex tw-gap-2">
+                                <SubmitButton type='primary'>Hinzufügen</SubmitButton>
+                                <SubmitButton type='light'>Abbrechen</SubmitButton>
+                            </div>
+                        </form>
+                    </div>
+                </div>      
+            </CenterDiv>
+        </div>
+        <!--------------------------------------------------->
+    {:else if creatingEvent}
+        <H1>Event anmelden</H1>
+        <Subtitle>Melden Sie ein Event für {facility.NAME} an.</Subtitle>
+        <Form newInstance={true} {data} onSubmit={submit} onCancel={cancel} onDelete={deleteFacility}></Form>
     {:else}
         <div class="tw-grid tw-gap-4 md:tw-grid-cols-2 tw-my-8">
             <div>
@@ -180,11 +240,11 @@
                 <img class="tw-object-cover tw-shadow-lg tw-w-full tw-rounded-xl" src="/images/uploads/{facility.IMAGE_PATH}" alt="{facility.NAME}">
             </div>
         </div>
-        {#if $page.props.auth.user?.ACCOUNT_ID in facility.managers.map(account => account.ACCOUNT_ID)}
+        {#if facility.managers.map(manager => manager.ACCOUNT_ID).includes($page.props.auth.user?.ACCOUNT_ID)}
             <div class="tw-flex tw-justify-end tw-gap-4">
                 <Button onClick={()=>updating=true}>Bearbeiten</Button>
-                <Button onClick={()=>console.log("Verwalter hinzufügen")}>Verwalter hinzufügen</Button>
-                <Button onClick={()=>console.log("Event anmelden")}>Event anmelden</Button>
+                <Button onClick={()=>editingManagers=true}>Verwalter hinzufügen</Button>
+                <Button onClick={()=>creatingEvent=true}>Event anmelden</Button>
             </div>
         {/if}
         <h3>Beschreibung</h3>

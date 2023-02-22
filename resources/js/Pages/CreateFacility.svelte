@@ -91,10 +91,10 @@
         error: ""
     },{
         name: "Bild",
-        type: "text",
+        type: "file",
         value: "",
-        bind: "IMAGE_PATH",
-        errorname: "IMAGE_PATH",
+        bind: "IMAGE",
+        errorname: "IMAGE",
         error: ""
     }];
 
@@ -107,7 +107,12 @@
             }
         }).reduce((a, b) => Object.assign(a, b), {});
 
-        axios.post('/facilities', submitdata)
+        var cooldata = new FormData();
+        for (const [key, value] of Object.entries(submitdata)) {
+            cooldata.append(key, value);
+        }
+
+        axios.post('/facilities', cooldata)
         .then(response => {
             if (response.status === 200) {
                 router.get('facilities');
@@ -123,6 +128,7 @@
                     }
                 }
             }
+            console.log(error);
         });
     }
 

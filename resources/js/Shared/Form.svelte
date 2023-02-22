@@ -1,7 +1,5 @@
 <script>
     import SubmitButton from "./SubmitButton.svelte";
-    import DeleteButton from "./DeleteButton.svelte";
-    import CancelButton from "./CancelButton.svelte";
     import Input from "./Input.svelte";
 
     export let onSubmit = () => {};
@@ -54,11 +52,11 @@
         </div>
     {/each}
     <div class="tw-flex tw-gap-4">
-        <SubmitButton><i class="bi bi-send-fill"></i> Senden</SubmitButton>
+        <SubmitButton><i class="bi bi-send"></i> Senden</SubmitButton>
         {#if newInstance === false}
-            <DeleteButton onClick={handleDelete}><i class="bi bi-trash-fill"></i> Löschen</DeleteButton>
+            <SubmitButton type='danger' onClick={handleDelete}><i class="bi bi-trash-fill"></i> Löschen</SubmitButton>
         {/if}
-        <CancelButton onClick={handleCancel}>Abbrechen</CancelButton>
+        <SubmitButton type='light' onClick={handleCancel}><i class="bi bi-x-circle"></i> Abbrechen</SubmitButton>
     </div>
 </form>
     <!-- {#each Object.keys(data) as key}
