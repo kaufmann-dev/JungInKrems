@@ -20,7 +20,7 @@
     <SearchBar bind:query={query} />
     {#if activePill == "Alle Lesezeichen"}
         {#if bookmarks.length === 0}
-            <p class="tw-text-center tw-mt-3">Sie haben noch keine Lesezeichen.</p>
+            <span class="tw-text-center tw-mt-3 tw-mb-4">Sie haben noch keine Lesezeichen.</span>
         {:else}
             {#each events as event}
                 <EventListItem listUpdated={()=>router.reload} event={event}/>
@@ -31,7 +31,7 @@
         {/if}
     {:else if activePill == "Events"}
         {#if events.length === 0}
-            <p class="tw-text-center tw-mt-3">Sie haben noch keine Lesezeichen für Events.</p>
+            <span class="tw-text-center tw-mt-3 tw-mb-4">Sie haben noch keine Lesezeichen für Events.</span>
         {:else}
             {#each events as event}
                 <EventListItem event={event} listUpdated={()=>router.reload}/>
@@ -39,7 +39,7 @@
         {/if}
     {:else if activePill == "Bildung"}
         {#if facilities.length === 0}
-            <p class="tw-text-center tw-mt-3">Sie haben noch keine Lesezeichen für Bildungseinrichtungen.</p>
+            <span class="tw-text-center tw-mt-3 tw-mb-4">Sie haben noch keine Lesezeichen für Bildungseinrichtungen.</span>
         {:else}
             {#each facilities as facility}
                 <FacilityListItem facility={facility}/>

@@ -10,13 +10,13 @@
 
 <AccLayout>
     <H1 class="tw-mt-6">Meine Events</H1>
-    <p class="tw-text-gray-500 tw-border-b tw-pb-3">Alle Events die Sie erstellt haben.</p>
+    <span class="tw-text-gray-500 tw-border-b tw-pb-3 tw-mb-4">Alle Events die Sie erstellt haben.</span>
     {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
-        <p>Sie müssen Ihre E-Mail Adresse bestätigen um Events erstellen zu können.</p>
+        <span class="tw-mb-4">Sie müssen Ihre E-Mail Adresse bestätigen um Events erstellen zu können.</span>
         <Button link="/account/verify">Jetzt bestätigen</Button>
     {:else}
         {#if events.length === 0}
-            <p>Sie haben noch keine Events erstellt.</p>
+            <span class="tw-mb-4">Sie haben noch keine Events erstellt.</span>
         {:else}
             {#each events as event}
                 <EventListItem event={event}/>

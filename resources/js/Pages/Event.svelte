@@ -8,7 +8,7 @@
     import Form from "../Shared/Form.svelte";
     import axios from "axios";
     import H1 from "../Shared/H1.svelte";
-    import Facility from "./Facility.svelte";
+    import H3 from "../Shared/H3.svelte";
 
     let updating = false;
 
@@ -268,7 +268,7 @@
                 </div>
             </div>
         {/if}
-        <h3>Beschreibung</h3>
-        <p>{event.DESCRIPTION}</p>
+        <H3>Beschreibung</H3>
+        <span class="tw-mb-4">{event.DESCRIPTION}</span>
     {/if}
 </Layout>

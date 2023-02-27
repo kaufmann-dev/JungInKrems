@@ -140,6 +140,6 @@
 
 <Layout>
     <H1 mb={false}>Bildungsanstalt anmelden</H1>
-    <p class="tw-text-gray-500">Hier kannst du eine neue Bildungsanstalt anmelden.</p>
+    <span class="tw-text-gray-500 tw-mb-4">Hier kannst du eine neue Bildungsanstalt anmelden.</span>
     <Form newInstance={true} bind:data={formData} onSubmit={submit} onCancel={cancel} />
 </Layout>

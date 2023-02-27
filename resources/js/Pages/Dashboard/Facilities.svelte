@@ -201,7 +201,7 @@
         {#if facilities.length > 0}
             <Table bind:data={data} on:editData={handleTableEdit} on:deleteData={handleTableDelete} ignore={["WEBSITE_URL", "PHONE_NR", "EMAIL", "POSTAL_CODE", "CITY", "ADDRESS", "IMAGE_PATH", "remember_token", 	"created_at", "updated_at"]}></Table>
         {:else}
-            <p>Keine Einrichtungen vorhanden</p>
+            <span class="tw-mb-4">Keine Einrichtungen vorhanden</span>
         {/if}
         <Button link="/newfacility">Neue Einrichtung anmelden</Button>
     {/if}

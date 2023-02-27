@@ -20,7 +20,7 @@
     <SearchBar bind:query={query} />
     {#if activePill == "Alle Events"}
         {#if events.length === 0}
-            <p class="tw-text-center tw-mt-3">Es existieren noch keine Events.</p>
+            <span class="tw-text-center tw-mt-3 tw-mb-4">Es existieren noch keine Events.</span>
         {:else}
             {#each filteredEvents as event}
                 <EventListItem event={event}/>
@@ -28,7 +28,7 @@
         {/if}
     {:else if activePill == "Freizeit"}
         {#if freizeitEvents.length === 0}
-            <p class="tw-text-center tw-mt-3">Es existieren noch keine Freizeit-Events.</p>
+            <span class="tw-text-center tw-mt-3 tw-mb-4">Es existieren noch keine Freizeit-Events.</span>
         {:else}
             {#each freizeitEvents as event}
                 <EventListItem event={event}/>
@@ -37,7 +37,7 @@
             
     {:else if activePill == "Bildung"}
         {#if bildungEvents.length === 0}
-            <p class="tw-text-center tw-mt-3">Es existieren noch keine Bildungs-Events.</p>
+            <span class="tw-text-center tw-mt-3 tw-mb-4">Es existieren noch keine Bildungs-Events.</span>
         {:else}
             {#each bildungEvents as event}
                 <EventListItem event={event}/>

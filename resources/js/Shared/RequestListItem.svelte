@@ -3,6 +3,7 @@
     import { router } from "@inertiajs/svelte";
     import InfoText from "../Shared/InfoText.svelte";
     import Button from "./Button.svelte";
+    import H3 from "./H3.svelte";
 
     function formatDate(dateString) {
         let date = new Date(dateString);
@@ -23,19 +24,23 @@
     }
 </script>
 
-<div class="tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mt-4">
-    <h3>{request.REQUEST_TYPE}</h3>
-    <p>{request.MESSAGE}</p>
-    <p>Status:
+<div class="tw-grid tw-gap-2 tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mt-4">
+    <div>
+        <H3>Typ: {request.REQUEST_TYPE}</H3>
+        <span class="tw-clock tw-mb-3">Nachricht: {request.MESSAGE}</span>
+    </div>
+    <div></div>
+    <span>Status:
     {#if request.STATUS == "Offen"}
         <InfoText color="gray">Offen</InfoText>
     {:else if request.STATUS == "Angenommen"}
         <InfoText color="green">Angenommen</InfoText>
     {:else if request.STATUS == "Abgelehnt"}
         <InfoText color="red">Abgelehnt</InfoText>
-    {/if}</p>
-    <p>Erstellt: <InfoText color="light">{formatDate(request.created_at)}</InfoText></p>
-    <p>Letzte Änderung: <InfoText color="light">{formatDate(request.updated_at)}</InfoText></p>
+    {/if}</span>
+    <span>Erstellt: <InfoText color="light">{formatDate(request.created_at)}</InfoText></span>
+    <span>Letzte Änderung: <InfoText color="light">{formatDate(request.updated_at)}</InfoText></span>
+    <div></div>
     <div on:click={deltrose}>
         <Button type="danger">Antrag löschen</Button>
     </div>
