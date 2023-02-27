@@ -7,9 +7,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use App\Http\Traits\PasswordResetTrait;
 
 class AccountController extends Controller
 {
+    use PasswordResetTrait;
+
     public function login(Request $request)
     {
         $request->validate([
@@ -96,12 +100,14 @@ class AccountController extends Controller
             'email' => 'required',
         ]);
 
-        $account = Account::where('email', request('email'))->first();
+        $account = Account::where('EMAIL', request('email'))->first();
 
         if(!$account)
             return response()->json(['message' => 'Email does not exist.']);
 
-        $account->sendPasswordResetNotification();
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
     }
     
 }
