@@ -68,7 +68,7 @@
 <Layout>
     <H1>Passwort zurücksetzen</H1>
     {#if reset}
-        <p>Dein Passwort wurde erfolgreich zurückgesetzt.</p>
+        <span class="tw-mb-4">Dein Passwort wurde erfolgreich zurückgesetzt.</span>
         <Button link="/login">Zum Login</Button>
     {:else}
         <Form newInstance={true} onSubmit={submit} onCancel={cancel} {data}></Form>
