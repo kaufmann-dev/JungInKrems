@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function(){
 
         // Request Routes
         Route::post('requests', [RequestController::class, 'createRequest'])->middleware('isFacilityManagerWeb');
-        Route::post('requests/{id}', [RequestController::class, 'updateRequest'])->middleware('isRequestOwnerWeb');
+        /* Route::post('requests/{id}', [RequestController::class, 'updateRequest'])->middleware('isRequestOwnerWeb'); */
         Route::post('requests/delete/{id}', [RequestController::class, 'deleteRequest'])->middleware('isRequestOwnerWeb');
 
         // System Admin Middleware

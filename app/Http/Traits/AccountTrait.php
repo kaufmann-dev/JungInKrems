@@ -38,6 +38,28 @@ trait AccountTrait
         ]);
     }
 
+    public function requireUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'NAME' => 'required',
+            'EMAIL' => 'required',
+        ], [
+            'NAME.required' => 'Bitte gib einen Namen.',
+            'EMAIL.required' => 'Bitte gib eine E-Mail-Adresse ein.',
+        ]);
+    }
+
+    public function requireAdminUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'ACCOUNT_TYPE' => 'required',
+            'IS_EMAIL_VERIFIED' => 'required',
+        ], [
+            'ACCOUNT_TYPE.required' => 'Bitte gib die Rolle ein.',
+            'IS_EMAIL_VERIFIED.required' => 'Bitte gib den Verifikationsstatus ein.',
+        ]);
+    }
+
     public function validateLogin(Request $request)
     {
         $this->validate($request, [

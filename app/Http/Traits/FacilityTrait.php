@@ -77,4 +77,46 @@ trait FacilityTrait
             'EMAIL.exists' => 'Die E-Mail Adresse existiert nicht.',
         ]);
     }
+
+    public function requireNew(Request $request)
+    {
+        $this->validate($request, [
+            'IMAGE' => 'required',
+        ], [
+            'IMAGE.required' => 'Die Bild muss vorhanden sein.',
+        ]);
+    }
+
+    public function requireUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'TITLE' => 'required',
+            'DESCRIPTION' => 'required',
+            'FACILITY_TYPE' => 'required',
+            'POSTAL_CODE' => 'required',
+            'CITY' => 'required',
+            'ADDRESS' => 'required',
+            'PHONE_NR' => 'required',
+            'EMAIL' => 'required',
+            'WEBSITE_URL' => 'required',
+        ], [
+            'TITLE.required' => 'Die E-Mail Adresse ist erforderlich.',
+            'FACILITY_TYPE.required' => 'Die Einrichtungsart muss ausgefüllt werden.',
+            'POSTAL_CODE.required' => 'Die Postleitzahl muss ausgefüllt werden.',
+            'CITY.required' => 'Die Stadt muss ausgefüllt werden.',
+            'ADDRESS.required' => 'Die Adresse muss ausgefüllt werden.',
+            'PHONE_NR.required' => 'Die Telefonnummer muss ausgefüllt werden.',
+            'EMAIL.required' => 'Die E-Mail Adresse ist erforderlich.',
+            'WEBSITE_URL.required' => 'Die Website-URL muss ausgefüllt werden.',
+        ]);
+    }
+
+    public function requireAdminUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'IS_CITY_VERIFIED' => 'required',
+        ], [
+            'IS_CITY_VERIFIED.required' => 'Die E-Mail Adresse ist erforderlich.',
+        ]);
+    }
 }

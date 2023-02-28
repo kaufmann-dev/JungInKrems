@@ -31,4 +31,28 @@ trait RequestTrait
             'STATUS.in' => 'Der Status muss entweder "Offen", "Abgelehnt" oder "Angenommen" sein.',
         ]);
     }
+
+    public function requireUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'FACILITY_ID' => 'required',
+            'MESSAGE' => 'required',
+            'REQUEST_TYPE' => 'required',
+        ], [
+           'FACILITY_ID.required' => 'Die Bildungsanstalt muss ausgefüllt sein.',
+            'MESSAGE.required' => 'Die Nachricht muss ausgefüllt sein.',
+            'REQUEST_TYPE.required' => 'Der Typ muss ausgefüllt sein.',
+        ]);
+    }
+
+    public function requireAdminUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'ACCOUNT_ID' => 'required',
+            'STATUS' => 'required',
+        ], [
+           'ACCOUNT_ID.required' => 'Die Account ID muss ausgefüllt sein.',
+           'STATUS.required' => 'Der Status muss ausgefüllt sein.',
+        ]);
+    }
 }

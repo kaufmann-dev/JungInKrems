@@ -14,19 +14,18 @@
     <H1 class="tw-mt-6">Meine Bildungsanstalten</H1>
     <Subtitle>Alle Bildungsanstalten die sie verwalten dürfen. Um sichtbar zu werden muss die Stadt Krems jene zuerst noch verifizieren.</Subtitle>
     {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
-        <span class="tw-mb-4">Sie müssen Ihre E-Mail Adresse bestätigen um Bildungsanstalten verwalten zu können.</span>
+        <span class="tw-mb-4 tw-block">Sie müssen Ihre E-Mail Adresse bestätigen um Bildungsanstalten verwalten zu können.</span>
         <Button link="/account/verify">Jetzt bestätigen</Button>
     {:else}
         {#if myfacilities.length === 0}
-            <span class="tw-mb-4">Sie verwalten noch keine Bildungsanstalten.</span>
+            <span class="tw-mb-4 tw-block">Sie verwalten noch keine Bildungsanstalten.</span>
         {:else}
-            {#each myfacilities as facility}
-                <FacilityListItem facility={facility}/>
-            {/each}
+            <div class="tw-mb-4">
+                {#each myfacilities as facility}
+                    <FacilityListItem facility={facility}/>
+                {/each}
+            </div>
         {/if}
-        <div class="mt-3">
-            <!-- <Button link="/new">Als Verwalter anmelden</Button> -->
-            <Button link="/newfacility">Neue Bildungsanstalt anmelden</Button>
-        </div>
+        <Button link="/newfacility">Neue Bildungsanstalt anmelden</Button>
     {/if}
 </AccLayout>

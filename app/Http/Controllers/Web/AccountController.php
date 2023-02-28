@@ -30,15 +30,6 @@ class AccountController extends Controller
         } else {
             return response()->json(['message' => 'Das Passwort ist falsch.'], 401);
         }
-
-        /* if(! Account::where('email', request('email'))->exists()) {
-            return response()->json(['email' => 'User does not exist'], 400);
-        } */
-
-        /* if (!Auth::attempt($credentials, $remember)) {
-            return back()->withInput();
-            return Inertia::render('Register');
-        } */
     }
 
     public function register()
@@ -62,7 +53,6 @@ class AccountController extends Controller
 
     public function logout()
     {
-        //$token = request()->input('_token');
         if (Auth::check()) {
             Auth::logout();
             return response()->json(['message' => 'Successfully logged out'], 200);
@@ -86,6 +76,7 @@ class AccountController extends Controller
     public function updateAccount()
     {
         $this->validateRequest(request());
+        $this->requireUpdate(request());
 
         if (Auth::check()) {
             $account = Auth::user();
@@ -123,6 +114,8 @@ class AccountController extends Controller
     public function adminUpdateAccount($id)
     {
         $this->validateRequest(request());
+        $this->requireUpdate(request());
+        $this->requireAdminUpdate(request());
 
         $account = Account::find($id);
 
@@ -144,31 +137,4 @@ class AccountController extends Controller
 
         return Inertia::render('Account/Verify');
     }
-
-    /* public function verifyEmail()
-    {
-        $account = Auth::user();
-
-        $verificationLink = $this->generateVerificationLink($account);
-        
-        $account->notify(new VerifyEmailNotification($verificationLink, $account->NAME, $account->EMAIL));
-    }
-
-    public function generateVerificationLink($account)
-    {
-        $token = $account->createToken('email-verification')->plainTextToken;
-        return url('/verify-email/' . $token);
-    }
-
-    public function verifyEmailWithToken($token)
-    {
-        $account = Account::where('email', request('email'))->first();
-        if(!$account || !Hash::check($token, $account->tokens()->first()->plainTextToken)) {
-            return response()->json(['message' => 'Invalid verification link'], 400);
-        }
-        $account->tokens()->delete();
-        $account->IS_EMAIL_VERIFIED = 1;
-        $account->save();
-        return response()->json(['message' => 'Email verified'], 200);
-    } */
 }

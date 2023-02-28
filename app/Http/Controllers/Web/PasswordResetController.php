@@ -14,28 +14,24 @@ class PasswordResetController extends Controller
 {
     use PasswordResetTrait;
 
-    public function sendResetLinkEmail(Request $request)
+    public function sendResetLinkEmail()
     {
-        $request->validate([
-            'email' => 'required|email|in:' . Account::all()->pluck('EMAIL')->implode(',')
-        ],[
-            'email.required' => 'Die E-Mail-Adresse ist ein Pflichtfeld',
-            'email.email' => 'Die E-Mail-Adresse ist keine gültige E-Mail-Adresse',
-            'email.in' => 'Die E-Mail-Adresse ist nicht registriert'
-        ]);
+        $this->validateResetEmail(request());
         
         $status = Password::sendResetLink(
-            $request->only('email')
+            request()->only('email')
         );
 
-        /* return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => __($status)])
-                    : back()->withErrors(['email' => __($status)]); */
+        /*
+            return $status === Password::RESET_LINK_SENT
+            ? back()->with(['status' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
+        */
     }
 
-    public function resetPassword(Request $request)
+    public function resetPassword()
     {
-        $this->validateRequest(request());
+        $this->validateReset(request());
 
         $token = request('token');
         $email = request('email');

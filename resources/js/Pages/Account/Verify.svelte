@@ -33,7 +33,7 @@
     {:else if sent}
         <span class="tw-text-green-700 tw-mb-4">Wir haben dir eine E-Mail Adresse geschickt. Überprüfe dein Postfach und deinen Spam Ordner.</span>
     {:else}
-        <span class="tw-text-red-500 tw-mb-4">Ihre E-Mail Adresse wurde noch nicht bestätigt.</span>
+        <span class="tw-text-red-500 tw-mb-4 tw-block">Ihre E-Mail Adresse wurde noch nicht bestätigt.</span>
         <Button onClick={sendEmail}>Link schicken</Button>
     {/if}
 </AccLayout>

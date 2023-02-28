@@ -223,22 +223,22 @@
                     <InfoText color="green">{event.EVENT_TYPE}</InfoText>
                 {/if}
                 <BookmarkButton checkId={event.EVENT_ID}></BookmarkButton>
-                <div class="tw-text-xl tw-grid tw-gap-2 tw-mt-4">
+                <div class="tw-text-lg tw-grid tw-gap-2 tw-mt-4">
                     <div class="tw-flex">
                         <i class="tw-mx-3 tw-text-blue-500 bi bi-geo-alt-fill"></i> <span>{event.ADDRESS}, {event.POSTAL_CODE} {event.CITY}</span>
                     </div>
-                    <div class="tw-text-xl tw-grid tw-gap-2 tw-mt-4">
-                        <div class="tw-flex">
-                            <i class="tw-mx-3 tw-text-blue-500 bi bi-calendar-fill"></i>
-                            <div>
-                                <InfoText color="light">Start</InfoText><span class="tw-ml-2">
-                                {formatDate(event.STARTING_TIME)}</span>
-                                {#if event.ENDING_TIME}
-                                    <InfoText color="light">Ende</InfoText><span class="tw-ml-2">
-                                    {formatDate(event.ENDING_TIME)}</span>
-                                {/if}
-                            </div>
-                        </div>
+                    <div>
+                        <i class="tw-mx-3 tw-text-blue-500 bi bi-calendar-fill"></i>
+                        <InfoText color="light">Start</InfoText>
+                        <span class="tw-ml-2">
+                            {formatDate(event.STARTING_TIME)}
+                        </span>
+                        {#if event.ENDING_TIME}
+                            <InfoText color="light">Ende</InfoText>
+                            <span class="tw-ml-2">
+                                {formatDate(event.ENDING_TIME)}
+                            </span>
+                        {/if}
                     </div>
                     {#if event.PHONE_NR}
                         <div>

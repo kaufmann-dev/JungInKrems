@@ -2,7 +2,7 @@
     import Layout from '../Shared/Layout.svelte'
     import Button from '../Shared/Button.svelte'
     import CenterDiv from '../Shared/CenterDiv.svelte';
-    import H1 from '../Shared/H1.svelte';
+    import H2 from '../Shared/H2.svelte';
     import H3 from '../Shared/H3.svelte';
     import D1 from '../Shared/D1.svelte';
 </script>
@@ -11,7 +11,7 @@
     <CenterDiv>
     <div class="tw-text-center tw-my-10">
         <D1 mb={false}>Jung in Krems</D1>
-        <H1 color="yellow">Willkommen!</H1>
+        <H2><span class="tw-text-yellow-400">Willkommen!</span></H2>
         <div class="tw-grid tw-gap-6 md:tw-gap-20 md:tw-grid-cols-2 tw-mb-10">
             <div>
                 <H3>Was ist Jung in Krems?</H3>

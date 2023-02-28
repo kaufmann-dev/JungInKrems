@@ -2,12 +2,13 @@
 
 namespace App\Http\Traits;
 use Illuminate\Http\Request;
+use App\Models\Account;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 trait PasswordResetTrait
 {
-    public function validateRequest(Request $request)
+    public function validateReset(Request $request)
     {
         $this->validate($request, [
             'PASSWORD' => 'required|string|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
@@ -21,6 +22,17 @@ trait PasswordResetTrait
 
             'PASSWORD_CONFIRMATION.required' => 'Die Passwortbestätigung ist erforderlich.',
             'PASSWORD_CONFIRMATION.same' => 'Die Passwörter stimmen nicht überein.',
+        ]);
+    }
+
+    public function validateResetEmail(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|in:' . Account::all()->pluck('EMAIL')->implode(',')
+        ],[
+            'email.required' => 'Die E-Mail-Adresse ist ein Pflichtfeld',
+            'email.email' => 'Die E-Mail-Adresse ist keine gültige E-Mail-Adresse',
+            'email.in' => 'Die E-Mail-Adresse ist nicht registriert'
         ]);
     }
 }
