@@ -255,7 +255,7 @@
 
     let submitNewEvent = () => {
         let submitdata = newEventData.map(element => {
-            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"]) {
+            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"] !== null) {
                 return {
                     [element["bind"]]: element["value"]
                 }
@@ -299,7 +299,7 @@
 
     let submit = () => {
         let submitdata = data.map(element => {
-            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"]) {
+            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"] !== null) {
                 return {
                     [element["bind"]]: element["value"]
                 }

@@ -172,7 +172,7 @@
                 element.value = javaToMysqlDatetime(element.value);
             return element;
         }) */.map(element => {
-            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"]) {
+            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"] !== null) {
                 return {
                     [element["bind"]]: element["value"]
                 }

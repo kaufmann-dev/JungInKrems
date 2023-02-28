@@ -34,9 +34,11 @@
 
     let submit = () => {
         let submitdata = data.map(element => {
+            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"] !== null) {
             return {
                 [element["bind"]]: element["value"]
             }
+        }
         }).reduce((a, b) => Object.assign(a, b), {});
 
         submitdata["token"] = token;

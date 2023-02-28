@@ -117,9 +117,11 @@
 
     let submit = () => {
         let submitdata = formData.map(element => {
+            if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"] !== null) {
             return {
                 [element["bind"]]: element["value"]
             }
+        }
         }).reduce((a, b) => Object.assign(a, b), {});
 
         axios.post('/admin/requests/' + {...requests[index]}.REQUEST_ID, submitdata)

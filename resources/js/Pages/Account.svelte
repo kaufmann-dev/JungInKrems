@@ -74,9 +74,11 @@
 
     let resetPassword = () => {
       let submitdata = passwordArray.map(element => {
+        if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"] !== null) {
           return {
               [element["bind"]]: element["value"]
           }
+        }
       }).reduce((a, b) => Object.assign(a, b), {});
 
       axios.post('/reset-password', submitdata)
@@ -104,9 +106,11 @@
 
     let submit = () => {
       let submitdata = userArray.map(element => {
+        if(element["value"] !== "" && element["value"] !== "NaN-NaN-NaNTNaN:NaN" && element["value"] !== null) {
             return {
                 [element["bind"]]: element["value"]
             }
+          }
         }).reduce((a, b) => Object.assign(a, b), {});
 
         axios.post('/account', submitdata)
