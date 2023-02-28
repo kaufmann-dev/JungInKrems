@@ -4,13 +4,14 @@
     import EventListItem from "../../Shared/EventListItem.svelte";
     import { page } from '@inertiajs/svelte';
     import H1 from "../../Shared/H1.svelte";
+    import Subtitle from "../../Shared/Subtitle.svelte";
 
     export let events = [];
 </script>
 
 <AccLayout>
     <H1 class="tw-mt-6">Meine Events</H1>
-    <span class="tw-text-gray-500 tw-border-b tw-pb-3 tw-mb-4">Alle Events die Sie erstellt haben.</span>
+    <Subtitle>Alle Events die Sie erstellt haben.</Subtitle>
     {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
         <span class="tw-mb-4">Sie müssen Ihre E-Mail Adresse bestätigen um Events erstellen zu können.</span>
         <Button link="/account/verify">Jetzt bestätigen</Button>
