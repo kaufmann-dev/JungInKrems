@@ -75,6 +75,7 @@
             router.reload();
         })
         .catch(error => {
+            console.log(error);
             if (error?.response?.status === 422) {  
                 /* for (const [key, value] of Object.entries(error.response.data.errors)) {
                     data.forEach(element => {
@@ -93,7 +94,6 @@
                     }
                 }
             }
-            console.log(error);
         });
     }
     let cancel = () => {
