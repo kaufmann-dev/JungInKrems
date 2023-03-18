@@ -9,12 +9,18 @@
 
     let handleBookmark = () => {
         if(isChecked){
-            axios.post('/bookmarks/delete/' + checkId);
+            axios.post('/bookmarks/delete/' + checkId)
+            .then((x)=>{
+                router.reload();
+            });
         } else {
-            axios.post('/bookmarks/' + checkId);
+            axios.post('/bookmarks/' + checkId)
+            .then((x)=>{
+                router.reload();
+            });
         }
-        bookmarkUpdated();
-        router.reload();
+        /* bookmarkUpdated();
+        router.reload(); */
     }
 
     let isHovering = false;
