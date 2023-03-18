@@ -1,6 +1,6 @@
 <script>
     export let event;
-    export let listUpdated = () => {};
+    //export let listUpdated = () => {};
     import { inertia, router } from "@inertiajs/svelte";
     import InfoText from "../Shared/InfoText.svelte";
     import BookmarkButton from "./BookmarkButton.svelte";
@@ -36,7 +36,8 @@
             <br>
             <InfoText color="green">Freizeit</InfoText>
         {/if}
-        <BookmarkButton bookmarkUpdated={listUpdated} checkId={event.EVENT_ID} />
+        <!--<BookmarkButton bookmarkUpdated={listUpdated} checkId={event.EVENT_ID} />-->
+        <BookmarkButton checkId={event.EVENT_ID} />
     </div>
     <div>
         <H4>Zeit</H4>
