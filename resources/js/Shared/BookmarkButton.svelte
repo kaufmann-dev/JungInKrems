@@ -11,12 +11,12 @@
         if(isChecked){
             axios.post('/bookmarks/delete/' + checkId)
             .then((x)=>{
-                router.reload();
+                bookmarkUpdated();
             });
         } else {
             axios.post('/bookmarks/' + checkId)
             .then((x)=>{
-                router.reload();
+                bookmarkUpdated();
             });
         }
         /* bookmarkUpdated();
