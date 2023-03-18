@@ -75,7 +75,7 @@
 
         <p><a href="{{ $verification_link }}" class="button">Email Adresse bestätigen</a></p>
 
-        <p>Wenn du kein Konto erstellt hast, sind keine weiteren Maßnahmen erforderlich.</p>
+        <p>Wenn du kein Konto erstellt hast oder deine E-Mail Adresse nicht verifizieren möchtest, sind keine weiteren Maßnahmen erforderlich.</p>
 
         <p class="regards">Mit freundlichen Grüßen,<br>{{ config('app.name') }}</p>
 
