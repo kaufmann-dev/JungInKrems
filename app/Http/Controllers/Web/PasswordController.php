@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Account;
 use Illuminate\Support\Facades\Password;
 use App\Http\Traits\PasswordResetTrait;
 use App\Models\PasswordResets;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
-class PasswordResetController extends Controller
+class PasswordController extends Controller
 {
     use PasswordResetTrait;
 
@@ -54,6 +54,19 @@ class PasswordResetController extends Controller
         $account->save();
 
         $resettable->delete();
+    }
+
+    public function changePassword()
+    {
+        $this->validatePasswordReset(request());
+
+        if (Auth::check()) {
+            $account = Auth::user();
+            if(Hash::check(request('OLD_PASSWORD'), $account->PASSWORD)) {
+                $account->PASSWORD = Hash::make(request('PASSWORD'));
+                $account->save();
+            }
+        }
     }
     
 }
