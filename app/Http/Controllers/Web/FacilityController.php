@@ -7,6 +7,7 @@ use App\Models\Bookmark;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\FacilityTrait;
 use App\Models\AccountHasFacilities;
+use App\Models\AccountHasBookmarks;
 use App\Models\Request;
 use App\Models\Account;
 use Illuminate\Support\Facades\Storage;
@@ -66,6 +67,11 @@ class FacilityController extends Controller
     {
         $facility = Facility::find($id);
         $facility->delete();
+
+        $bookmarks = AccountHasBookmarks::where('BOOKMARK_ID', $id)->get();
+        foreach($bookmarks as $bookmark) {
+            $bookmark->delete();
+        }
     }
 
     public function adminUpdateFacility($id)
