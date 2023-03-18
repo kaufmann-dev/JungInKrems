@@ -81,7 +81,7 @@
         }
       }).reduce((a, b) => Object.assign(a, b), {});
 
-      axios.post('/reset-password', submitdata)
+      axios.post('/changePassword', submitdata)
       .then(response => {
           if (response.status === 200) {
             cancel();
