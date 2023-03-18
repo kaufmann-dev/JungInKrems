@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\AccountController;
+use App\Http\Controllers\Web\VerificationController;
 use App\Models\AccountHasBookmarks;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -79,7 +80,7 @@ Route::middleware('auth')->group(function(){
 
     // Signed Middleware
     Route::middleware('signed')->group(function(){
-        Route::get('/account/verify/fresh', [AccountController::class, 'verifyEmail'])->name('verification.verify');
+        Route::get('/account/verify/fresh', [VerificationController::class, 'verifyEmail'])->name('verification.verify');
     });
 
     // Verified Email Middleware
