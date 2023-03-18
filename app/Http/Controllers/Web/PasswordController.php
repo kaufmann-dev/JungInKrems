@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use Illuminate\Support\Facades\Password;
-use App\Http\Traits\PasswordResetTrait;
+use App\Http\Traits\PasswordTrait;
 use App\Models\PasswordResets;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class PasswordController extends Controller
 {
-    use PasswordResetTrait;
+    use PasswordTrait;
 
     public function sendResetLinkEmail()
     {

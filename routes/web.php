@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/email/send-verification', [VerificationController::class, 'sendVerificationEmail']);
     Route::post('/account/delete/', [AccountController::class, 'deleteAccount']);
     Route::post('/account', [AccountController::class, 'updateAccount']);
-    Route::post('/password/change', [PasswordController::class, 'changePassword'])->name("reset-password");
+    Route::post('/password/change', [PasswordController::class, 'changePassword']);
 
     // Bookmark Routes
     Route::post('bookmarks/delete/{id}', [BookmarkController::class, 'deleteBookmark'])->middleware('isBookmarkOwnerWeb');

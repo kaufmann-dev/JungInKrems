@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use App\Http\Traits\PasswordResetTrait;
+use App\Http\Traits\PasswordTrait;
 
 class PasswordController extends Controller
 {
-    use PasswordResetTrait;
+    use PasswordTrait;
 
     public function resetPassword(Request $request)
     {
