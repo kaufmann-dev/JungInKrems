@@ -79,7 +79,7 @@
     <CenterDiv>
         <div class="tw-text-center">
           {#if registered == true}
-            <h1 class="tw-mb-6">Sie wurden registriert.</h1>
+            <H1 mb={false}>Sie wurden registriert.</H1>
             <Button link="/login">Anmelden</Button>
           {:else}
           <!-- <form on:submit|preventDefault={submit} class="tw-text-center tw-bg-slate-100 tw-p-8 tw-rounded-md">

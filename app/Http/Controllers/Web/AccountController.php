@@ -68,6 +68,12 @@ class AccountController extends Controller
         }
     }
 
+    public function adminDeleteAccount($id)
+    {
+        $account = Account::findOrFail($id);
+        $account->delete();
+    }
+
     public function updateAccount()
     {
         $this->validateRequest(request());

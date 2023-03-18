@@ -10,7 +10,7 @@
 </script>
 
 <AccLayout>
-    <H1 class="tw-mt-6">Meine Events</H1>
+    <H1 mb={false}>Meine Events</H1>
     <Subtitle>Alle Events die Sie erstellt haben.</Subtitle>
     {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
         <span class="tw-mb-4 tw-block">Sie müssen Ihre E-Mail Adresse bestätigen um Events erstellen zu können.</span>

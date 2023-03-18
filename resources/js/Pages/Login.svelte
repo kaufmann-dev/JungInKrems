@@ -97,9 +97,9 @@
             {#if $page.props.auth.user}
                 <div class="tw-text-center">
                     {#if loggedIn == true}
-                        <H1>Sie wurden angemeldet.</H1>
+                        <H1 mb={false}>Sie wurden angemeldet.</H1>
                     {:else}
-                        <H1>Sie sind bereits angemeldet.</H1>
+                        <H1 mb={false}>Sie sind bereits angemeldet.</H1>
                     {/if}
                     <Button link="/events">Events entdecken</Button>
                 </div>

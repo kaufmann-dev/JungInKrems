@@ -26,11 +26,13 @@
 
 <div class="tw-grid tw-gap-2 tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mb-4">
     <div>
-        <H3>Typ: {request.REQUEST_TYPE}</H3>
-        <span class="tw-clock tw-mb-3">Nachricht: {request.MESSAGE}</span>
+        <H3>Antrag Nr. {request.REQUEST_ID}</H3>
+        
     </div>
     <div></div>
-    <span>Status:
+    <span><InfoText color="light">Typ</InfoText> {request.REQUEST_TYPE}</span>
+    <span><InfoText color="light">Nachricht</InfoText> {request.MESSAGE}</span>
+    <span><InfoText color="light">Status</InfoText>
     {#if request.STATUS == "Offen"}
         <InfoText color="gray">Offen</InfoText>
     {:else if request.STATUS == "Angenommen"}
@@ -38,8 +40,8 @@
     {:else if request.STATUS == "Abgelehnt"}
         <InfoText color="red">Abgelehnt</InfoText>
     {/if}</span>
-    <span>Erstellt: <InfoText color="light">{formatDate(request.created_at)}</InfoText></span>
-    <span>Letzte Änderung: <InfoText color="light">{formatDate(request.updated_at)}</InfoText></span>
+    <span><InfoText color="light">Erstellt</InfoText> {formatDate(request.created_at)}</span>
+    <span><InfoText color="light">Letzte Änderung</InfoText> {formatDate(request.updated_at)}</span>
     <div></div>
     <div on:click={deltrose}>
         <Button type="danger">Antrag löschen</Button>

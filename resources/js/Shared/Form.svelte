@@ -51,7 +51,7 @@
             <span class="tw-text-red-500 tw-text-sm tw-mt-1">{slave.error}</span>
         </div>
     {/each}
-    <div class="tw-flex tw-gap-4">
+    <div class="tw-flex tw-gap-2 tw-flex-col sm:tw-flex-row">
         <SubmitButton><i class="bi bi-send"></i> Senden</SubmitButton>
         {#if newInstance === false}
             <SubmitButton type='danger' onClick={handleDelete}><i class="bi bi-trash-fill"></i> Löschen</SubmitButton>

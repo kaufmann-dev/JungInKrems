@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function(){
             Route::post('admin/requests/{id}', [RequestController::class, 'adminUpdateRequest']);
             Route::post('admin/requests/accept/{id}', [RequestController::class, 'adminAcceptRequest']);
             Route::post('admin/requests/decline/{id}', [RequestController::class, 'adminDeclineRequest']);
+            Route::post('admin/accounts/delete/{id}', [AccountController::class, 'adminDeleteAccount']);
         });
     });
 });
