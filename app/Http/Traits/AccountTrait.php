@@ -100,4 +100,28 @@ trait AccountTrait
             'terms.accepted' => 'Die Nutzungsbedingungen müssen akzeptiert werden.'
         ]);
     }
+
+    public function validateRegisterApi(Request $request)
+    {   
+        $this->validate($request, [
+            'name' => 'string|required|max:30',
+            'email' => 'required|email|unique:ACCOUNTS_ST,EMAIL|max:255',
+            'password' => 'required|confirmed|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'
+        ], [
+            'name.required' => 'Der Name ist erforderlich.',
+            'name.max' => 'Der Name darf maximal 30 Zeichen lang sein.',
+            'name.string' => 'Der Name muss ein String sein.',
+
+            'email.required' => 'Die E-Mail-Adresse ist erforderlich.',
+            'email.email' => 'Die E-Mail-Adresse muss eine gültige E-Mail-Adresse sein.',
+            'email.unique' => 'Die E-Mail-Adresse ist bereits vergeben.',
+            'email.max' => 'Die E-Mail-Adresse darf maximal 255 Zeichen lang sein.',
+
+            'password.required' => 'Das Passwort ist erforderlich.',
+            'password.confirmed' => 'Die Passwörter stimmen nicht überein.',
+            'password.min' => 'Das Passwort muss mindestens 8 Zeichen lang sein.',
+            'password.max' => 'Das Passwort darf maximal 255 Zeichen lang sein.',
+            'password.regex' => 'Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.'
+        ]);
+    }
 }

@@ -10,14 +10,15 @@ class BookmarkController extends Controller
     public function getBookmarks(Request $request)
     {
         $bookmarks = $request->user()->bookmarks;
-        return response()->json($bookmarks);
+        return response()->json($bookmarks, 200);
     }
     
     public function deleteBookmark(Request $request, $id)
     {
         $bookmark = $request->user()->bookmarks()->where('BOOKMARK_ID', $id)->first();
         $bookmark->delete();
-        return response()->json(['message' => 'Bookmark deleted']);
+
+        return response()->json(['message' => 'Deleted bookmark.'], 200);
     }
 
     public function addBookmark(Request $request, $id)
@@ -26,6 +27,7 @@ class BookmarkController extends Controller
             'BOOKMARK_ID' => $id,
             'ACCOUNT_ID' => $request->user()->ACCOUNT_ID,
         ]);
-        return response()->json($bookmark);
+
+        return response()->json($bookmark, 200);
     }
 }
