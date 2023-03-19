@@ -361,7 +361,7 @@
                 </div>
                 <div class="lg:tw-flex-1">
                     <H1 mb={false}>Hinzufügen</H1>
-                    <Subtitle>Füge neue Verantwortliche für deine Bildungsanstalt hinzu..</Subtitle>
+                    <Subtitle>Füge neue Verantwortliche für deine Bildungsanstalt hinzu.</Subtitle>
                     <form on:submit|preventDefault={managerSubmit} class="tw-w-full tw-flex tw-flex-col tw-items-center">
                         <div class="tw-w-full tw-flex tw-flex-col tw-items-center">
                         <input

@@ -125,7 +125,7 @@
 
 <Layout>
     <H1 mb={false}>Event anmelden</H1>
-    <Subtitle>Hier kannst du ein neues Freizeit Event anmelden. <Link href="/account/facilities">Bildungs Event erstellen</Link></Subtitle>
+    <Subtitle>Hier kannst du ein neues Freizeit Event anmelden. <Link href="/account/facilities" class="tw-underline">Bildungs Event erstellen</Link></Subtitle>
 
     <Form newInstance={true} bind:data={formData} onSubmit={submit} onCancel={cancel} />
 </Layout>

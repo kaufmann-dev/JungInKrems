@@ -20,9 +20,9 @@
     <H1 center={true}>{activePill}</H1>
     <SearchBar bind:query={query} />
     {#if activePill == "Alle Lesezeichen"}
-        {#if bookmarks.length === 0}
+        {#if events.length + facilities.length === 0}
             <div class="tw-text-center tw-mt-3">
-                <InfoText color="light">Sie haben noch keine Lesezeichen.</InfoText>
+                <InfoText color="light">Keine Lesezeichen verfügbar.</InfoText>
             </div>
         {:else}
             {#each events as event}
@@ -36,7 +36,7 @@
     {:else if activePill == "Events"}
         {#if events.length === 0}
             <div class="tw-text-center tw-mt-3">
-                <InfoText color="light">Sie haben noch keine Events gespeichert.</InfoText>
+                <InfoText color="light">Keine Lesezeichen verfügbar.</InfoText>
             </div>
         {:else}
             {#each events as event}
@@ -47,7 +47,7 @@
     {:else if activePill == "Bildung"}
         {#if facilities.length === 0}
             <div class="tw-text-center tw-mt-3">
-                <InfoText color="light">Sie haben noch keine Bildungseinrichtungen gespeichert.</InfoText>
+                <InfoText color="light">Keine Lesezeichen verfügbar.</InfoText>
             </div>
         {:else}
             {#each facilities as facility}

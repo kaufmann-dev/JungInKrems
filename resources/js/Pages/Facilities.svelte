@@ -3,6 +3,8 @@
     import FacilityListItem from "../Shared/FacilityListItem.svelte";
     import H1 from "../Shared/H1.svelte";
     import SearchBar from "../Shared/SearchBar.svelte";
+    import InfoText from "../Shared/InfoText.svelte";
+    
     let query = "";
 
     export let facilities = [];
@@ -12,13 +14,14 @@
 <Layout>
     <H1 center={true}>Bildungsanstalten</H1>
     <SearchBar bind:query={query} />
-    {#if facilities.length === 0}
+    {#if filteredFacilities.length === 0}
         <div class="tw-text-center tw-mt-3">
-            <InfoText color="light">Es existieren noch keine Bildungsanstalten.</InfoText>
+            <InfoText color="light">Keine Bildungsanstalten verfügbar.</InfoText>
         </div>
     {:else}
         {#each filteredFacilities as facility}
             <FacilityListItem facility={facility}/>
+            {console.log(filteredFacilities)}
         {/each}
     {/if}
 </Layout>
