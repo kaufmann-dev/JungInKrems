@@ -7,6 +7,7 @@
     import Button from '../../Shared/Button.svelte';
     import H1 from '../../Shared/H1.svelte';
     import HR from '../../Shared/HR.svelte';
+    import InfoText from '../../Shared/InfoText.svelte';
 
     export let facilities;
     let editing = false;
@@ -204,7 +205,7 @@
         {#if facilities.length > 0}
             <Table bind:data={data} on:editData={handleTableEdit} on:deleteData={handleTableDelete} ignore={["WEBSITE_URL", "PHONE_NR", "EMAIL", "POSTAL_CODE", "CITY", "ADDRESS", "IMAGE_PATH", "remember_token", 	"created_at", "updated_at"]}></Table>
         {:else}
-            <span class="tw-mb-4">Keine Einrichtungen vorhanden</span>
+            <InfoText mb="true" color="light">Keine Einrichtungen vorhanden.</InfoText>
         {/if}
         <Button link="/newfacility">Neue Einrichtung anmelden</Button>
     {/if}

@@ -7,6 +7,7 @@
     import Button from '../../Shared/Button.svelte';
     import H1 from '../../Shared/H1.svelte';
     import HR from '../../Shared/HR.svelte';
+    import InfoText from '../../Shared/InfoText.svelte';
 
     export let events = [];
     let index = 0;
@@ -204,10 +205,9 @@
     {#if editing}
         <Form newInstance={false} data={formData} onSubmit={handleFormSubmit} onDelete={deleteEvent} onCancel={cancel}></Form>
     {:else if events.length === 0}
-        <span class="tw-mb-4">Keine Events vorhanden</span>
-        <Button link="/newevent">Neues Event erstellen</Button>
+        <InfoText mb="true" color="light">Keine Events vorhanden.</InfoText>
     {:else}
         <Table on:deleteData={handleTableDelete} on:editData={handleTableEdit} {data} ignore={["ACCOUNT_ID", "FACILITY_ID", "STARTING_TIME", "ENDING_TIME", "WEBSITE_URL", "PHONE_NR", "EMAIL", "POSTAL_CODE", "CITY", "ADDRESS", "IMAGE_PATH", "remember_token", "created_at", "updated_at"]}></Table>
-        <Button link="/newevent">Neues Event erstellen</Button>
     {/if}
+    <Button link="/newevent">Neues Event erstellen</Button>
 </DashLayout>
