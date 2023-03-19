@@ -56,4 +56,17 @@ trait PasswordTrait
             'PASSWORD_CONFIRMATION.same' => 'Die Passwörter stimmen nicht überein.',
         ]);
     }
+
+    public function validateChangeApi(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|string|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'
+        ], [
+            'password.required' => 'Das neue Passwort ist erforderlich.',
+            'password.string' => 'Das neue Passwort muss ein String sein.',
+            'password.min' => 'Das neue Passwort muss mindestens 8 Zeichen lang sein.',
+            'password.max' => 'Das neue Passwort darf maximal 255 Zeichen lang sein.',
+            'password.regex' => 'Das neue Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.',
+        ]);
+    }
 }
