@@ -106,7 +106,7 @@ trait AccountTrait
         $this->validate($request, [
             'name' => 'string|required|max:30',
             'email' => 'required|email|unique:ACCOUNTS_ST,EMAIL|max:255',
-            'password' => 'required|confirmed|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'
+            'password' => 'required|min:8|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'
         ], [
             'name.required' => 'Der Name ist erforderlich.',
             'name.max' => 'Der Name darf maximal 30 Zeichen lang sein.',
@@ -118,7 +118,6 @@ trait AccountTrait
             'email.max' => 'Die E-Mail-Adresse darf maximal 255 Zeichen lang sein.',
 
             'password.required' => 'Das Passwort ist erforderlich.',
-            'password.confirmed' => 'Die Passwörter stimmen nicht überein.',
             'password.min' => 'Das Passwort muss mindestens 8 Zeichen lang sein.',
             'password.max' => 'Das Passwort darf maximal 255 Zeichen lang sein.',
             'password.regex' => 'Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl enthalten.'
