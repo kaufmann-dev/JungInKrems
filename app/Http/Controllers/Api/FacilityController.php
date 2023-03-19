@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Models\Facility;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\FacilityTrait;
@@ -25,17 +24,17 @@ class FacilityController extends Controller
         return response()->json($facility, 200);
     }
 
-    public function addFacility(Request $request)
+    public function addFacility()
     {
-        $facility = Facility::create($request->all());
+        $facility = Facility::create(request()->all());
 
         return response()->json($facility, 200);
     }
 
-    public function updateFacility(Request $request, $id)
+    public function updateFacility($id)
     {
         $facility = Facility::find($id);
-        $facility->update($request->all());
+        $facility->update(request()->all());
 
         return response()->json($facility, 200);
     }
