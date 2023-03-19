@@ -4,7 +4,7 @@
     import H1 from "../Shared/H1.svelte";
     import SearchBar from "../Shared/SearchBar.svelte";
     import InfoText from "../Shared/InfoText.svelte";
-    
+
     let query = "";
 
     export let facilities = [];
@@ -21,7 +21,6 @@
     {:else}
         {#each filteredFacilities as facility}
             <FacilityListItem facility={facility}/>
-            {console.log(filteredFacilities)}
         {/each}
     {/if}
 </Layout>
