@@ -6,6 +6,8 @@
     import Form from '../../Shared/Form.svelte';
     import H1 from '../../Shared/H1.svelte';
     import Table from '../../Shared/Table.svelte'
+    import HR from '../../Shared/HR.svelte';
+
     export let requests = [];
     let editing = false;
     let index = 0;
@@ -145,14 +147,15 @@
 </script>
 
 <DashLayout>
-    <H1>Anträge</H1>
+    <H1 mb={false}>Anträge</H1>
+    <HR/>
     {#if editing}
         <Form onSubmit={submit} onDelete={deletion} onCancel={cancel} newInstance={false} data={formData}></Form>
     {:else}
         {#if requests.length == 0}
             <span class="tw-mb-4">Keine Anträge vorhanden</span>
         {:else}
-            <Table on:editData={handleEdit} on:deleteData={handleDeletion} on:decline={handleDecline} on:accept={handleAccept} isRequest={true} bind:data={data}></Table>
+            <Table on:editData={handleEdit} on:deleteData={handleDeletion} on:decline={handleDecline} on:accept={handleAccept} bind:data={data}></Table>
         {/if}
         <Button link="/account/requests">Antrag erstellen</Button>
     {/if}

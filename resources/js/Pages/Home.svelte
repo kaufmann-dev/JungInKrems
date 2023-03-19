@@ -9,7 +9,7 @@
 
 <Layout>
     <CenterDiv>
-    <div class="tw-text-center tw-my-10">
+    <div class="md:tw-text-center tw-my-10">
         <D1 mb={false}>Jung in Krems</D1>
         <H2><span class="tw-text-yellow-400">Willkommen!</span></H2>
         <div class="tw-grid tw-gap-6 md:tw-gap-20 md:tw-grid-cols-2 tw-mb-10">

@@ -6,6 +6,7 @@
     import axios from 'axios';
     import Button from '../../Shared/Button.svelte';
     import H1 from '../../Shared/H1.svelte';
+    import HR from '../../Shared/HR.svelte';
 
     export let events = [];
     let index = 0;
@@ -198,7 +199,8 @@
 </script>
 
 <DashLayout>
-    <H1>Events</H1>
+    <H1 mb={false}>Events</H1>
+    <HR/>
     {#if editing}
         <Form newInstance={false} data={formData} onSubmit={handleFormSubmit} onDelete={deleteEvent} onCancel={cancel}></Form>
     {:else if events.length === 0}

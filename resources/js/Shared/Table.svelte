@@ -3,8 +3,8 @@
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
     export let ignore = ['created_at', 'updated_at', 'remember_token'];
-    export let isRequest = false;
     export let data;
+    export let onlyDelete = false;
 
     function editData(index){
         let event = index;
@@ -52,7 +52,9 @@
                 <Button title="Annehmen" size="small" type="success" onClick={() => accept(index)}><i class="bi bi-check"></i></Button>
                 <Button title="Ablehnen" size="small" type="warning" onClick={() => decline(index)}><i class="bi bi-x"></i></Button>
               {/if}
-              <Button size="small" type="light" title="Bearbeiten" onClick={() => editData(index)}><i class="bi bi-pencil-square"></i></Button>
+              {#if !onlyDelete}
+                <Button size="small" type="light" title="Bearbeiten" onClick={() => editData(index)}><i class="bi bi-pencil-square"></i></Button>
+              {/if}
               <Button type="danger" size="small" title="Löschen" onClick={() => deleteData(index)}><i class="bi bi-trash3-fill"></i></Button>
             </td>
           </tr>

@@ -3,6 +3,7 @@
     import Table from '../../Shared/Table.svelte';
     import Form from '../../Shared/Form.svelte';
     import H1 from '../../Shared/H1.svelte';
+    import HR from '../../Shared/HR.svelte';
     import { router } from '@inertiajs/svelte';
 
     export let accounts;
@@ -131,7 +132,8 @@
 </script>
 
 <DashLayout>
-    <H1>Konten</H1>
+    <H1 mb={false}>Konten</H1>
+    <HR/>
     {#if editing}
         <Form newInstance={false} data={formData} onSubmit={submit} onDelete={deleteEvent} onCancel={cancel}></Form>
     {:else}

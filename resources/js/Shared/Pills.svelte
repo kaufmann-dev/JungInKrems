@@ -22,8 +22,8 @@
     }
 </style>
 
-<nav class="tw-flex tw-justify-center tw-my-5 tw-gap-4">
+<nav class="tw-flex tw-justify-center tw-my-5 tw-gap-3">
     {#each pills as pill}
-        <button class:active="{activePill == pill}" on:click={()=>handleUpdate(pill)} class="tw-px-4 tw-py-2 tw-text-sm tw-font-medium tw-bg-gray-300 tw-rounded-full tw-text-gray-700 tw-leading-none hover:tw-bg-gray-400">{pill}</button>
+        <button class:active="{activePill == pill}" on:click={()=>handleUpdate(pill)} class="tw-px-4 tw-py-2 tw-text-sm tw-bg-gray-300 tw-rounded-full tw-text-gray-800 tw-leading-none hover:tw-bg-gray-200 tw-font-normal">{pill}</button>
     {/each}
 </nav>
