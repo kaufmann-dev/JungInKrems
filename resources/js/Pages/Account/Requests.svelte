@@ -115,6 +115,7 @@
             <Button size="small" link="/account/verify"><div class="tw-mx-2">Jetzt bestätigen</div></Button>
         {:else if facilities.length === 0}
             <InfoText mb="true" color="light">Momentan stehen Anträge nur Bildungsanstalten zur Verfügung. Sie verwalten derzeit keine Bildungsanstalten.</InfoText>
+            <div></div>
             <Button link="/newfacility">Bildungsanstalt anmelden</Button>
         {:else}
             {#if requests.length === 0}
@@ -124,6 +125,7 @@
                     <RequestListItem request={request}/>
                 {/each}
             {/if}
+            <div></div>
             <Button onClick={()=>creating=true}>Neuen Antrag erstellen</Button>
         {/if}
     {/if}
