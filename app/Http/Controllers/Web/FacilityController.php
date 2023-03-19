@@ -50,6 +50,7 @@ class FacilityController extends Controller
     public function updateFacility($id)
     {
         $this->requireUpdate(request());
+        $this->validateRequest(request());
 
         if(request()->has('IMAGE')){
             $file = request()->file('IMAGE');
@@ -59,7 +60,6 @@ class FacilityController extends Controller
         }
 
         $facility = Facility::find($id);
-        $this->validateRequest(request());
         $facility->update(request()->all());
     }
 
