@@ -4,6 +4,7 @@
     import Form from "../Shared/Form.svelte";
     import H1 from "../Shared/H1.svelte";
     import { router } from "@inertiajs/svelte";
+    import Subtitle from "../Shared/Subtitle.svelte";
 
     let data = [{
         name: 'E-Mail',
@@ -37,9 +38,10 @@
 </script>
 
 <Layout>
-    <H1>Passwort zurücksetzen</H1>
+    <H1 mb={false}>Passwort zurücksetzen</H1>
+    <Subtitle>Setze dein Passwort zurück.</Subtitle>
     {#if sent}
-        <span class="tw-mb-4">Wir haben dir einen Link zum Zurücksetzen deines Passworts gesendet.</span>
+        <span class="tw-text-green-700 tw-mb-4">Wir haben dir einen Link zum Zurücksetzen deines Passworts gesendet.</span>
     {:else}
         <Form onSubmit={submit} onCancel={cancel} newInstance={true} {data}></Form>
     {/if}

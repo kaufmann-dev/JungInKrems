@@ -5,6 +5,8 @@
     import { router } from "@inertiajs/svelte";
     import ErrorMessage from "../Shared/ErrorMessage.svelte";
     import Button from "../Shared/Button.svelte";
+    import InfoText from "../Shared/InfoText.svelte";
+    import Subtitle from "../Shared/Subtitle.svelte";
 
     let searcher = new URLSearchParams(window.location.search);
     let email = searcher.get('email');
@@ -69,9 +71,11 @@
 </script>
 
 <Layout>
-    <H1>Passwort zurücksetzen</H1>
+    <H1 mb={false}>Passwort zurücksetzen</H1>
+    <Subtitle>Wähle ein neues Passwort.</Subtitle>
     {#if reset}
-        <span class="tw-mb-4">Dein Passwort wurde erfolgreich zurückgesetzt.</span>
+        <InfoText mb="true" color="light">Dein Passwort wurde erfolgreich zurückgesetzt.</InfoText>
+        <div></div>
         <Button link="/login">Zum Login</Button>
     {:else}
         <Form newInstance={true} onSubmit={submit} onCancel={cancel} {data}></Form>
