@@ -3,7 +3,6 @@
     import Table from '../../Shared/Table.svelte'
     import Form from '../../Shared/Form.svelte';
     import { router } from '@inertiajs/svelte';
-    import axios from 'axios';
     import Button from '../../Shared/Button.svelte';
     import H1 from '../../Shared/H1.svelte';
     import HR from '../../Shared/HR.svelte';

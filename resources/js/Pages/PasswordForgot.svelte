@@ -1,5 +1,4 @@
 <script>
-    import axios from "axios";
     import Layout from "../Shared/Layout.svelte";
     import Form from "../Shared/Form.svelte";
     import H1 from "../Shared/H1.svelte";

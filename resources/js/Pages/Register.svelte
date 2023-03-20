@@ -4,7 +4,6 @@
     import Button from '../Shared/Button.svelte';
     import CenterDiv from '../Shared/CenterDiv.svelte';
     import FloatingForm from '../Shared/FloatingForm.svelte';
-    import axios from 'axios';
 
     let registered = false;
 

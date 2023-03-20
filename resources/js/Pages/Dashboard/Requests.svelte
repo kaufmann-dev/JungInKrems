@@ -1,6 +1,5 @@
 <script>
     import { router } from '@inertiajs/svelte';
-    import axios from 'axios';
     import Button from '../../Shared/Button.svelte';
     import DashLayout from '../../Shared/DashLayout.svelte'
     import Form from '../../Shared/Form.svelte';
