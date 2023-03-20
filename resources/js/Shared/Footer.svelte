@@ -1,5 +1,5 @@
 <script>
-    import { Link, page } from "@inertiajs/svelte";
+    import { page } from "@inertiajs/svelte";
 </script>
 
 <footer class="pt-3">

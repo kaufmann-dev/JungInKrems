@@ -1,5 +1,5 @@
 <script>
-  import { page, inertia } from '@inertiajs/svelte';
+  import { inertia } from '@inertiajs/svelte';
   import Button from './Button.svelte';
 
   export let root;

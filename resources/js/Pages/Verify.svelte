@@ -5,6 +5,13 @@
     import Subtitle from '../Shared/Subtitle.svelte';
 </script>
 
+<svelte:head>
+    <title>Verifiziert</title>
+    <meta name="description" content="Verifiziert">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+</svelte:head>
+
 <CenterDiv>
     <div class="tw-text-center">
       <H1 mb={false}>E-Mail bestätigt</H1>

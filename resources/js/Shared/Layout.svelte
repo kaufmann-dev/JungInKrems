@@ -4,8 +4,8 @@
 </script>
 
 <svelte:head>
-    <title>Home</title>
-    <meta name="description" content="Home page">
+    <title>Jung in Krems</title>
+    <meta name="description" content="Jung in Krems">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 </svelte:head>
