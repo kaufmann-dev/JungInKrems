@@ -41,7 +41,7 @@
     <H1 mb={false}>Passwort zurücksetzen</H1>
     <Subtitle>Setze dein Passwort zurück.</Subtitle>
     {#if sent}
-        <span class="tw-text-green-700 tw-mb-4">Wir haben dir einen Link zum Zurücksetzen deines Passworts gesendet.</span>
+        <span class="tw-text-green-700">Wir haben dir einen Link zum Zurücksetzen deines Passworts gesendet.</span>
     {:else}
         <Form onSubmit={submit} onCancel={cancel} newInstance={true} {data}></Form>
     {/if}
