@@ -70,12 +70,19 @@
     };
 </script>
 
+<svelte:head>
+    <title>Passwort zurücksetzen</title>
+    <meta name="description" content="Passwort zurücksetzen">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+</svelte:head>
+
 <CenterDiv>
-    <div class="tw-text-center tw-p-3">
+    <div class="tw-p-3">
         <H1 mb={false}>Passwort zurücksetzen</H1>
         <HR/>
         {#if reset}
-            <span class="tw-text-green-700 tw-mb-4 tw-block">Sie haben Ihre E-Mail Adresse erfolgreich bestätigt.</span>
+            <span class="tw-text-green-700 tw-mb-4 tw-block">Sie haben Ihr Passwort erfolgreich zurückgesetzt.</span>
             <Button link="/">Zurück zur Startseite</Button>
         {:else}
             <Form newInstance={true} onSubmit={submit} onCancel={cancel} {data}></Form>
