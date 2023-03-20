@@ -13,6 +13,7 @@ class AccountHasBookmarks extends Model
     
     protected $table = 'ACCOUNT_has_BOOKMARKS_JT';
     protected $primaryKey = ['ACCOUNT_ID','BOOKMARK_ID'];
+    
     public $incrementing = false;
     public $timestamps = true;
 

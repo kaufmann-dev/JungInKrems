@@ -10,8 +10,9 @@ class Request extends Model
     use HasFactory;
 
     protected $table = 'REQUESTS_ST';
-    public $timestamps = true;
     protected $primaryKey = 'REQUEST_ID';
+    
+    public $timestamps = true;
     public $incrementing = true;
 
     protected $fillable = [

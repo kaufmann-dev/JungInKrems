@@ -11,6 +11,7 @@ class Facility extends Model
 
     protected $table = 'FACILITIES_ST';
     protected $primaryKey = 'FACILITY_ID';
+
     public $timestamps = true;
     public $incrementing = false;
 
@@ -21,7 +22,6 @@ class Facility extends Model
 
     public function managers()
     {
-        // belong to many accounthasfacilities
         return $this->belongsToMany(Account::class, 'ACCOUNT_has_FACILITIES_JT', 'FACILITY_ID', 'ACCOUNT_ID')->select(['ACCOUNTS_ST.ACCOUNT_ID', 'ACCOUNTS_ST.NAME', 'ACCOUNTS_ST.EMAIL']);
     }
 

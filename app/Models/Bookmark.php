@@ -11,6 +11,7 @@ class Bookmark extends Model
 
     protected $table = 'BOOKMARKS_BT';
     protected $primaryKey = 'BOOKMARK_ID';
+    
     public $incrementing = true;
     public $timestamps = true;
 }
