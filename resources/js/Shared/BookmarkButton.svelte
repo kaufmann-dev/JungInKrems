@@ -7,14 +7,44 @@
 
     let handleBookmark = () => {
         if(isChecked){
-            axios.post('/bookmarks/delete/' + checkId)
-            .then((x)=>{
-                router.reload();
+            //axios.post('/bookmarks/delete/' + checkId)
+            //.then((x)=>{
+            //    router.reload();
+            //});
+            router.post(`/bookmarks/delete/${checkId}`, {
+                onFinish: visit => {
+                    if (visit) {
+                        router.reload();
+                    }
+                },
             });
         } else {
-            axios.post('/bookmarks/' + checkId)
-            .then((x)=>{
-                router.reload();
+            //axios.post('/bookmarks/' + checkId)
+            //.then((x)=>{
+            //    router.reload();
+            //});
+            router.post(`/bookmarks/${checkId}`, {
+                onBefore: (visit) => {
+
+                },
+                onStart: (visit) => {
+
+                },
+                onProgress: (progress) => {
+
+                },
+                onSuccess: (page) => {
+
+                },
+                onError: (errors) => {
+
+                },
+                onCancel: () => {
+                    
+                },
+                onFinish: visit => {
+                    
+                },
             });
         }
     }

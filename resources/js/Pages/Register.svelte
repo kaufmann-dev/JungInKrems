@@ -4,6 +4,7 @@
     import Button from '../Shared/Button.svelte';
     import CenterDiv from '../Shared/CenterDiv.svelte';
     import FloatingForm from '../Shared/FloatingForm.svelte';
+    import H1 from '../Shared/H1.svelte';
 
     let registered = false;
 
