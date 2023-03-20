@@ -40,10 +40,10 @@
 
                 },
                 onCancel: () => {
-                    
+
                 },
                 onFinish: visit => {
-                    
+                    router.reload();
                 },
             });
         }
