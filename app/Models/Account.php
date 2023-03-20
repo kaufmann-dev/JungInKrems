@@ -39,7 +39,7 @@ class Account extends Model implements Authenticatable, CanResetPasswordContract
         'PASSWORD'
     ];
 
-    // ------------------- RELATIONSHIPS ------------------- //
+    // RELATIONSHIPS
 
     public function bookmarks()
     {
@@ -61,7 +61,7 @@ class Account extends Model implements Authenticatable, CanResetPasswordContract
         return $this->hasMany(Request::class, 'ACCOUNT_ID', 'ACCOUNT_ID');
     }
 
-    // ------------------- IMPLEMENTATION ------------------- //
+    // IMPLEMENTATION
 
     public function getAuthIdentifierName()
     {
