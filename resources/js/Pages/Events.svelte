@@ -52,6 +52,3 @@
         {/if}
     {/if}
 </Layout>
-
-
-<!-- <Link href="/events/{event.EVENT_ID}" method="get">{event.TITLE}</Link> -->

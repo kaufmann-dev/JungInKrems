@@ -3,7 +3,6 @@
 namespace App\Http\Middleware\Web;
 
 use Closure;
-use Illuminate\Http\Request;
 
 class RequestOwner
 {

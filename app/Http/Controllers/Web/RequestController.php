@@ -51,13 +51,6 @@ class RequestController extends Controller
         $request->save();
     }
 
-    /* public function updateRequest($id)
-    {
-        $this->validateRequest(request());
-        $request = Request::find($id);
-        $request->update(request()->all());
-    } */
-
     public function adminUpdateRequest($id)
     {
         $this->validateRequest(request());

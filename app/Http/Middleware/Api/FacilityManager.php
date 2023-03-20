@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware\Api;
 
-use App\Models\Facility;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -15,13 +14,5 @@ class FacilityManager
             return $next($request);
 
         return abort(403, 'Sie verwalten diese Einrichtung nicht.');
-        
-        /* $facility = Facility::find($facilityId);
-        foreach($facility->managers as $manager){
-            if($manager->ACCOUNT_ID === auth()->user()->ACCOUNT_ID){
-                return $next($request);
-            }
-        }
-        return response()->json(['error' => 'Unauthorized. You do not manage this facility.'], 401); */
     }
 }

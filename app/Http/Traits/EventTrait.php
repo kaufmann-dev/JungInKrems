@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Traits;
-use App\Models\Account;
 use Illuminate\Http\Request;
 
 trait EventTrait

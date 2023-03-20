@@ -25,7 +25,6 @@
     let editingManagers = false;
     let creatingEvent = false;
 
-    // manager logic
     let managerEmail;
     let managerError = "";
 
@@ -46,14 +45,6 @@
             });
     };
 
-    /* function deleteAccount(event){
-        if(!confirm("Wollen Sie diesen Account wirklich löschen?"))
-            return;
-        axios.post('/admin/accounts/delete/' + {...accounts[event.detail]}.ACCOUNT_ID);
-        editing = false;
-        router.reload();
-    } */
-
     function managerDelete(manager){
         if(!confirm("Möchten Sie diesen Manager wirklich löschen?"))
             return;
@@ -71,7 +62,6 @@
             });
     }
 
-    // create event logic
     let newEventData = [{
         name: "Titel",
         type: "text",
@@ -161,8 +151,6 @@
         errorname: "IMAGE",
         error: ""
     }];
-
-    // other logic
 
     function handleReload() {
         cancel();
@@ -377,57 +365,6 @@
                     </form>
                 </div>
             </div>
-            <!-- <div>
-                <H1 mb={false}>Verantwortliche</H1>
-                <Subtitle>Verantwortliche können Ihre Einrichtung verwalten.</Subtitle>
-            </div>
-            <div class="tw-flex tw-flex-col tw-items-center tw-justify-center">
-                <h2 class="tw-mt-7 tw-text-left tw-block tw-w-full tw-pb-1.5 tw-border-b tw-border-black">Eingetragene Verwalter</h2>
-                <div class="tw-flex tw-flex-col tw-items-center tw-w-full tw-max-w-lg">
-                    <table class="tw-w-full tw-border tw-border-gray-400 tw-rounded-lg tw-shadow-lg">
-                        <thead class="tw-bg-gray-200">
-                        <tr>
-                            <th class="tw-py-2 tw-px-4 tw-text-left tw-font-bold">Benutzername</th>
-                            <th class="tw-py-2 tw-px-4 tw-text-left tw-font-bold">E-Mail</th>
-                            <th class="tw-py-2 tw-px-4 tw-text-left tw-font-bold"> </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {#each facility.managers as manager}
-                                <tr class="tw-border-b tw-border-gray-400">
-                                    <td class="tw-py-2 tw-px-4">{manager.NAME}</td>
-                                    <td class="tw-py-2 tw-px-4">{manager.EMAIL}</td>
-                                    <td class="tw-py-2 tw-px-4">
-                                        <Button onClick={()=>managerDelete(manager)} size="small" type="danger">Löschen</Button>
-                                    </td>
-                                </tr>
-                            {/each}
-                        </tbody>
-                    </table>
-                    <Table data={facility.managers}></Table>
-                    <div class="tw-max-w-lg">
-                    <H2 underline={true}>Hinzufügen</H2>
-                    <form on:submit|preventDefault={managerSubmit} class="tw-w-full tw-max-w-lg tw-mt-2 tw-flex tw-flex-col tw-items-center">
-                        <div class="tw-w-full tw-flex tw-flex-col tw-items-center">
-                        <label for="email" class="tw-text-left tw-font-bold tw-mb-2">E-Mail</label>
-                        <input
-                            autocomplete="off"
-                            placeholder="E-Mail"
-                            id="bru" type="text"
-                            class="tw-mt-1 tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm"
-                            bind:value={managerEmail}
-                        >
-                        <ErrorMessage>{managerError}</ErrorMessage>
-                        </div>
-                        <div class="tw-flex tw-gap-2 tw-mt-2">
-                            <SubmitButton type='primary'>Hinzufügen</SubmitButton>
-                            <SubmitButton onClick={cancel} type='light'>Abbrechen</SubmitButton>
-                        </div>
-                    </form>
-                </div>
-                </div>
-            </div>
-        </div> -->
     {:else if creatingEvent}
         <H1 mb={false}>Event anmelden</H1>
         <Subtitle>Melden Sie ein Event für {facility.NAME} an.</Subtitle>

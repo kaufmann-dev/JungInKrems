@@ -68,26 +68,6 @@
                 wrongPassword = error.response.data.message;
             }
         });
-        /* fetch('login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                _token: $page.props.csrfToken,
-                email: credentials.email,
-                password: credentials.password,
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-                loggedIn = true;
-                router.reload();
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        }); */
     }
 </script>
 
