@@ -3,6 +3,7 @@
     import Button from '../Shared/Button.svelte';
     import H1 from '../Shared/H1.svelte';
     import Subtitle from '../Shared/Subtitle.svelte';
+    
     export let status;
 
     $: title = {

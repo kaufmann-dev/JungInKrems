@@ -41,7 +41,6 @@ class ResetPasswordNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        // return new verifyEmail 
         return (new ResetPasswordMail)
             ->with([
                 'reset_link' => $this->resetUrl($notifiable),

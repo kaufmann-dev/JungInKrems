@@ -134,12 +134,7 @@
     function handleTableEdit(event){
         index = event.detail;
         editing = true;
-    }/* 
-
-    function facilityUpdated() {
-        handleFormCancel();
-        router.reload();
-    } */
+    }
 
     function handleTableDelete(event){
 

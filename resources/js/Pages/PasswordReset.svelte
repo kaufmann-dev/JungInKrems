@@ -2,7 +2,7 @@
     import Layout from "../Shared/Layout.svelte";
     import H1 from "../Shared/H1.svelte";
     import Form from "../Shared/Form.svelte";
-    import { router, Link } from "@inertiajs/svelte";
+    import { router } from "@inertiajs/svelte";
     import ErrorMessage from "../Shared/ErrorMessage.svelte";
     import Button from "../Shared/Button.svelte";
 
