@@ -44,12 +44,14 @@ Route::get('/facilities/{id}', function ($id) {
     ]);
 });
 
+// Password Routes
+Route::inertia('/resetpassword', 'PasswordReset')->name('password.reset');
+
 // Guest Middleware
 Route::middleware('guest')->group(function (){
 
-    // Password Forgotten Routes
+    // Password Routes
     Route::inertia('/forgotpassword', 'PasswordForgot');
-    Route::inertia('/resetpassword', 'PasswordReset')->name('password.reset');
 });
 
 // Signed Middleware
