@@ -7,11 +7,19 @@
 
     let handleBookmark = () => {
         if(isChecked){
-            router.post(`/bookmarks/delete/${checkId}`);
+            router.visit(`/bookmarks/delete/${checkId}`, {
+                method: 'post',
+                preserveState: true,
+                preserveScroll: true,
+            });
         } else {
-            router.post(`/bookmarks/${checkId}`);
+            router.visit(`/bookmarks/${checkId}`, {
+                method: 'post',
+                preserveState: true,
+                preserveScroll: true,
+            });
         }
-        isChecked = !isChecked
+        isChecked = !isChecked;
     }
 </script>
 
@@ -19,7 +27,6 @@
     <button
         on:click={handleBookmark}
         class="tw-py-0.5 tw-px-3 tw-rounded-3xl tw-bg-yellow-400 tw-text-black"
-        type="button"
     >
         {#if isChecked}
             <i class="bi bi-bookmark-fill"></i>

@@ -1,5 +1,5 @@
 <script>
-    import { Link } from '@inertiajs/svelte';
+    import { Link, router } from '@inertiajs/svelte';
     import Layout from '../Shared/Layout.svelte';
     import Button from '../Shared/Button.svelte';
     import CenterDiv from '../Shared/CenterDiv.svelte';
@@ -53,7 +53,7 @@
             }
           }
         }).reduce((a, b) => Object.assign(a, b), {});
-
+      
       axios.post('/register', submitdata)
       .then(response => {
           if (response.status === 200) {
@@ -72,6 +72,26 @@
             }
           }
       });
+      
+      /*router.visit('/register', {
+        method: 'post',
+        data: submitdata,
+        preserveState: true,
+        preserveScroll: true,
+        onSuccess: () => {
+          registered = true;
+        },
+        onError: errors => {
+          console.log(errors);
+          for(const [key, value] of Object.entries(data)) {
+            if(errors[value["errorname"]]) {
+              data[key]["error"] = errors[value["errorname"]];
+            } else {
+              data[key]["error"] = "";
+            }
+          }
+        }
+      });*/
     }
 </script>
 
