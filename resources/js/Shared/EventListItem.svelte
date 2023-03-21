@@ -22,7 +22,7 @@
     <img class="tw-shadow tw-rounded-md tw-overflow-hidden tw-h-40 tw-object-cover tw-w-full" src="/images/uploads/{event.IMAGE_PATH}" alt="{event.TITLE}">
     <div>
         <span on:click={router.get('/events/' + event.EVENT_ID)} class="tw-block tw-text-2xl tw-font-medium tw-underline-offset-4 tw-decoration-1 tw-cursor-pointer tw-underline tw-mb-3 hover:tw-no-underline">{event.TITLE}</span>
-        <!-- use:inertia="{{ href: "events/"+event.EVENT_ID, method: 'get' }}"-->
+
         {#if event.facility?.FACILITY_ID}
             <InfoText mb="true" color="gray">{event.facility?.NAME}</InfoText>
         {:else}
@@ -35,7 +35,7 @@
             <br>
             <InfoText color="green">Freizeit</InfoText>
         {/if}
-        <!--<BookmarkButton bookmarkUpdated={listUpdated} checkId={event.EVENT_ID} />-->
+
         <BookmarkButton checkId={event.EVENT_ID} />
     </div>
     <div>
