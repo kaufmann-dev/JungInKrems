@@ -14,8 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('EVENTS_ST', function (Blueprint $table) {
-            //$table->unsignedBigInteger('EVENT_ID')->primary();
-            //$table->unsignedBigInteger('ACCOUNT_ID');
             $table->foreignId("EVENT_ID")->primary()->constrained('BOOKMARKS_BT','BOOKMARK_ID')->onDelete('cascade');
             $table->foreignId("ACCOUNT_ID")->constrained('ACCOUNTS_ST','ACCOUNT_ID')->onDelete('cascade');
             $table->foreignId("FACILITY_ID")->nullable()->constrained('FACILITIES_ST','FACILITY_ID')->onDelete('cascade');
@@ -29,7 +27,7 @@ return new class extends Migration
             $table->string('CITY');
             $table->string('ADDRESS');
             $table->string('IMAGE_PATH');
-            $table->string('DESCRIPTION');
+            $table->text('DESCRIPTION', 10000);
             $table->string('EVENT_TYPE')->withDefault('Freizeit');
             $table->timestamps();
         });

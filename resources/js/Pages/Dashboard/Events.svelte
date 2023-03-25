@@ -203,10 +203,12 @@
     <HR/>
     {#if editing}
         <Form newInstance={false} data={formData} onSubmit={handleFormSubmit} onDelete={deleteEvent} onCancel={cancel}></Form>
-    {:else if events.length === 0}
-        <InfoText mb="true" color="light">Keine Events vorhanden.</InfoText>
     {:else}
-        <Table on:deleteData={handleTableDelete} on:editData={handleTableEdit} {data} ignore={["ACCOUNT_ID", "FACILITY_ID", "STARTING_TIME", "ENDING_TIME", "WEBSITE_URL", "PHONE_NR", "EMAIL", "POSTAL_CODE", "CITY", "ADDRESS", "IMAGE_PATH", "remember_token", "created_at", "updated_at"]}></Table>
+      {#if events.length === 0}
+          <InfoText mb="true" color="light">Keine Events vorhanden.</InfoText>
+      {:else}
+          <Table on:deleteData={handleTableDelete} on:editData={handleTableEdit} {data} ignore={["ACCOUNT_ID", "FACILITY_ID", "STARTING_TIME", "ENDING_TIME", "WEBSITE_URL", "PHONE_NR", "EMAIL", "POSTAL_CODE", "CITY", "ADDRESS", "IMAGE_PATH", "remember_token", "created_at", "updated_at"]}></Table>
+      {/if}
+      <Button link="/newevent">Neues Event erstellen</Button>
     {/if}
-    <Button link="/newevent">Neues Event erstellen</Button>
 </DashLayout>
