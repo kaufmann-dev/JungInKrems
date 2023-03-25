@@ -16,3 +16,5 @@ yarn-error.log
 /public/images/uploads/*
 !/public/images/uploads/placeholder.png
 .env
+.env.production
+.env.development
