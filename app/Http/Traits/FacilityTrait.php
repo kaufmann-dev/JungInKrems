@@ -14,7 +14,6 @@ trait FacilityTrait
             'WEBSITE_URL' => 'url|max:255',
             'PHONE_NR' => array(
                 'string',
-                'regex:/^(?:\+|0)?\d{1,3}[-.\s]?\(?\d{3}\)?[-.\s]?\d{2,3}[-.\s]?\d{2,3}$/',
                 'max:20'
             ),
             'EMAIL' => 'email|max:45',
@@ -39,7 +38,6 @@ trait FacilityTrait
             'WEBSITE_URL.max' => 'Die Website URL darf maximal 255 Zeichen lang sein.',
 
             'PHONE_NR.string' => 'Die Telefonnummer muss ein String sein.',
-            'PHONE_NR.regex' => 'Die Telefonnummer muss eine gültige Telefonnummer sein.',
             'PHONE_NR.max' => 'Die Telefonnummer darf maximal 20 Zeichen lang sein.',
 
             'EMAIL.email' => 'Die E-Mail Adresse muss eine gültige E-Mail Adresse sein.',
