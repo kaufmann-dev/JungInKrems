@@ -7,7 +7,7 @@ trait FacilityTrait
 {
     public function validateRequest(Request $request)
     {
-        /* $this->validate($request, [
+        $this->validate($request, [
             'FACILITY_ID' => 'integer',
             'NAME' => 'string|min:5|max:45',
             'DESCRIPTION' => 'string|min:10|max:1000',
@@ -20,7 +20,7 @@ trait FacilityTrait
             'POSTAL_CODE' => 'integer|digits_between:4,5',
             'CITY' => 'string|min:2|max:45',
             'ADDRESS' => 'string|min:4|max:100',
-            'IMAGE' => 'file|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
+            //'IMAGE' => 'file|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
             'FACILITY_TYPE' => 'string|in:BHS,Gymnasium,Realschule,Hauptschule,Grundschule,Kindergarten,Universität',
             'IS_CITY_VERIFIED' => 'boolean',
         ], [
@@ -54,16 +54,16 @@ trait FacilityTrait
             'ADDRESS.min' => 'Die Adresse muss mindestens 4 Zeichen lang sein.',
             'ADDRESS.max' => 'Die Adresse darf maximal 100 Zeichen lang sein.',
 
-            'IMAGE.file' => 'Das Bild muss eine Datei sein.',
-            'IMAGE.image' => 'Das Bild muss eine Bilddatei sein.',
-            'IMAGE.mimes' => 'Das Bild muss im Format .webp, .jpeg, .png, .jpg, .gif oder .svg sein.',
-            'IMAGE.max' => 'Das Bild darf maximal 2048 KB groß sein.',
+            //'IMAGE.file' => 'Das Bild muss eine Datei sein.',
+            //'IMAGE.image' => 'Das Bild muss eine Bilddatei sein.',
+            //'IMAGE.mimes' => 'Das Bild muss im Format .webp, .jpeg, .png, .jpg, .gif oder .svg sein.',
+            //'IMAGE.max' => 'Das Bild darf maximal 2048 KB groß sein.',
 
             'FACILITY_TYPE.string' => 'Die Einrichtungsart muss ein String sein.',
             'FACILITY_TYPE.in' => 'Die Einrichtungsart muss entweder BHS, Gymnasium, Realschule, Hauptschule, Grundschule, Kindergarten oder Universität sein.',
 
             'IS_CITY_VERIFIED.boolean' => 'Die Stadtverifizierung muss ein Boolean sein.',
-        ]); */
+        ]);
     }
 
     public function validateNewManager(Request $request)
@@ -78,16 +78,16 @@ trait FacilityTrait
 
     public function requireNew(Request $request)
     {
-        /* $this->validate($request, [
-            'IMAGE' => 'required',
+        $this->validate($request, [
+            //'IMAGE' => 'required',
         ], [
-            'IMAGE.required' => 'Die Bild muss vorhanden sein.',
-        ]); */
+            //'IMAGE.required' => 'Die Bild muss vorhanden sein.',
+        ]);
     }
 
     public function requireUpdate(Request $request)
     {
-        /* $this->validate($request, [
+        $this->validate($request, [
             'NAME' => 'required',
             'DESCRIPTION' => 'required',
             'FACILITY_TYPE' => 'required',
@@ -106,7 +106,7 @@ trait FacilityTrait
             'PHONE_NR.required' => 'Die Telefonnummer muss ausgefüllt werden.',
             'EMAIL.required' => 'Die E-Mail Adresse ist erforderlich.',
             'WEBSITE_URL.required' => 'Die Website-URL muss ausgefüllt werden.',
-        ]); */
+        ]);
     }
 
     public function requireAdminUpdate(Request $request)
