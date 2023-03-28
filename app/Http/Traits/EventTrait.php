@@ -16,7 +16,10 @@ trait EventTrait
                 'max:20'
             ),
             'EMAIL' => 'email|max:45',
-            'WEBSITE_URL' => 'url|max:255',
+            'WEBSITE_URL' => array(
+                'regex:/^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/',
+                'max:255'
+            ),
             'POSTAL_CODE' => 'digits_between:4,5',
             'CITY' => 'string|min:2|max:45',
             'ADDRESS' => 'string|min:4|max:100',
@@ -40,8 +43,8 @@ trait EventTrait
             'PHONE_NR.string' => 'Die Telefonnummer muss ein String sein.',
             'PHONE_NR.max' => 'Die Telefonnummer darf maximal 20 Zeichen lang sein.',
 
-            'WEBSITE_URL.url' => 'Die Website URL muss eine gültige URL sein.',
-            'WEBSITE_URL.max' => 'Die Website URL darf maximal 255 Zeichen lang sein.',
+            'WEBSITE_URL.regex' => 'Die Webseite muss eine gültige URL sein.',
+            'WEBSITE_URL.max' => 'Die Webseite darf maximal 255 Zeichen lang sein.',
 
             'EMAIL.email' => 'Die E-Mail Adresse muss eine gültige E-Mail Adresse sein.',
             'EMAIL.max' => 'Die E-Mail Adresse darf maximal 45 Zeichen lang sein.',
