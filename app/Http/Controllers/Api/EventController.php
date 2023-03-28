@@ -29,6 +29,7 @@ class EventController extends Controller
     {
         $this->validateRequest(request());
         $this->requireUpdate(request());
+        $this->requireNew(request());
 
         $file = request()->file('IMAGE');
         $fileName = $file->getClientOriginalName();

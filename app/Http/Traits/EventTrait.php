@@ -17,7 +17,7 @@ trait EventTrait
             ),
             'EMAIL' => 'email|max:45',
             'WEBSITE_URL' => array(
-                'regex:/^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/',
+                'regex:/^((?:https?:\/\/)[\w-]+(?:\.[\w-]+)*\.[a-zA-Z]{2,63}(?:\.[a-zA-Z]{2,63})?(?:\/\S*)?)$/',
                 'max:255'
             ),
             'POSTAL_CODE' => 'digits_between:4,5',
@@ -43,7 +43,7 @@ trait EventTrait
             'PHONE_NR.string' => 'Die Telefonnummer muss ein String sein.',
             'PHONE_NR.max' => 'Die Telefonnummer darf maximal 20 Zeichen lang sein.',
 
-            'WEBSITE_URL.regex' => 'Die Webseite muss eine gültige URL sein.',
+            'WEBSITE_URL.regex' => 'Die Webseite muss eine gültige URL die mit http:// oder https:// startet sein.',
             'WEBSITE_URL.max' => 'Die Webseite darf maximal 255 Zeichen lang sein.',
 
             'EMAIL.email' => 'Die E-Mail Adresse muss eine gültige E-Mail Adresse sein.',
@@ -80,6 +80,15 @@ trait EventTrait
         ], [
             'ACCOUNT_ID.required' => 'Die Benutzer-ID muss ausgefüllt sein.',
             'EVENT_TYPE.required' => 'Der Typ muss ausgefüllt sein.',
+        ]);
+    }
+
+    public function requireNew(Request $request)
+    {
+        $this->validate($request, [
+            'IMAGE' => 'required',
+        ], [
+            'IMAGE.required' => 'Die Bild muss vorhanden sein.',
         ]);
     }
 
