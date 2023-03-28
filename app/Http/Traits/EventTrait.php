@@ -7,9 +7,7 @@ trait EventTrait
 {
     public function validateRequest(Request $request){
         $this->validate($request, [
-            'EVENT_ID' => 'integer',
-            'FACILITY_ID' => 'integer|required_if:EVENT_TYPE,Bildung',
-            'ACCOUNT_ID' => 'integer',
+            'FACILITY_ID' => 'required_if:EVENT_TYPE,Bildung',
             'TITLE' => 'string|min:5|max:45',
             'DESCRIPTION' => 'string|min:10|max:1000',
             'EVENT_TYPE' => 'string|in:Freizeit,Bildung',
@@ -19,19 +17,14 @@ trait EventTrait
             ),
             'EMAIL' => 'email|max:45',
             'WEBSITE_URL' => 'url|max:255',
-            'POSTAL_CODE' => 'integer|digits_between:4,5',
+            'POSTAL_CODE' => 'digits_between:4,5',
             'CITY' => 'string|min:2|max:45',
             'ADDRESS' => 'string|min:4|max:100',
             'IMAGE' => 'file|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
             'STARTING_TIME' => 'string|max:255',
             'ENDING_TIME' => 'string|max:255',
         ], [
-            'EVENT_ID.integer' => 'Die Veranstaltungs ID muss eine Zahl sein.',
-
-            'FACILITY_ID.integer' => 'Die Einrichtungs ID muss eine Zahl sein.',
             'FACILITY_ID.required_if' => 'Die Einrichtungs ID muss angegeben werden, wenn der Veranstaltungstyp Bildung ist.',
-
-            'ACCOUNT_ID.integer' => 'Die Benutzer ID muss eine Zahl sein.',
 
             'TITLE.string' => 'Der Titel muss ein String sein.',
             'TITLE.min' => 'Der Titel muss mindestens 5 Zeichen lang sein.',
@@ -53,7 +46,6 @@ trait EventTrait
             'EMAIL.email' => 'Die E-Mail Adresse muss eine gültige E-Mail Adresse sein.',
             'EMAIL.max' => 'Die E-Mail Adresse darf maximal 45 Zeichen lang sein.',
 
-            'POSTAL_CODE.integer' => 'Die Postleitzahl muss eine Zahl sein.',
             'POSTAL_CODE.digits_between' => 'Die Postleitzahl muss zwischen 4 und 5 Ziffern lang sein.',
 
             'CITY.string' => 'Die Stadt muss ein String sein.',
