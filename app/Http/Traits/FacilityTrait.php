@@ -20,7 +20,7 @@ trait FacilityTrait
                 'max:20'
             ),
             'EMAIL' => 'email|max:45',
-            'POSTAL_CODE' => 'digits_between:4,5',
+            'POSTAL_CODE' => 'digits_between:4,10',
             'CITY' => 'string|min:2|max:45',
             'ADDRESS' => 'string|min:4|max:100',
             'IMAGE' => 'file|image|mimes:webp,jpeg,png,jpg,gif,svg|max:2048',
