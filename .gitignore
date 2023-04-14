@@ -13,6 +13,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+.DS_Store
 /public/images/uploads/*
 !/public/images/uploads/placeholder.png
 .env
