@@ -15,7 +15,7 @@ yarn-error.log
 /.vscode
 .DS_Store
 /public/images/uploads/*
-!/public/images/uploads/placeholder.png
+!/public/images/uploads/placeholder.webp
 .env
 .env.production
 .env.development
