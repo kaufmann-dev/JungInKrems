@@ -1,10 +1,9 @@
 {
-    "name": "jugendliches-og",
+    "name": "jugendliches-krems",
     "lockfileVersion": 2,
     "requires": true,
     "packages": {
         "": {
-            "name": "jugendliches-og",
             "dependencies": {
                 "@inertiajs/svelte": "^1.0.0",
                 "bootstrap": "^5.2.3",
