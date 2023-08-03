@@ -31,4 +31,9 @@ class AccountHasFacilities extends Model
     {
         return $this->belongsTo(Account::class, 'ACCOUNT_ID', 'ACCOUNT_ID');
     }
+    
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 }

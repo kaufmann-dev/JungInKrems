@@ -134,4 +134,9 @@ class Account extends Model implements Authenticatable, CanResetPasswordContract
     {
         return $this->IS_EMAIL_VERIFIED;
     }
+    
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 }

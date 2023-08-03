@@ -35,4 +35,9 @@ class AccountHasBookmarks extends Model
     {
         return self::where('ACCOUNT_ID', $ids['ACCOUNT_ID'])->where('BOOKMARK_ID', $ids['BOOKMARK_ID'])->first();
     }
+    
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 }

@@ -16,4 +16,9 @@ class PasswordResets extends Model
     protected $fillable = [
         'email', 'token', 'created_at'
     ];
+    
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 }
