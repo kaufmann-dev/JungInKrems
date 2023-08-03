@@ -33,4 +33,9 @@ class Facility extends Model
     {
         return $this->hasMany(Event::class, 'FACILITY_ID', 'FACILITY_ID')->with(['account', 'facility']);
     }
+
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 }
