@@ -8,7 +8,17 @@
     let query = "";
 
     export let facilities = [];
-    $: filteredFacilities = facilities.filter(facility => facility.NAME.toLowerCase().includes(query.toLowerCase()) || facility.FACILITY_TYPE.toLowerCase().includes(query.toLowerCase()) || facility.WEBSITE_URL.toLowerCase().includes(query.toLowerCase()) || facility.EMAIL.toLowerCase().includes(query.toLowerCase()) || facility.ADDRESS.toLowerCase().includes(query.toLowerCase()) || facility.POSTAL_CODE.toLowerCase().includes(query.toLowerCase()) || facility.CITY.toLowerCase().includes(query.toLowerCase()));
+    $: filteredFacilities = facilities.filter(facility =>
+        facility.NAME.toLowerCase().includes(query.toLowerCase()) ||
+        facility.FACILITY_TYPE.toLowerCase().includes(query.toLowerCase()) ||
+        facility.WEBSITE_URL.toLowerCase().includes(query.toLowerCase()) ||
+        facility.EMAIL.toLowerCase().includes(query.toLowerCase()) ||
+        facility.ADDRESS.toLowerCase().includes(query.toLowerCase()) ||
+        facility.POSTAL_CODE.toLowerCase().includes(query.toLowerCase()) ||
+        facility.CITY.toLowerCase().includes(query.toLowerCase())
+    ).sort((a, b) => a.NAME.toLowerCase().localeCompare(b.NAME.toLowerCase()));
+
+
 </script>
 
 <Layout>
