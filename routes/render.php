@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Auth;
 // Home Route
 Route::inertia('/', 'Home')->name('home');
 
+// About Route
+Route::inertia('/about', 'About');
+
 // Authentication Routes
 Route::inertia('/login', 'Login')->name('login');
 Route::inertia('/register', 'Register')->name('register');

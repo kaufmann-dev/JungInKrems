@@ -201,6 +201,7 @@
         {:else}
             <InfoText mb="true" color="light">Keine Einrichtungen vorhanden.</InfoText>
         {/if}
+        <div></div>
         <Button link="/newfacility">Neue Einrichtung anmelden</Button>
     {/if}
 </DashLayout>
