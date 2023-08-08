@@ -23,7 +23,7 @@
                 event.POSTAL_CODE.toLowerCase().includes(query.toLowerCase()) ||
                 event.CITY.toLowerCase().includes(query.toLowerCase()) ||
                 event.ENDING_TIME?.toLowerCase().includes(query.toLowerCase()))
-        .sort((event1, event2) => (event1.ENDING_TIME && !event2.ENDING_TIME) ? new Date(event2.STARTING_TIME) - new Date(event1.ENDING_TIME) : (!event1.ENDING_TIME && event2.ENDING_TIME) ? new Date(event1.STARTING_TIME) - new Date(event2.ENDING_TIME) : (event2.ENDING_TIME ? new Date(event2.ENDING_TIME) - new Date(event1.ENDING_TIME) : new Date(event2.STARTING_TIME) - new Date(event1.STARTING_TIME)));
+        .sort((event1, event2) => (event1.ENDING_TIME && !event2.ENDING_TIME) ? new Date(event2.STARTING_TIME) - new Date(event1.ENDING_TIME) : (!event1.ENDING_TIME && event2.ENDING_TIME) ? new Date(event2.ENDING_TIME) - new Date(event1.STARTING_TIME) : (event2.ENDING_TIME ? new Date(event2.ENDING_TIME) - new Date(event1.ENDING_TIME) : new Date(event2.STARTING_TIME) - new Date(event1.STARTING_TIME)));
 
     $: facilities = bookmarks.filter(bookmark => bookmark.facility !== null).map(bookmark => bookmark.facility).filter(facility =>
         facility.NAME.toLowerCase().includes(query.toLowerCase()) ||
