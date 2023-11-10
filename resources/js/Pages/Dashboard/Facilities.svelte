@@ -54,24 +54,36 @@
         name: "Typ",
         type: "array",
         options: [{
-            value: "BHS",
-            name: "Kindergarten"
-        },{
-            value: "Gymnasium",
-            name: "Gymnasium"
-        },{
-            value: "Realschule",
-            name: "Realschule"
-        },{
-            value: "Hauptschule",
-            name: "Hauptschule"
-        },{
-            value: "Grundschule",
-            name: "Grundschule"
-        },{
             value: "Kindergarten",
             name: "Kindergarten"
         },{
+            value: "Volksschule",
+            name: "Volksschule"
+        },{
+            value: "Sonderschule",
+            name: "Sonderschule"
+        },{
+            value: "Mittelschule",
+            name: "Mittelschule"
+        },{
+            value: "PTS",
+            name: "Polytechnische Schule"
+        },{
+            value: "Berufsschule",
+            name: "Berufsschule"
+        },{
+            value: "BMS",
+            name: "Berufsbildene mittlere Schule"
+        }, {
+            value: "BHS",
+            name: "Berufsbildene höhere Schule"
+        }, {
+            value: "AHS",
+            name: "Allgemeinbildende höhere Schule"
+        }, {
+            value: "Fachhochschule",
+            name: "Fachhochschule"
+        }, {
             value: "Universität",
             name: "Universität"
         }],

@@ -26,21 +26,33 @@
             value: "Kindergarten",
             name: "Kindergarten"
         },{
-            value: "Gymnasium",
-            name: "Gymnasium"
+            value: "Volksschule",
+            name: "Volksschule"
         },{
-            value: "Realschule",
-            name: "Realschule"
+            value: "Sonderschule",
+            name: "Sonderschule"
         },{
-            value: "Hauptschule",
-            name: "Hauptschule"
+            value: "Mittelschule",
+            name: "Mittelschule"
         },{
-            value: "Grundschule",
-            name: "Grundschule"
+            value: "PTS",
+            name: "Polytechnische Schule"
         },{
-            value: "Kindergarten",
-            name: "Kindergarten"
+            value: "Berufsschule",
+            name: "Berufsschule"
         },{
+            value: "BMS",
+            name: "Berufsbildene mittlere Schule"
+        }, {
+            value: "BHS",
+            name: "Berufsbildene höhere Schule"
+        }, {
+            value: "AHS",
+            name: "Allgemeinbildende höhere Schule"
+        }, {
+            value: "Fachhochschule",
+            name: "Fachhochschule"
+        }, {
             value: "Universität",
             name: "Universität"
         }],

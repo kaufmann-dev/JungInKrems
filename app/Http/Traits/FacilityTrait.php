@@ -24,7 +24,7 @@ trait FacilityTrait
             'CITY' => 'string|min:2|max:45',
             'ADDRESS' => 'string|min:4|max:100',
             'IMAGE' => 'file|image|mimes:webp,jpeg,png,jpg,gif,svg|max:4096',
-            'FACILITY_TYPE' => 'string|in:BHS,Gymnasium,Realschule,Hauptschule,Grundschule,Kindergarten,Universität',
+            'FACILITY_TYPE' => 'string|in:Kindergarten,Volksschule,Sonderschule,Mittelschule,PTS,Berufsschule,BMS,BHS,AHS,Fachhochschule,Universität',
             'IS_CITY_VERIFIED' => 'boolean',
         ], [
             'FACILITY_ID.integer' => 'Die Einrichtungs-ID muss eine Zahl sein.',
@@ -62,7 +62,7 @@ trait FacilityTrait
             'IMAGE.max' => 'Das Bild darf maximal 4096 KB groß sein.',
 
             'FACILITY_TYPE.string' => 'Die Einrichtungsart muss ein String sein.',
-            'FACILITY_TYPE.in' => 'Die Einrichtungsart muss entweder BHS, Gymnasium, Realschule, Hauptschule, Grundschule, Kindergarten oder Universität sein.',
+            'FACILITY_TYPE.in' => 'Die Einrichtungsart muss entweder Kindergarten, Volksschule, Sonderschule, Mittelschule, PTS, Berufsschule, BMS, BHS, AHS, Fachhochschule oder Universität sein.',
 
             'IS_CITY_VERIFIED.boolean' => 'Die Stadtverifizierung muss ein Boolean sein.',
         ]);
