@@ -284,11 +284,11 @@
             .catch(error => {
                 console.log(error);
                 if (error?.response?.status === 422) {
-                    for (const [key, value] of Object.entries(formData)) {
+                    for (const [key, value] of Object.entries(newEventData)) {
                         if(error.response.data.errors[value["errorname"]]) {
-                            formData[key]["error"] = error.response.data.errors[value["errorname"]][0];
+                            newEventData[key]["error"] = error.response.data.errors[value["errorname"]][0];
                         } else {
-                            formData[key]["error"] = "";
+                            newEventData[key]["error"] = "";
                         }
                     }
                 }
@@ -372,7 +372,7 @@
     {:else if creatingEvent}
         <H1 mb={false}>Event anmelden</H1>
         <Subtitle>Melden Sie ein Event für {facility.NAME} an.</Subtitle>
-        <Form newInstance={true} data={newEventData} onSubmit={submitNewEvent} onCancel={cancel}></Form>
+        <Form newInstance={true} bind:data={newEventData} onSubmit={submitNewEvent} onCancel={cancel}></Form>
     {:else}
         <div class="tw-grid tw-gap-4 md:tw-grid-cols-2 tw-my-8">
             <div>
