@@ -13,6 +13,7 @@
     403: '403: Zugriff verweigert',
     401: '401: Nicht autorisiert',
     419: '419: Sitzung abgelaufen',
+    413: '413: Anfragekörper zu groß',
   }[status]
 
   $: description = {
@@ -22,6 +23,7 @@
     403: 'Sie haben nicht die erforderlichen Rechte um diese Seite aufzurufen.',
     401: 'Sie müssen angemeldet sein um diese Seite aufzurufen.',
     419: 'Ihr Sitzung ist abgelaufen.',
+    413: 'Die Größe der übergebenen Daten überschreitet das zulässige Limit für Uploads.', 
   }[status]
 </script>
 
