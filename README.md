@@ -1,37 +1,41 @@
 # Jung in Krems
-## Building the development environment
+## Development
+### Building the development environment
 ```
 npm install && composer install
 
-mv .env.example .env (edit accordingly)
+mv .env.develoment.example .env.develoment (edit variables)
 php artisan migrate:fresh (only if using a new database)
 
 npm run dev
 php artisan serve
 ```
-### .env
-- set `APP_ENV=local`
-- update `MAIL` variables
-- update `DB` variables
-## Building the production environment
+## Production
+### Building the production environment
 ```
 npm install && composer install
 
-mv .env.example .env (edit accordingly)
+mv .env.production.example .env.production (edit variables)
 php artisan migrate:fresh (only if using a new database)
 
 chmod -R 777 && npm run build
 ```
-### .env
-- set `APP_ENV=production`
-- update `MAIL` variables
-- update `DB` variables
-### Applaying changes to the production environment
+### Updating the production environment
 ```
-git reset --hard && git pull origin master && chmod -R 777 . && npm run build
+git reset --hard && git pull origin prod && chmod -R 777 . && npm run build
 ```
-### nginx config
+### Necessary configurations
+#### NGINX configuration file
 ```
-location / {
-   try_files $uri $uri/ /index.php?$query_string;
+server {
+   client_max_body_size 128M;
+   location / {
+      try_files $uri $uri/ /index.php?$query_string;
+   }
 }
+```
+#### PHP configuration file
+```
+post_max_size = 136M
+upload_max_filesize = 136M
+```
