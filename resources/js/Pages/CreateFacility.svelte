@@ -5,7 +5,7 @@
     import H1 from "../Shared/H1.svelte";
     import Subtitle from "../Shared/Subtitle.svelte";
 
-    $: formData = [{
+    let formData = $state([{
         name: "Name",
         type: "text",
         value: "",
@@ -109,7 +109,7 @@
         bind: "IMAGE",
         errorname: "IMAGE",
         error: ""
-    }];
+    }]);
 
     let submit = () => {
         let submitdata = formData.map(element => {

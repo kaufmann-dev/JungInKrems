@@ -9,10 +9,10 @@
 
 <Layout>
     <CenterDiv>
-    <div class="md:tw-text-center tw-my-10">
+    <div class="tw:md:text-center tw:my-10">
         <D1 mb={false}>Jung in Krems</D1>
-        <H2><span class="tw-text-yellow-400">Willkommen!</span></H2>
-        <div class="tw-grid tw-gap-6 md:tw-gap-20 md:tw-grid-cols-2 tw-mb-10">
+        <H2><span class="tw:text-yellow-400">Willkommen!</span></H2>
+        <div class="tw:grid tw:gap-6 tw:md:gap-20 tw:md:grid-cols-2 tw:mb-10">
             <div>
                 <H3>Was ist Jung in Krems?</H3>
                 <span>Jung in Krems ist eine Plattform für junge Menschen in Krems an der Donau. Hier findest du alle wichtigen Informationen rund um aktuelle Events und Schulen und Universitäten in der Stadt.</span>

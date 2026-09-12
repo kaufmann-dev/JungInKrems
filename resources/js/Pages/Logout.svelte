@@ -5,7 +5,7 @@
     import CenterDiv from '../Shared/CenterDiv.svelte';
     import H1 from '../Shared/H1.svelte';
 
-    let loggedOut = false;
+    let loggedOut = $state(false);
 
     axios.post('logout', {})
     .then(response => {
@@ -18,7 +18,7 @@
 
 <Layout>
     <CenterDiv>
-        <div class="tw-text-center">
+        <div class="tw:text-center">
             {#if loggedOut}
                 <H1 mb={false}>Sie wurden abgemeldet.</H1>
             {:else}

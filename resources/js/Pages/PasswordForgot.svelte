@@ -5,16 +5,16 @@
     import { router } from "@inertiajs/svelte";
     import Subtitle from "../Shared/Subtitle.svelte";
 
-    let data = [{
+    let data = $state([{
         name: 'E-Mail',
         value: '',
         bind: 'email',
         type: 'email',
         errorname: 'email',
         error: '',
-    }]
+    }])
 
-    let sent = false;
+    let sent = $state(false);
     let submit = () => {
         let submitData = {
             email: data[0].value,
@@ -40,7 +40,7 @@
     <H1 mb={false}>Passwort zurücksetzen</H1>
     <Subtitle>Setze dein Passwort zurück.</Subtitle>
     {#if sent}
-        <span class="tw-text-green-700">Wir haben dir einen Link zum Zurücksetzen deines Passworts gesendet.</span>
+        <span class="tw:text-green-700">Wir haben dir einen Link zum Zurücksetzen deines Passworts gesendet.</span>
     {:else}
         <Form onSubmit={submit} onCancel={cancel} newInstance={true} {data}></Form>
     {/if}

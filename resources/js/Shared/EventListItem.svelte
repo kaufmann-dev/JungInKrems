@@ -1,9 +1,9 @@
 <script>
-    export let event;
-    import { router } from "@inertiajs/svelte";
+    import { inertia, router } from "@inertiajs/svelte";
     import InfoText from "../Shared/InfoText.svelte";
     import BookmarkButton from "./BookmarkButton.svelte";
     import H4 from "../Shared/H4.svelte";
+    let { event } = $props();
 
     function formatDate(dateString) {
         let date = new Date(dateString);
@@ -18,10 +18,10 @@
     }
 </script>
 
-<div class="tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mt-4 tw-grid tw-gap-4 tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
-    <img class="tw-shadow tw-rounded-md tw-overflow-hidden tw-h-40 tw-object-cover tw-w-full" src="/images/uploads/{event.IMAGE_PATH}" alt="{event.TITLE}">
+<div class="tw:border tw:rounded-md tw:bg-slate-50 tw:p-4 tw:mt-4 tw:grid tw:gap-4 tw:grid-cols-1 tw:sm:grid-cols-2 tw:lg:grid-cols-4">
+    <img class="tw:shadow tw:rounded-md tw:overflow-hidden tw:h-40 tw:object-cover tw:w-full" src="/images/uploads/{event.IMAGE_PATH}" alt="{event.TITLE}">
     <div>
-        <span on:click={router.get('/events/' + event.EVENT_ID)} class="tw-block tw-text-2xl tw-font-medium tw-underline-offset-4 tw-decoration-1 tw-cursor-pointer tw-underline tw-mb-3 hover:tw-no-underline">{event.TITLE}</span>
+        <a href={'/events/' + event.EVENT_ID} use:inertia class="tw:block tw:text-2xl tw:font-medium tw:underline-offset-4 tw:decoration-1 tw:cursor-pointer tw:underline tw:mb-3 tw:hover:no-underline">{event.TITLE}</a>
 
         {#if event.facility?.FACILITY_ID}
             <InfoText mb="true" color="gray">{event.facility?.NAME}</InfoText>
@@ -48,7 +48,7 @@
         {/if}
     </div>
     <div>
-        <H4 class="tw-mb-3">Standort</H4>
+        <H4 class="tw:mb-3">Standort</H4>
         <span>{event.ADDRESS},<br>{event.POSTAL_CODE} {event.CITY}</span>
     </div>
 </div>

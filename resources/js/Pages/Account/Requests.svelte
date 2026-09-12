@@ -8,10 +8,11 @@
     import Subtitle from "../../Shared/Subtitle.svelte";
     import InfoText from "../../Shared/InfoText.svelte";
 
-    export let requests = [];
-    export let facilities = [];
+    let { requests = [], facilities = [] } = $props();
 
-    let data = [
+    let data = $state([]);
+    $effect.pre(() => {
+        data = [
         {
             "name": "Bildungsanstalt",
             "bind": "FACILITY_ID",
@@ -52,9 +53,10 @@
             "errorname": "REQUEST_TYPE",
             error: ""
         }
-    ]
+    ];
+    });
 
-    let creating = false;
+    let creating = $state(false);
 
     let submit = () => {
         let submitdata = data.map(element => {
@@ -101,9 +103,9 @@
     {:else}
         <H1 mb={false}>Meine Anträge</H1>
         <Subtitle>Alle Anträge die Sie erstellt haben.</Subtitle>
-        {#if !$page.props.auth.user.IS_EMAIL_VERIFIED}
+        {#if !page.props.auth.user.IS_EMAIL_VERIFIED}
             <InfoText mb="true" color="light">Sie müssen Ihre E-Mail Adresse bestätigen um einen Antrag erstellen zu könnnen.</InfoText>
-            <Button size="small" link="/account/verify"><div class="tw-mx-2">Jetzt bestätigen</div></Button>
+            <Button size="small" link="/account/verify"><div class="tw:mx-2">Jetzt bestätigen</div></Button>
         {:else if facilities.length === 0}
             <InfoText mb="true" color="light">Momentan stehen Anträge nur Bildungsanstalten zur Verfügung. Sie verwalten derzeit keine Bildungsanstalten.</InfoText>
             <div></div>

@@ -1,5 +1,4 @@
 <script>
-    export let event;
     import Layout from "../Shared/Layout.svelte";
     import InfoText from "../Shared/InfoText.svelte";
     import Button from "../Shared/Button.svelte";
@@ -8,8 +7,9 @@
     import Form from "../Shared/Form.svelte";
     import H1 from "../Shared/H1.svelte";
     import H3 from "../Shared/H3.svelte";
+    let { event } = $props();
 
-    let updating = false;
+    let updating = $state(false);
 
     function eventUpdated() {
         updating = false;
@@ -36,7 +36,9 @@
         eventUpdated();
     }
 
-    $: data = [
+    let data = $state([]);
+    $effect.pre(() => {
+        data = [
         {
             name: "Titel",
             bind: "TITLE",
@@ -126,6 +128,7 @@
             error: ""
         }
     ];
+    });
 
     let deleteEvent = () => {
         if(window.confirm('Möchten Sie das Event wirklich löschen?')) {
@@ -173,7 +176,7 @@
     {#if updating}
         <Form newInstance={false} {data} onSubmit={submit} onCancel={cancel} onDelete={deleteEvent}></Form>
     {:else}
-        <div class="tw-grid tw-gap-4 md:tw-grid-cols-2 tw-my-8">
+        <div class="tw:grid tw:gap-4 tw:md:grid-cols-2 tw:my-8">
             <div>
                 <H1 mt={false}>{event.TITLE}</H1>
                 {#if event.facility?.NAME}
@@ -187,52 +190,50 @@
                     <InfoText color="green">{event.EVENT_TYPE}</InfoText>
                 {/if}
                 <BookmarkButton checkId={event.EVENT_ID}></BookmarkButton>
-                <div class="tw-text-lg tw-grid tw-gap-2 tw-mt-4">
+                <div class="tw:text-lg tw:grid tw:gap-2 tw:mt-4">
                     <div>
-                        <i class="tw-mx-3 tw-text-blue-500 bi bi-geo-alt-fill"></i> <span>{event.ADDRESS}, {event.POSTAL_CODE} {event.CITY}</span>
+                        <i class="tw:mx-3 tw:text-blue-500 bi bi-geo-alt-fill"></i> <span>{event.ADDRESS}, {event.POSTAL_CODE} {event.CITY}</span>
                     </div>
                     <div>
-                        <i class="tw-mx-3 tw-text-blue-500 bi bi-calendar-fill"></i>
+                        <i class="tw:mx-3 tw:text-blue-500 bi bi-calendar-fill"></i>
                         <InfoText color="light">Start</InfoText>
-                        <span class="tw-ml-2">
+                        <span class="tw:ml-2">
                             {formatDate(event.STARTING_TIME)}
                         </span>
                         {#if event.ENDING_TIME}
                             <InfoText color="light">Ende</InfoText>
-                            <span class="tw-ml-2">
+                            <span class="tw:ml-2">
                                 {formatDate(event.ENDING_TIME)}
                             </span>
                         {/if}
                     </div>
                     {#if event.PHONE_NR}
                         <div>
-                            <i class="tw-mx-3 tw-text-blue-500 bi bi-telephone-fill"></i> <span>{event.PHONE_NR}</span>
+                            <i class="tw:mx-3 tw:text-blue-500 bi bi-telephone-fill"></i> <span>{event.PHONE_NR}</span>
                         </div>
                     {/if}
                     {#if event.WEBSITE_URL}
                         <div>
-                            <i class="tw-mx-3 tw-text-blue-500 bi bi-link-45deg"></i> <a href="{event.WEBSITE_URL}">{event.WEBSITE_URL}</a>
+                            <i class="tw:mx-3 tw:text-blue-500 bi bi-link-45deg"></i> <a href="{event.WEBSITE_URL}">{event.WEBSITE_URL}</a>
                         </div>
                     {/if}
                     {#if event.EMAIL}
                         <div>
-                            <i class="tw-mx-3 tw-text-blue-500 bi bi-envelope-fill"></i> <span>{event.EMAIL}</span>
+                            <i class="tw:mx-3 tw:text-blue-500 bi bi-envelope-fill"></i> <span>{event.EMAIL}</span>
                         </div>
                     {/if}
                 </div>
             </div>
             <div>
-                <img class="tw-object-cover tw-shadow-lg tw-w-full tw-rounded-xl" src="/images/uploads/{event.IMAGE_PATH}" alt="{event.TITLE}">
+                <img class="tw:object-cover tw:shadow-lg tw:w-full tw:rounded-xl" src="/images/uploads/{event.IMAGE_PATH}" alt="{event.TITLE}">
             </div>
         </div>
-        {#if event.ACCOUNT_ID == $page?.props?.auth?.user?.ACCOUNT_ID || event.facility.managers != null && $page.props.auth.user?.ACCOUNT_ID in event?.facility?.managers?.map(account => account.ACCOUNT_ID)}
-            <div class="tw-flex tw-justify-end">
-                <div on:click={clickBtn}>
-                    <Button>Bearbeiten</Button>
-                </div>
+        {#if event.ACCOUNT_ID == page?.props?.auth?.user?.ACCOUNT_ID || event.facility.managers != null && page.props.auth.user?.ACCOUNT_ID in event?.facility?.managers?.map(account => account.ACCOUNT_ID)}
+            <div class="tw:flex tw:justify-end">
+                <Button onClick={clickBtn}>Bearbeiten</Button>
             </div>
         {/if}
         <H3>Beschreibung</H3>
-        <span class="tw-mb-4">{event.DESCRIPTION}</span>
+        <span class="tw:mb-4">{event.DESCRIPTION}</span>
     {/if}
 </Layout>

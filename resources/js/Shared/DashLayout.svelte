@@ -2,6 +2,13 @@
     import Navbar from './Navbar.svelte';
     import Footer from './Footer.svelte';
     import Sidebar from './Sidebar.svelte';
+    /**
+     * @typedef {Object} Props
+     * @property {import('svelte').Snippet} [children]
+     */
+
+    /** @type {Props} */
+    let { children } = $props();
 
     let root = {
         name: 'Dashboard',
@@ -36,12 +43,12 @@
 </svelte:head>
 
 <Navbar />
-<div class="tw-flex-grow">
-    <div class="container tw-h-full">
-        <div class="lg:tw-flex lg:tw-flex-row tw-h-full">
+<div class="tw:flex-grow">
+    <div class="container tw:h-full">
+        <div class="tw:lg:flex tw:lg:flex-row tw:h-full">
             <Sidebar root={root} data={data} />
-            <div class="lg:tw-ml-3 tw-overflow-hidden tw-w-full px-0 tw-mt-3 lg:tw-mt-0">
-                <slot/>
+            <div class="tw:lg:ml-3 tw:overflow-hidden tw:w-full px-0 tw:mt-3 tw:lg:mt-0">
+                {@render children?.()}
             </div>
         </div>
     </div>

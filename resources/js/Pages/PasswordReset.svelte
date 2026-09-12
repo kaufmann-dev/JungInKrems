@@ -11,10 +11,10 @@
     let searcher = new URLSearchParams(window.location.search);
     let email = searcher.get('email');
     let token = searcher.get('token');
-    let error500 = "";
+    let error500 = $state("");
 
-    let reset = false;
-    $: data = [{
+    let reset = $state(false);
+    let data = $state([{
         name: 'Neues Passwort',
         value: '',
         bind: 'PASSWORD',
@@ -28,7 +28,7 @@
         type: 'password',
         errorname: 'PASSWORD_CONFIRMATION',
         error: '',
-    }];
+    }]);
 
     let cancel = () => {
         router.get('/');
@@ -78,11 +78,11 @@
 </svelte:head>
 
 <CenterDiv>
-    <div class="tw-p-3">
+    <div class="tw:p-3">
         <H1 mb={false}>Passwort zurücksetzen</H1>
         <HR/>
         {#if reset}
-            <span class="tw-text-green-700 tw-mb-4 tw-block">Sie haben Ihr Passwort erfolgreich zurückgesetzt.</span>
+            <span class="tw:text-green-700 tw:mb-4 tw:block">Sie haben Ihr Passwort erfolgreich zurückgesetzt.</span>
             <Button link="/">Zurück zur Startseite</Button>
         {:else}
             <Form newInstance={true} onSubmit={submit} onCancel={cancel} {data}></Form>

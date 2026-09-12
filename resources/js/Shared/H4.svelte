@@ -1,3 +1,13 @@
-<span class='tw-block tw-text-xl tw-mb-1.5 tw-font-medium'>
-    <slot></slot>
+<script>
+    /**
+     * @typedef {Object} Props
+     * @property {import('svelte').Snippet} [children]
+     */
+
+    /** @type {Props} */
+    let { children } = $props();
+</script>
+
+<span class='tw:block tw:text-xl tw:mb-1.5 tw:font-medium'>
+    {@render children?.()}
 </span>

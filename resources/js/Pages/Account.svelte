@@ -6,10 +6,12 @@
     import Form from '../Shared/Form.svelte';
     import H1 from "../Shared/H1.svelte";
     
-    $: user = $page.props.auth.user;
-    let editing = false;
-    let editingPassword = false;
-    $: userArray = [
+    let user = $derived(page.props.auth.user);
+    let editing = $state(false);
+    let editingPassword = $state(false);
+    let userArray = $state([]);
+    $effect.pre(() => {
+        userArray = [
       {
         name: 'Benutzername',
         value: user.NAME,
@@ -27,7 +29,8 @@
         error: ''
       }
     ];
-    $: passwordArray = [
+    });
+    let passwordArray = $state([
       {
         name: 'Altes Passwort',
         value: '',
@@ -52,7 +55,7 @@
         errorname: 'PASSWORD_CONFIRMATION',
         error: ''
       }
-    ];
+    ]);
 
     function deleteAccount()
     {
@@ -143,37 +146,37 @@
   {#if editing}
 
     <H1 mb={false}>Benutzerdaten ändern</H1>
-    <div class="tw-border-b tw-mb-3"></div>
+    <div class="tw:border-b tw:mb-3"></div>
     <Form newInstance={true} data={userArray} onCancel={cancel} onSubmit={submit}></Form>
 
   {:else if editingPassword}
 
     <H1 mb={false}>Passwort ändern</H1>
-    <div class="tw-border-b tw-mb-3"></div>
+    <div class="tw:border-b tw:mb-3"></div>
     <Form newInstance={true} data={passwordArray} onCancel={cancel} onSubmit={resetPassword}></Form>
 
     {:else}
 
-    <H1 mb={false}>Willkommen <span class="tw-text-yellow-400">{user.NAME}</span>!</H1>
-    <div class="tw-flex tw-gap-2 tw-flex-col-reverse">
+    <H1 mb={false}>Willkommen <span class="tw:text-yellow-400">{user.NAME}</span>!</H1>
+    <div class="tw:flex tw:gap-2 tw:flex-col-reverse">
       <div>
         <InfoText color="light">E-Mail</InfoText>
-        <div class="tw-mx-1 tw-inline">
+        <div class="tw:mx-1 tw:inline">
           {user.EMAIL}
         </div>
         {#if !user.IS_EMAIL_VERIFIED}
-            <Button size="small" link="/account/verify"><div class="tw-mx-2">Jetzt bestätigen</div></Button>
+            <Button size="small" link="/account/verify"><div class="tw:mx-2">Jetzt bestätigen</div></Button>
         {/if}
       </div>
       <div>
         <InfoText color="light">Benutzername</InfoText>
-        <div class="tw-mx-1 tw-inline">
+        <div class="tw:mx-1 tw:inline">
           {user.NAME}
         </div>
       </div>
     </div>
-    <div class="tw-border-b tw-my-3"></div>
-    <div class="tw-grid tw-gap-2 md:tw-grid-cols-3">
+    <div class="tw:border-b tw:my-3"></div>
+    <div class="tw:grid tw:gap-2 tw:md:grid-cols-3">
         <Button onClick={()=>editing = true}><i class="bi bi-pencil-fill"></i> Benutzerdaten ändern</Button>
         <Button onClick={()=>editingPassword = true}><i class="bi bi-key-fill"></i> Passwort ändern</Button>
         <Button type='danger' onClick={deleteAccount}><i class="bi bi-trash-fill"></i> Account löschen</Button>

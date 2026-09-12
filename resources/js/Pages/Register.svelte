@@ -6,9 +6,9 @@
     import FloatingForm from '../Shared/FloatingForm.svelte';
     import H1 from '../Shared/H1.svelte';
 
-    let registered = false;
+    let registered = $state(false);
 
-    $: data = [{
+    let data = $state([{
       name: 'Name',
       bind: 'name',
       type: 'text',
@@ -43,7 +43,7 @@
       value: false,
       errorname: 'terms',
       error: '',
-    }];
+    }]);
 
     let submit = () => {
       let submitdata = data.map(element => {
@@ -77,15 +77,15 @@
 
 <Layout>
     <CenterDiv>
-        <div class="tw-text-center">
+        <div class="tw:text-center">
           {#if registered == true}
             <H1 mb={false}>Sie wurden registriert.</H1>
             <Button link="/login">Anmelden</Button>
           {:else}
             <FloatingForm name="Registrieren" {data} onSubmit={submit}></FloatingForm>
-            <div class="tw-text-center tw-mt-2">
-              <a class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="https://www.krems.at/datenschutzerklaerung">Datenschutzerklärung</a><br>
-              <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/login">Anmelden</Link>
+            <div class="tw:text-center tw:mt-2">
+              <a class="tw:text-sm tw:text-gray-700 tw:hover:text-black" href="https://www.krems.at/datenschutzerklaerung">Datenschutzerklärung</a><br>
+              <Link class="tw:text-sm tw:text-gray-700 tw:hover:text-black" href="/login">Anmelden</Link>
             </div>
         {/if}
       </div>

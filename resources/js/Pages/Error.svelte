@@ -4,9 +4,9 @@
     import H1 from '../Shared/H1.svelte';
     import Subtitle from '../Shared/Subtitle.svelte';
     
-    export let status;
+  let { status } = $props();
 
-    $: title = {
+    let title = $derived({
     503: '503: Service nicht verfügbar',
     500: '500: Server Fehler',
     404: '404: Seite nicht gefunden',
@@ -14,9 +14,9 @@
     401: '401: Nicht autorisiert',
     419: '419: Sitzung abgelaufen',
     413: '413: Anfragekörper zu groß',
-  }[status]
+  }[status])
 
-  $: description = {
+  let description = $derived({
     503: 'Wir arbeiten gerade an der Wiederherstellung des Dienstes.',
     500: 'Es ist ein Fehler aufgetreten.',
     404: 'Die angeforderte Seite konnte nicht gefunden werden.',
@@ -24,7 +24,7 @@
     401: 'Sie müssen angemeldet sein um diese Seite aufzurufen.',
     419: 'Ihr Sitzung ist abgelaufen.',
     413: 'Die Größe der übergebenen Daten überschreitet das zulässige Limit für Uploads.', 
-  }[status]
+  }[status])
 </script>
 
 <svelte:head>
@@ -35,7 +35,7 @@
 </svelte:head>
 
 <CenterDiv>
-  <div class="tw-p-3">
+  <div class="tw:p-3">
     <H1 mb={false}>{title}</H1>
     <Subtitle>{description}</Subtitle>
     <Button link="/">Zurück zur Startseite</Button>

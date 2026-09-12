@@ -6,9 +6,9 @@
     import H1 from '../Shared/H1.svelte';
     import FloatingForm from '../Shared/FloatingForm.svelte';
 
-    let loggedIn = false;
+    let loggedIn = $state(false);
 
-    $: credentials = [{
+    let credentials = $state([{
         name: 'E-Mail',
         bind: 'email',
         type: 'email',
@@ -29,7 +29,7 @@
         value: false,
         errorname: 'remember',
         error: '',
-    }]
+    }])
 
     function submit() {
         let submitdata = credentials.map(element => {
@@ -64,9 +64,9 @@
 
 <Layout>
     <CenterDiv>
-        <div class="tw-text-center">
-            {#if $page.props.auth.user}
-                <div class="tw-text-center">
+        <div class="tw:text-center">
+            {#if page.props.auth.user}
+                <div class="tw:text-center">
                     {#if loggedIn == true}
                         <H1 mb={false}>Sie wurden angemeldet.</H1>
                     {:else}
@@ -76,9 +76,9 @@
                 </div>
             {:else}
                 <FloatingForm name="Anmelden" data={credentials} onSubmit={submit}></FloatingForm>
-                <div class="tw-text-center tw-mt-2">
-                    <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/forgotpassword">Passwort vergessen?</Link><br>
-                    <Link class="tw-text-sm tw-text-gray-700 hover:tw-text-black" href="/register">Registrieren</Link>
+                <div class="tw:text-center tw:mt-2">
+                    <Link class="tw:text-sm tw:text-gray-700 tw:hover:text-black" href="/forgotpassword">Passwort vergessen?</Link><br>
+                    <Link class="tw:text-sm tw:text-gray-700 tw:hover:text-black" href="/register">Registrieren</Link>
                 </div>
             {/if}
         </div>

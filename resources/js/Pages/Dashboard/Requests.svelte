@@ -8,11 +8,11 @@
     import HR from '../../Shared/HR.svelte';
     import InfoText from '../../Shared/InfoText.svelte';
 
-    export let requests = [];
-    let editing = false;
-    let index = 0;
+    let { requests = [] } = $props();
+    let editing = $state(false);
+    let index = $state(0);
 
-    $: data = requests.map(request => {
+    let data = $derived(requests.map(request => {
         return {
             "ID": request.REQUEST_ID,
             "Typ": request.REQUEST_TYPE,
@@ -21,9 +21,11 @@
             "Nachricht": request.MESSAGE,
             "Status": request.STATUS,
         }
-    });
+    }));
 
-    $: formData = [
+    let formData = $state([]);
+    $effect.pre(() => {
+        formData = [
         {
             name: "Anstragssteller-ID",
             type: "text",
@@ -81,27 +83,28 @@
             errorname: "REQUEST_TYPE",
             error: ""
         }
-    ]
+    ];
+    });
 
     function handleAccept(event){
-        axios.post('/admin/requests/accept/' + {...requests[event.detail]}.REQUEST_ID);
+        axios.post('/admin/requests/accept/' + {...requests[event]}.REQUEST_ID);
         router.reload();
     }
 
     function handleDecline(event){
-        axios.post('/admin/requests/decline/' + {...requests[event.detail]}.REQUEST_ID);
+        axios.post('/admin/requests/decline/' + {...requests[event]}.REQUEST_ID);
         router.reload();
     }
 
     function handleDeletion(event){
         if(!confirm("Wollen Sie diesen Antrag wirklich löschen?"))     
             return;
-        axios.post('/requests/delete/' + {...requests[event.detail]}.REQUEST_ID);
+        axios.post('/requests/delete/' + {...requests[event]}.REQUEST_ID);
         router.reload();
     }
 
     function handleEdit(event){
-        index = event.detail;
+        index = event;
         editing = true;
     }
 
@@ -155,7 +158,7 @@
         {#if requests.length == 0}
             <InfoText mb="true" color="light">Keine Anträge vorhanden.</InfoText>
         {:else}
-            <Table on:editData={handleEdit} on:deleteData={handleDeletion} on:decline={handleDecline} on:accept={handleAccept} bind:data={data}></Table>
+            <Table onEditData={handleEdit} onDeleteData={handleDeletion} onDecline={handleDecline} onAccept={handleAccept} {data}></Table>
         {/if}
         <div></div>
         <Button link="/account/requests">Antrag erstellen</Button>

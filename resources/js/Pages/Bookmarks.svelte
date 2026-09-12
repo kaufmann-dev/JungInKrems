@@ -8,11 +8,11 @@
     import SearchBar from "../Shared/SearchBar.svelte";
     import InfoText from "../Shared/InfoText.svelte";
 
-    let query = "";
-    let activePill;
-    export let bookmarks = $page.props.bookmarks;
+    let query = $state("");
+    let activePill = $state();
+    let { bookmarks = page.props.bookmarks } = $props();
 
-    $: events = bookmarks
+    let events = $derived(bookmarks
         .filter(bookmark => bookmark.event !== null).map(bookmark => bookmark.event)
         .filter(event =>
                 event.TITLE.toLowerCase().includes(query.toLowerCase()) ||
@@ -23,9 +23,9 @@
                 event.POSTAL_CODE.toLowerCase().includes(query.toLowerCase()) ||
                 event.CITY.toLowerCase().includes(query.toLowerCase()) ||
                 event.ENDING_TIME?.toLowerCase().includes(query.toLowerCase()))
-        .sort((event1, event2) => (!event1.ENDING_TIME && !event2.ENDING_TIME) ? new Date(event1.STARTING_TIME) - new Date(event2.STARTING_TIME) : (!event1.ENDING_TIME ? new Date(event1.STARTING_TIME) - new Date(event2.ENDING_TIME) : (!event2.ENDING_TIME ? new Date(event1.ENDING_TIME) - new Date(event2.STARTING_TIME) : new Date(event1.ENDING_TIME) - new Date(event2.ENDING_TIME))));
+        .sort((event1, event2) => (!event1.ENDING_TIME && !event2.ENDING_TIME) ? new Date(event1.STARTING_TIME) - new Date(event2.STARTING_TIME) : (!event1.ENDING_TIME ? new Date(event1.STARTING_TIME) - new Date(event2.ENDING_TIME) : (!event2.ENDING_TIME ? new Date(event1.ENDING_TIME) - new Date(event2.STARTING_TIME) : new Date(event1.ENDING_TIME) - new Date(event2.ENDING_TIME)))));
 
-    $: facilities = bookmarks.filter(bookmark => bookmark.facility !== null).map(bookmark => bookmark.facility).filter(facility =>
+    let facilities = $derived(bookmarks.filter(bookmark => bookmark.facility !== null).map(bookmark => bookmark.facility).filter(facility =>
         facility.NAME.toLowerCase().includes(query.toLowerCase()) ||
         facility.FACILITY_TYPE.toLowerCase().includes(query.toLowerCase()) ||
         facility.WEBSITE_URL.toLowerCase().includes(query.toLowerCase()) ||
@@ -33,16 +33,16 @@
         facility.ADDRESS.toLowerCase().includes(query.toLowerCase()) ||
         facility.POSTAL_CODE.toLowerCase().includes(query.toLowerCase()) ||
         facility.CITY.toLowerCase().includes(query.toLowerCase()))
-    .sort((a, b) => a.NAME.toLowerCase().localeCompare(b.NAME.toLowerCase()));
+    .sort((a, b) => a.NAME.toLowerCase().localeCompare(b.NAME.toLowerCase())));
 </script>
 
 <Layout>
-    <Pills on:pillsUpdate={(evt)=>(activePill = evt.detail)} pills={["Alle Lesezeichen", "Events", "Bildung"]}/>
+    <Pills bind:activePill pills={["Alle Lesezeichen", "Events", "Bildung"]}/>
     <H1 center={true}>{activePill}</H1>
     <SearchBar bind:query={query} />
     {#if activePill == "Alle Lesezeichen"}
         {#if events.length + facilities.length === 0}
-            <div class="tw-text-center tw-mt-3">
+            <div class="tw:text-center tw:mt-3">
                 <InfoText color="light">Keine Lesezeichen verfügbar.</InfoText>
             </div>
         {:else}
@@ -55,7 +55,7 @@
         {/if}
     {:else if activePill == "Events"}
         {#if events.length === 0}
-            <div class="tw-text-center tw-mt-3">
+            <div class="tw:text-center tw:mt-3">
                 <InfoText color="light">Keine Lesezeichen verfügbar.</InfoText>
             </div>
         {:else}
@@ -65,7 +65,7 @@
         {/if}
     {:else if activePill == "Bildung"}
         {#if facilities.length === 0}
-            <div class="tw-text-center tw-mt-3">
+            <div class="tw:text-center tw:mt-3">
                 <InfoText color="light">Keine Lesezeichen verfügbar.</InfoText>
             </div>
         {:else}

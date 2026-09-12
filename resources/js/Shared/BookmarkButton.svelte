@@ -1,9 +1,9 @@
 <script>
     import { page, router } from '@inertiajs/svelte';
-    export let checkId;
+    let { checkId } = $props();
 
-    let bookmarks = $page.props.bookmarks;
-    $: isChecked = bookmarks?.find(bookmark => bookmark.BOOKMARK_ID == checkId);
+    let bookmarks = $derived(page.props.bookmarks);
+    let isChecked = $derived(bookmarks?.find(bookmark => bookmark.BOOKMARK_ID == checkId));
 
     let handleBookmark = () => {
         if(isChecked){
@@ -19,14 +19,15 @@
                 preserveScroll: true,
             });
         }
-        isChecked = !isChecked;
     }
 </script>
 
-{#if $page.props.auth.user}
+{#if page.props.auth.user}
     <button
-        on:click={handleBookmark}
-        class="tw-py-0.5 tw-px-3 tw-rounded-3xl tw-bg-yellow-400 tw-text-black"
+        onclick={handleBookmark}
+        aria-label={isChecked ? 'Lesezeichen entfernen' : 'Lesezeichen hinzufügen'}
+        aria-pressed={Boolean(isChecked)}
+        class="tw:py-0.5 tw:px-3 tw:rounded-3xl tw:bg-yellow-400 tw:text-black"
     >
         {#if isChecked}
             <i class="bi bi-bookmark-fill"></i>

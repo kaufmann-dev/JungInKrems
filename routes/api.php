@@ -32,9 +32,9 @@ Route::get('/facilities', [FacilityController::class, 'getFacilities']);
 Route::get('/facilities/{id}', [FacilityController::class, 'getFacility']);
 
 // Authentication Routes
-Route::post('/login', [AccountController::class, 'login'])->name('login');
+Route::post('/login', [AccountController::class, 'login'])->name('api.login');
 
-Route::post('/register', [AccountController::class, 'register'])->name('register');
+Route::post('/register', [AccountController::class, 'register'])->name('api.register');
 
 // Password Routes
 Route::post('/forgotpassword', [PasswordController::class, 'sendResetLinkEmail']);

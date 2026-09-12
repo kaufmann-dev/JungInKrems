@@ -1,9 +1,9 @@
 <script>
-    export let request;
     import { router } from "@inertiajs/svelte";
     import InfoText from "../Shared/InfoText.svelte";
     import Button from "./Button.svelte";
     import H3 from "./H3.svelte";
+    let { request } = $props();
 
     function formatDate(dateString) {
         let date = new Date(dateString);
@@ -29,7 +29,7 @@
     }
 </script>
 
-<div class="tw-grid tw-gap-2 tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mb-4">
+<div class="tw:grid tw:gap-2 tw:border tw:rounded-md tw:bg-slate-50 tw:p-4 tw:mb-4">
     <div>
         <H3>Antrag Nr. {request.REQUEST_ID}</H3>
         
@@ -48,7 +48,5 @@
     <span><InfoText color="light">Erstellt</InfoText> {formatDate(request.created_at)}</span>
     <span><InfoText color="light">Letzte Änderung</InfoText> {formatDate(request.updated_at)}</span>
     <div></div>
-    <div on:click={deltrose}>
-        <Button type="danger">Antrag löschen</Button>
-    </div>
+    <Button type="danger" onClick={deltrose}>Antrag löschen</Button>
 </div>

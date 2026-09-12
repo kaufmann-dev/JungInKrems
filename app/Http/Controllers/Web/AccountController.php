@@ -17,9 +17,10 @@ class AccountController extends Controller
         $this->validateLogin(request());
 
         $credentials = request()->only('email', 'password');
-        $remember = request()->has('remember');
+        $remember = request()->boolean('remember');
 
         if (Auth::attempt($credentials, $remember)) {
+            request()->session()->regenerate();
             return response()->json(['message' => 'Successfully logged in'], 200);
         } else {
             return response()->json(['errors' => ["password" => ["Das Passwort ist falsch."]]], 422);
@@ -50,6 +51,8 @@ class AccountController extends Controller
     {
         if (Auth::check()) {
             Auth::logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
             return response()->json(['message' => 'Successfully logged out'], 200);
         } else {
             return response()->json(['message' => 'User is not logged in'], 400);

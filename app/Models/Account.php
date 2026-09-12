@@ -64,6 +64,11 @@ class Account extends Model implements Authenticatable, CanResetPasswordContract
         return $this->getKeyName();
     }
 
+    public function getAuthPasswordName()
+    {
+        return 'PASSWORD';
+    }
+
     public function getAuthPassword()
     {
         return $this->PASSWORD;
@@ -128,6 +133,11 @@ class Account extends Model implements Authenticatable, CanResetPasswordContract
         return $this->forceFill([
             'IS_EMAIL_VERIFIED' => true,
         ])->save();
+    }
+
+    public function markEmailAsUnverified()
+    {
+        return $this->forceFill(['IS_EMAIL_VERIFIED' => false])->save();
     }
 
     public function hasVerifiedEmail()

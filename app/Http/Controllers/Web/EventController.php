@@ -79,9 +79,6 @@ class EventController extends Controller
 
         $event = Event::find($id);
         
-        if(!request()->has('EVENT_TYPE')) {
-            request()->merge(['EVENT_TYPE' => 'Freizeit']);
-        }
         $event->update(request()->all());
     }
 

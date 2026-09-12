@@ -1,6 +1,13 @@
 <script>
     import Navbar from './Navbar.svelte';
     import Footer from './Footer.svelte';
+    /**
+     * @typedef {Object} Props
+     * @property {import('svelte').Snippet} [children]
+     */
+
+    /** @type {Props} */
+    let { children } = $props();
 </script>
 
 <svelte:head>
@@ -11,9 +18,9 @@
 </svelte:head>
 
 <Navbar />
-<div class="tw-flex-grow">
-    <div class="container tw-h-full">
-        <slot/>
+<div class="tw:flex-grow">
+    <div class="container tw:h-full">
+        {@render children?.()}
     </div>
 </div>
 <Footer />

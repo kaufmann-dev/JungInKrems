@@ -5,7 +5,7 @@
     import H1 from "../Shared/H1.svelte";
     import Subtitle from "../Shared/Subtitle.svelte";
 
-    $: formData = [{
+    let formData = $state([{
         name: "Titel",
         type: "text",
         value: "",
@@ -82,7 +82,7 @@
       bind: "IMAGE",
       errorname: "IMAGE",
       error: ""
-    }];
+    }]);
 
     let submit = () => {
         let submitdata = formData.map(element => {
@@ -125,7 +125,7 @@
 
 <Layout>
     <H1 mb={false}>Event anmelden</H1>
-    <Subtitle>Hier kannst du ein neues Freizeit Event anmelden. <Link href="/account/facilities" class="tw-underline">Bildungs Event erstellen</Link></Subtitle>
+    <Subtitle>Hier kannst du ein neues Freizeit Event anmelden. <Link href="/account/facilities" class="tw:underline">Bildungs Event erstellen</Link></Subtitle>
 
     <Form newInstance={true} bind:data={formData} onSubmit={submit} onCancel={cancel} />
 </Layout>

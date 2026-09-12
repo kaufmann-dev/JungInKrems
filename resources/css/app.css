@@ -1,11 +1,15 @@
-/* Import Tailwind CSS */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss" prefix(tw);
+@import "bootstrap/dist/css/bootstrap.css" layer(base);
+
+@layer base {
+    *, ::before, ::after {
+        border-color: var(--tw-color-gray-200, currentColor);
+    }
+}
 
 #app {
-    @apply tw-h-full;
-    @apply tw-box-border;
-    @apply tw-flex;
-    @apply tw-flex-col;
+    @apply tw:h-full;
+    @apply tw:box-border;
+    @apply tw:flex;
+    @apply tw:flex-col;
 }

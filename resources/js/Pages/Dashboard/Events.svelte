@@ -8,11 +8,11 @@
     import HR from '../../Shared/HR.svelte';
     import InfoText from '../../Shared/InfoText.svelte';
 
-    export let events = [];
-    let index = 0;
-    let editing = false;
+    let { events = [] } = $props();
+    let index = $state(0);
+    let editing = $state(false);
 
-    $: data = events.map(event =>{
+    let data = $derived(events.map(event =>{
       if(event.EVENT_TYPE == "Freizeit")
       {
         return {
@@ -30,9 +30,11 @@
         Beschreibung : event.DESCRIPTION,
         Typ : event.EVENT_TYPE,
       }
-    })
+    }))
 
-    $: formData = [{
+    let formData = $state([]);
+    $effect.pre(() => {
+        formData = [{
       name: "Benutzer-ID",
       type: "text",
       value: {...events[index]}.ACCOUNT_ID,
@@ -137,17 +139,18 @@
       bind: "IMAGE",
       errorname: "IMAGE",
       error: ""
-    }]
+    }];
+    });
 
     function handleTableEdit(event){
-        index = event.detail;
+        index = event;
         editing = true;
     }
 
     function handleTableDelete(event){
       if(!window.confirm('Möchten Sie die Einrichtung wirklich löschen?'))
         return;
-      axios.post('/events/delete/' + {...events[event.detail]}.EVENT_ID);
+      axios.post('/events/delete/' + {...events[event]}.EVENT_ID);
       router.reload();
     }
 
@@ -207,7 +210,7 @@
       {#if events.length === 0}
           <InfoText mb="true" color="light">Keine Events vorhanden.</InfoText>
       {:else}
-          <Table on:deleteData={handleTableDelete} on:editData={handleTableEdit} {data} ignore={["ACCOUNT_ID", "FACILITY_ID", "STARTING_TIME", "ENDING_TIME", "WEBSITE_URL", "PHONE_NR", "EMAIL", "POSTAL_CODE", "CITY", "ADDRESS", "IMAGE_PATH", "remember_token", "created_at", "updated_at"]}></Table>
+          <Table onDeleteData={handleTableDelete} onEditData={handleTableEdit} {data} ignore={["ACCOUNT_ID", "FACILITY_ID", "STARTING_TIME", "ENDING_TIME", "WEBSITE_URL", "PHONE_NR", "EMAIL", "POSTAL_CODE", "CITY", "ADDRESS", "IMAGE_PATH", "remember_token", "created_at", "updated_at"]}></Table>
       {/if}
       <div></div>
       <Button link="/newevent">Neues Event erstellen</Button>

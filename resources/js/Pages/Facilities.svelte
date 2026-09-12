@@ -5,11 +5,11 @@
     import SearchBar from "../Shared/SearchBar.svelte";
     import InfoText from "../Shared/InfoText.svelte";
 
-    let query = "";
+    let query = $state("");
 
-    export let facilities = [];
+    let { facilities = [] } = $props();
     
-    $: filteredFacilities = facilities
+    let filteredFacilities = $derived(facilities
         .filter(facility =>
                 facility.NAME.toLowerCase().includes(query.toLowerCase()) ||
                 facility.FACILITY_TYPE.toLowerCase().includes(query.toLowerCase()) ||
@@ -18,7 +18,7 @@
                 facility.ADDRESS.toLowerCase().includes(query.toLowerCase()) ||
                 facility.POSTAL_CODE.toLowerCase().includes(query.toLowerCase()) ||
                 facility.CITY.toLowerCase().includes(query.toLowerCase()))
-        .sort((a, b) => a.NAME.toLowerCase().localeCompare(b.NAME.toLowerCase()));
+        .sort((a, b) => a.NAME.toLowerCase().localeCompare(b.NAME.toLowerCase())));
 
 
 </script>
@@ -27,7 +27,7 @@
     <H1 center={true}>Bildungsanstalten</H1>
     <SearchBar bind:query={query} />
     {#if filteredFacilities.length === 0}
-        <div class="tw-text-center tw-mt-3">
+        <div class="tw:text-center tw:mt-3">
             <InfoText color="light">Keine Bildungsanstalten verfügbar.</InfoText>
         </div>
     {:else}

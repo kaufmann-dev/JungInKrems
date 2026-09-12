@@ -8,11 +8,11 @@
     import HR from '../../Shared/HR.svelte';
     import InfoText from '../../Shared/InfoText.svelte';
 
-    export let facilities;
-    let editing = false;
-    let index = 0;
+    let { facilities } = $props();
+    let editing = $state(false);
+    let index = $state(0);
 
-    $: data = facilities.map(facility =>{
+    let data = $derived(facilities.map(facility =>{
         return {
             ID : facility.FACILITY_ID,
             Name : facility.NAME,
@@ -20,9 +20,11 @@
             Verifiziert : facility.IS_CITY_VERIFIED ? "Ja" : "Nein",
             Bildungstyp : facility.FACILITY_TYPE,
         }
-    })
+    }))
 
-    $: formData = [{
+    let formData = $state([]);
+    $effect.pre(() => {
+        formData = [{
         name: "Name",
         type: "text",
         value: {...facilities[index]}.NAME,
@@ -141,9 +143,10 @@
         errorname: "IMAGE",
         error: ""
     }];
+    });
 
     function handleTableEdit(event){
-        index = event.detail;
+        index = event;
         editing = true;
     }
 
@@ -151,7 +154,7 @@
 
         if(!window.confirm('Möchten Sie die Einrichtung wirklich löschen?'))
             return;
-        axios.post('/facilities/delete/' + {...facilities[event.detail]}.FACILITY_ID);
+        axios.post('/facilities/delete/' + {...facilities[event]}.FACILITY_ID);
         router.reload();
     }
 
@@ -209,7 +212,7 @@
         <Form newInstance={false} data={formData} onSubmit={handleFormEdit} onDelete={deleteFacility} onCancel={handleFormCancel}></Form>
     {:else}
         {#if facilities.length > 0}
-            <Table bind:data={data} on:editData={handleTableEdit} on:deleteData={handleTableDelete} ignore={["WEBSITE_URL", "PHONE_NR", "EMAIL", "POSTAL_CODE", "CITY", "ADDRESS", "IMAGE_PATH", "remember_token", 	"created_at", "updated_at"]}></Table>
+            <Table {data} onEditData={handleTableEdit} onDeleteData={handleTableDelete} ignore={["WEBSITE_URL", "PHONE_NR", "EMAIL", "POSTAL_CODE", "CITY", "ADDRESS", "IMAGE_PATH", "remember_token", 	"created_at", "updated_at"]}></Table>
         {:else}
             <InfoText mb="true" color="light">Keine Einrichtungen vorhanden.</InfoText>
         {/if}

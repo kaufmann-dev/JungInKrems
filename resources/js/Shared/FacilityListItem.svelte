@@ -4,19 +4,19 @@
     import BookmarkButton from './BookmarkButton.svelte';
     import H4 from './H4.svelte';
     
-    export let facility;
+    let { facility } = $props();
 </script>
 
-<div class="tw-border tw-rounded-md tw-bg-slate-50 tw-p-4 tw-mt-4 tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-4 tw-gap-4">
-    <img class="tw-shadow tw-rounded-md tw-overflow-hidden tw-h-40 tw-object-cover tw-w-full" src="/images/uploads/{facility.IMAGE_PATH}" alt="{facility.NAME}">
+<div class="tw:border tw:rounded-md tw:bg-slate-50 tw:p-4 tw:mt-4 tw:grid tw:grid-cols-1 tw:sm:grid-cols-2 tw:lg:grid-cols-4 tw:gap-4">
+    <img class="tw:shadow tw:rounded-md tw:overflow-hidden tw:h-40 tw:object-cover tw:w-full" src="/images/uploads/{facility.IMAGE_PATH}" alt="{facility.NAME}">
     <div>
-        <span use:inertia="{{ href: "/facilities/"+facility.FACILITY_ID, method: 'get' }}" class="tw-block tw-text-2xl tw-font-medium tw-underline-offset-4 tw-decoration-1 tw-cursor-pointer tw-underline tw-mb-3 hover:tw-no-underline">{facility.NAME}</span>
+        <a href={"/facilities/"+facility.FACILITY_ID} use:inertia class="tw:block tw:text-2xl tw:font-medium tw:underline-offset-4 tw:decoration-1 tw:cursor-pointer tw:underline tw:mb-3 tw:hover:no-underline">{facility.NAME}</a>
         <InfoText color="blue">{facility.FACILITY_TYPE}</InfoText>
         <BookmarkButton checkId={facility.FACILITY_ID} />
     </div>
     <div>
         <H4>Webseite</H4>
-        <a href="{facility.WEBSITE_URL}" class="tw-underline">{facility.WEBSITE_URL}</a>
+        <a href="{facility.WEBSITE_URL}" class="tw:underline">{facility.WEBSITE_URL}</a>
     </div>
     <div>
         <H4>Kontakt</H4>

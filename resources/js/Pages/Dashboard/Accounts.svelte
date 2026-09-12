@@ -6,11 +6,11 @@
     import HR from '../../Shared/HR.svelte';
     import { router } from '@inertiajs/svelte';
 
-    export let accounts;
-    let index = 0;
-    let editing = false;
+    let { accounts } = $props();
+    let index = $state(0);
+    let editing = $state(false);
     
-    $: data = accounts.map(account =>{
+    let data = $derived(accounts.map(account =>{
         return {
             ID : account.ACCOUNT_ID,
             Benutzername : account.NAME,
@@ -18,9 +18,11 @@
             Rolle: account.ACCOUNT_TYPE,
             Verifiziert: account.IS_EMAIL_VERIFIED ? "Ja" : "Nein",
         }
-    });
+    }));
 
-    $: formData = [{
+    let formData = $state([]);
+    $effect.pre(() => {
+        formData = [{
         name: "Benutzername",
         type: "text",
         value: {...accounts[index]}.NAME,
@@ -73,16 +75,17 @@
         errorname: "PASSWORD",
         error: ""
     }];
+    });
 
     function editAccount(event){
         editing = true;
-        index = event.detail;
+        index = event;
     }
 
     function deleteAccount(event){
         if(!confirm("Wollen Sie diesen Account wirklich löschen?"))
             return;
-        axios.post('/admin/accounts/delete/' + {...accounts[event.detail]}.ACCOUNT_ID);
+        axios.post('/admin/accounts/delete/' + {...accounts[event]}.ACCOUNT_ID);
         editing = false;
         router.reload();
     }
@@ -137,6 +140,6 @@
     {#if editing}
         <Form newInstance={false} data={formData} onSubmit={submit} onDelete={deleteEvent} onCancel={cancel}></Form>
     {:else}
-        <Table on:deleteData={deleteAccount} on:editData={editAccount} {data} ignore={["PASSWORD", "created_at", "updated_at"]}></Table>
+        <Table onDeleteData={deleteAccount} onEditData={editAccount} {data} ignore={["PASSWORD", "created_at", "updated_at"]}></Table>
     {/if}
 </DashLayout>

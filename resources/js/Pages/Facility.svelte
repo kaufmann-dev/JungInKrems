@@ -1,5 +1,5 @@
 <script>
-    export let facility;
+
     import Layout from "../Shared/Layout.svelte";
     import InfoText from "../Shared/InfoText.svelte";
     import BookmarkButton from "../Shared/BookmarkButton.svelte";
@@ -13,20 +13,21 @@
     import ErrorMessage from "../Shared/ErrorMessage.svelte";
     import H3 from "../Shared/H3.svelte";
     import Table from "../Shared/Table.svelte";
+    let { facility } = $props();
 
-    $: tableData = facility.managers.map(manager =>{
+    let tableData = $derived(facility.managers.map(manager =>{
         return {
             Benutzername : manager.NAME,
             "E-Mail" : manager.EMAIL,
         }
-    });
+    }));
 
-    let updating = false;
-    let editingManagers = false;
-    let creatingEvent = false;
+    let updating = $state(false);
+    let editingManagers = $state(false);
+    let creatingEvent = $state(false);
 
-    let managerEmail;
-    let managerError = "";
+    let managerEmail = $state();
+    let managerError = $state("");
 
     let managerSubmit = () => {
         axios
@@ -49,7 +50,7 @@
         if(!confirm("Möchten Sie diesen Manager wirklich löschen?"))
             return;
         axios
-            .post("/facilitymanagers/delete/" + {...facility.managers[manager.detail]}.ACCOUNT_ID, {
+            .post("/facilitymanagers/delete/" + {...facility.managers[manager]}.ACCOUNT_ID, {
                 FACILITY_ID: facility.FACILITY_ID,
             })
             .then(response => {
@@ -62,7 +63,7 @@
             });
     }
 
-    let newEventData = [{
+    let newEventData = $state([{
         name: "Titel",
         type: "text",
         value: "",
@@ -150,7 +151,7 @@
         bind: "IMAGE",
         errorname: "IMAGE",
         error: ""
-    }];
+    }]);
 
     function handleReload() {
         cancel();
@@ -163,7 +164,9 @@
         creatingEvent = false;
     }
 
-    let data = [
+    let data = $state([]);
+    $effect.pre(() => {
+        data = [
         {
             name: "Titel",
             bind: "NAME",
@@ -258,6 +261,7 @@
             error: ""
         }
     ];
+    });
 
     let submitNewEvent = () => {
         let submitdata = newEventData.map(element => {
@@ -273,7 +277,7 @@
             formdata.append(key, value);
         }
         formdata.append("FACILITY_ID", facility.FACILITY_ID);
-        formdata.append("ACCOUNT_ID", $page.props.auth.user?.ACCOUNT_ID);
+        formdata.append("ACCOUNT_ID", page.props.auth.user?.ACCOUNT_ID);
 
         axios.post('/events', formdata)
             .then(response => {
@@ -342,27 +346,27 @@
     {#if updating}
         <Form newInstance={false} {data} onSubmit={submit} onCancel={cancel} onDelete={deleteFacility}></Form>
     {:else if editingManagers}
-            <div class="lg:tw-flex lg:tw-flex-row lg:tw-gap-3">
-                <div class="lg:tw-flex-1">
+            <div class="tw:lg:flex tw:lg:flex-row tw:lg:gap-3">
+                <div class="tw:lg:flex-1">
                     <H1 mb={false}>Verantwortliche</H1>
                     <Subtitle>Verantwortliche können Ihre Einrichtung verwalten.</Subtitle>
-                    <Table onlyDelete={true} on:deleteData={managerDelete} data={tableData}></Table>
+                    <Table onlyDelete={true} onDeleteData={managerDelete} data={tableData}></Table>
                 </div>
-                <div class="lg:tw-flex-1">
+                <div class="tw:lg:flex-1">
                     <H1 mb={false}>Hinzufügen</H1>
                     <Subtitle>Füge neue Verantwortliche für deine Bildungsanstalt hinzu.</Subtitle>
-                    <form on:submit|preventDefault={managerSubmit} class="tw-w-full tw-flex tw-flex-col tw-items-center">
-                        <div class="tw-w-full tw-flex tw-flex-col tw-items-center">
+                    <form onsubmit={(event) => { event.preventDefault(); managerSubmit(); }} class="tw:w-full tw:flex tw:flex-col tw:items-center">
+                        <div class="tw:w-full tw:flex tw:flex-col tw:items-center">
                         <input
                             autocomplete="off"
                             placeholder="E-Mail"
                             id="bru" type="text"
-                            class="tw-p-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md focus:tw-outline-none focus:tw-ring-indigo-500 focus:tw-border-indigo-500 sm:tw-text-sm"
+                            class="tw:p-2 tw:block tw:w-full tw:border tw:border-gray-300 tw:rounded-md tw:focus:outline-none tw:focus:ring-indigo-500 tw:focus:border-indigo-500 tw:sm:text-sm"
                             bind:value={managerEmail}
                         >
                         <ErrorMessage>{managerError}</ErrorMessage>
                         </div>
-                        <div class="tw-flex tw-gap-2 tw-mt-2">
+                        <div class="tw:flex tw:gap-2 tw:mt-2">
                             <SubmitButton type='primary'>Hinzufügen</SubmitButton>
                             <SubmitButton onClick={cancel} type='light'>Abbrechen</SubmitButton>
                         </div>
@@ -374,41 +378,41 @@
         <Subtitle>Melden Sie ein Event für {facility.NAME} an.</Subtitle>
         <Form newInstance={true} bind:data={newEventData} onSubmit={submitNewEvent} onCancel={cancel}></Form>
     {:else}
-        <div class="tw-grid tw-gap-4 md:tw-grid-cols-2 tw-my-8">
+        <div class="tw:grid tw:gap-4 tw:md:grid-cols-2 tw:my-8">
             <div>
                 <H1 mt={false}>{facility.NAME}</H1>
                 <InfoText color="blue">{facility.FACILITY_TYPE}</InfoText>
                 <BookmarkButton checkId={facility.FACILITY_ID}></BookmarkButton>
-                <div class="tw-text-lg tw-grid tw-gap-2 tw-mt-4">
-                    <div class="tw-flex">
-                        <i class="tw-mx-3 tw-text-blue-500 bi bi-geo-alt-fill"></i> <span>{facility.ADDRESS}, {facility.POSTAL_CODE} {facility.CITY}</span>
+                <div class="tw:text-lg tw:grid tw:gap-2 tw:mt-4">
+                    <div class="tw:flex">
+                        <i class="tw:mx-3 tw:text-blue-500 bi bi-geo-alt-fill"></i> <span>{facility.ADDRESS}, {facility.POSTAL_CODE} {facility.CITY}</span>
                     </div>
                     <div>
-                        <i class="tw-mx-3 tw-text-blue-500 bi bi-telephone-fill"></i> <span>{facility.PHONE_NR}</span>
+                        <i class="tw:mx-3 tw:text-blue-500 bi bi-telephone-fill"></i> <span>{facility.PHONE_NR}</span>
                     </div>
                     <div>
-                        <i class="tw-mx-3 tw-text-blue-500 bi bi-link-45deg"></i> <a href="{facility.WEBSITE_URL}" class="tw-underline">{facility.WEBSITE_URL}</a>
+                        <i class="tw:mx-3 tw:text-blue-500 bi bi-link-45deg"></i> <a href="{facility.WEBSITE_URL}" class="tw:underline">{facility.WEBSITE_URL}</a>
                     </div>
                     <div>
-                        <i class="tw-mx-3 tw-text-blue-500 bi bi-envelope-fill"></i> <span>{facility.EMAIL}</span>
+                        <i class="tw:mx-3 tw:text-blue-500 bi bi-envelope-fill"></i> <span>{facility.EMAIL}</span>
                     </div>
                 </div>
             </div>
             <div>
-                <img class="tw-object-cover tw-shadow-lg tw-w-full tw-rounded-xl" src="/images/uploads/{facility.IMAGE_PATH}" alt="{facility.NAME}">
+                <img class="tw:object-cover tw:shadow-lg tw:w-full tw:rounded-xl" src="/images/uploads/{facility.IMAGE_PATH}" alt="{facility.NAME}">
             </div>
         </div>
-        {#if facility.managers.map(manager => manager.ACCOUNT_ID).includes($page.props.auth.user?.ACCOUNT_ID)}
-            <div class="tw-flex tw-flex-col sm:tw-flex-row sm:tw-justify-end tw-gap-2 tw-mb-8">
+        {#if facility.managers.map(manager => manager.ACCOUNT_ID).includes(page.props.auth.user?.ACCOUNT_ID)}
+            <div class="tw:flex tw:flex-col tw:sm:flex-row tw:sm:justify-end tw:gap-2 tw:mb-8">
                 <Button onClick={()=>updating=true}>Bearbeiten</Button>
                 <Button onClick={()=>editingManagers=true}>Verwalter verwalten</Button>
                 <Button onClick={()=>creatingEvent=true}>Event anmelden</Button>
             </div>
         {/if}
         <H3>Beschreibung</H3>
-        <span class="tw-mb-4 tw-block">{facility.DESCRIPTION}</span>
+        <span class="tw:mb-4 tw:block">{facility.DESCRIPTION}</span>
         {#if facility.events?.length > 0}
-            <H3>Events der <span class="tw-text-yellow-400">{facility.NAME}</span></H3>
+            <H3>Events der <span class="tw:text-yellow-400">{facility.NAME}</span></H3>
             {#each facility.events as event}
                 <EventListItem event={event}></EventListItem>
             {/each}
