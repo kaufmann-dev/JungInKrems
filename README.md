@@ -50,7 +50,9 @@ php artisan optimize
 
 Give the PHP process write access to `storage`, `bootstrap/cache`, and `public/images/uploads` using appropriate ownership and group permissions.
 
-To update an existing installation, use `git pull --ff-only origin prod`, then rerun the installation and build commands above. Restart long-running PHP workers after upgrading. Laravel 13 uses JSON session serialization in this application, so users must sign in again after this upgrade.
+Deploy from `main`, the repository's default and only permanent branch. Update any deployment service or script that still references `prod` to use `main`.
+
+To update an existing installation, use `git pull --ff-only origin main`, then rerun the installation and build commands above. Restart long-running PHP workers after upgrading. Laravel 13 uses JSON session serialization in this application, so users must sign in again after this upgrade.
 
 ### NGINX configuration
 
